@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 11:44:13 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/10 19:56:55 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/10 22:26:10 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ arg2 : save or no arg2
 
 		◦ The use of images of the minilibX is strongly recommended.
 		5. minilibx 의 이미지 사용을 추천함
+
 
 
 
