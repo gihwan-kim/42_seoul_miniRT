@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 11:44:13 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/10 17:47:58 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/10 19:56:55 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,18 @@ arg1 : .rt file
 		◦ Elements which are defined by a capital letter can only be declared once in
 		the scene.
 		5. 각 요소는 대문자로 각 장면마다 하나씩 정의된다.
+		
 	.rt file rule :
 		◦ Each element first’s information is the type identifier 
 		(composed by one or two character(s)), followed by all specific information
 		 for each object in a strict order such as:
+		--- obtion ---
 		1. Resolution (해상도)
-
 		2. Ambient lightning (주변광, 간접광)
 		3. camera
 		4. Light
 		5. Sphere
+		--- object ---
 		6. Plane
 		7. Square
 		8. Cylinder
