@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_error.c                                      :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: gihkim <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/10 15:50:38 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/10 16:08:05 by gihwan-kim       ###   ########.fr       */
+/*   Created: 2020/04/06 16:56:28 by gihkim            #+#    #+#             */
+/*   Updated: 2020/04/09 11:32:23 by gihkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/error.h"
+#include "libft.h"
 
-void	print_error(int no)
+void	ft_putendl_fd(char *s, int fd)
 {
-	if (no == 1)
-		write(1, "No argument\n", 13);
-	else if (no == 2)
-		write(1, "Argument number must be 2 or 3\n", 32);
+	if (s)
+	{
+		write(fd, s, ft_strlen(s));
+		write(fd, "\n", 1);
+	}
 }

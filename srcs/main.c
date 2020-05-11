@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 11:44:13 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/10 22:26:10 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/11 15:17:27 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main()
 	return (0);
 }
 **/
-
+/**
 실행파일 arg1 arg2
 arg1 : .rt file
 	.rt file : a scene description file
@@ -100,10 +100,19 @@ arg2 : save or no arg2
 		◦ The use of images of the minilibX is strongly recommended.
 		5. minilibx 의 이미지 사용을 추천함
 
+< 순서 > 
+1. 에러 확인
+	argument 개수 확인
+	arg2 의 모양 확인 "--save"
+2. 정보 담기
+	rt file 값 확인
+	구조체 이용
+3. 계산
+4. 표현
+5. 출력 또는 저장
+**/
 
-
-
-#include "./includes/error.h"
+#include "mini_rt.h"
 
 int	main(int argc, char **argv)
 {
@@ -114,19 +123,21 @@ int	main(int argc, char **argv)
 		// error
 		print_error(1);
 	}
-	else if (argc == 2)
-	{
-		// window
-	}
-	else if (argc == 3)
-	{
-		// save
-	}
-	else
+	else if (argc >= 4)
 	{
 		// arg number must be 2 or 3
 		// error
 		print_error(2);
+	}
+	else
+	{
+		// arg2 check
+		if (argc == 3)
+		{
+			if(ft_strncmp(argv[2], "--save", ft_strlen("--save")))
+				print_error(3);
+		}
+		// .rt file check
 	}
 	return (0);
 }

@@ -1,16 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
+/*   By: gihkim <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/10 15:54:27 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/10 15:54:44 by gihwan-kim       ###   ########.fr       */
+/*   Created: 2020/04/07 15:24:38 by gihkim            #+#    #+#             */
+/*   Updated: 2020/04/09 11:33:26 by gihkim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#include <unistd.h>
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	t_list *temp;
 
-void	print_error(int no);
+	if (!lst || !new)
+		return ;
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
+	temp = ft_lstlast(*lst);
+	temp->next = new;
+}
