@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 11:44:13 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/11 15:17:27 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/14 00:04:36 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ arg1 : .rt file
 		(composed by one or two character(s)), followed by all specific information
 		 for each object in a strict order such as:
 		--- obtion ---
-		1. Resolution (해상도)
-		2. Ambient lightning (주변광, 간접광)
+		1. Resolution (해상도) - only one
+		2. Ambient lightning (주변광, 간접광) - only one
 		3. camera
 		4. Light
 		5. Sphere
@@ -116,18 +116,19 @@ arg2 : save or no arg2
 
 int	main(int argc, char **argv)
 {
+	t_rt *rt_info;
 
 	if (argc < 2)
 	{
 		// no arg1 and arg2
 		// error
-		print_error(1);
+		return(print_error("No argument!\n"));
 	}
 	else if (argc >= 4)
 	{
 		// arg number must be 2 or 3
 		// error
-		print_error(2);
+		return(print_error("Argument number must be 2 or 3!\n"));
 	}
 	else
 	{
@@ -135,9 +136,41 @@ int	main(int argc, char **argv)
 		if (argc == 3)
 		{
 			if(ft_strncmp(argv[2], "--save", ft_strlen("--save")))
-				print_error(3);
+				return(print_error("Second argument is wrong format!\n"));
 		}
+		if(!(rt_info = malloc(sizeof(t_rt))))
+			return (0);
+		ft_bzero(rt_info, sizeof(t_rt));
+		parsing_rt_file(argv[1]);
 		// .rt file check
 	}
 	return (0);
 }
+
+
+// #include <unistd.h>
+
+
+// int	main()
+// {
+// 	void	*mlx_ptr;
+// 	void	*win_ptr;
+
+// 	mlx_ptr = mlx_init();
+// 	win_ptr = mlx_new_window(mlx_ptr, 500, 500, "hello mlx!");
+// 	int i = 200;
+// 	int j;
+// 	while (i <= 250)
+// 	{
+// 		j = 200;
+// 		while (j <= 300)
+// 		{
+// 			mlx_pixel_put(mlx_ptr, win_ptr, i, j, 0xFFFFFF);
+// 			j++;
+// 		}	
+// 		i++;
+// 	}
+// 	// mlx_key_hook(win_ptr, deal_key, (void*)0);
+// 	mlx_loop(mlx_ptr);
+// 	return (0);
+// }

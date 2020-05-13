@@ -15,11 +15,14 @@ LIBFT_FLAGS = -lft -L./lib/libft
 NAME = miniRT
 SRC_LIST = 	\
 			main.c \
-			error_print.c
+			error_print.c \
+			parsing.c
 SRC_DIR = ./srcs
 INC = -Iinclude
 # $(addprefix prefix,names...)
-# 	매개변수 names는 공백문자들로 구분된, 일단의 이름들로 취급된다; prefix는 유닛으로써 사용된다. prefix의 값은 각 개별 이름의 앞에 붙고, 그들 사이에 단일 스페이스들로 채워 연결된 더 커다란 이름들이 결과이다. 예를 들어서,
+# 	매개변수 names는 공백문자들로 구분된, 일단의 이름들로 취급된다; prefix는 유닛으로써 사용된다. 
+	# prefix의 값은 각 개별 이름의 앞에 붙고, 그들 사이에 단일 스페이스들로 채워 연결된 더 커다란 이름들이 결과이다. 
+	# 예를 들어서,
 # 	$(addprefix src/,foo bar)
 # 		는 `src/foo src/bar'라는 결과를 만든다.
 
@@ -28,7 +31,10 @@ SRCS = $(addprefix $(SRC_DIR)/, $(SRC_LIST))
 all: $(NAME)
 
 $(NAME): $(OBJS)
+	# make libft.a
 	$(MAKE) -C lib/libft all
+	# link libft.a and minilibx library
+	# -o : rename a.out to $(NAME)
 	$(CC) $(CFLAGS) $(LIBX_FLAGS) $(INC) $(LIBFT_FLAGS) $(SRCS)	$(MLX_FLAGS) -o $(NAME)
 
 clean :

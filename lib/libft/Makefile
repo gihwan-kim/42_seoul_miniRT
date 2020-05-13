@@ -6,7 +6,7 @@
 #    By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/07 15:47:23 by gihkim            #+#    #+#              #
-#    Updated: 2020/05/11 15:47:38 by gihwan-kim       ###   ########.fr        #
+#    Updated: 2020/05/13 12:55:01 by gihwan-kim       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,9 @@ SRC_NO_B = \
 			./srcs/ft_strtrim.c \
 			./srcs/ft_substr.c \
 			./srcs/ft_tolower.c \
-			./srcs/ft_toupper.c
+			./srcs/ft_toupper.c \
+			./srcs/get_next_line/get_next_line.c \
+			./srcs/get_next_line/get_next_line_utils.c
 
 SRC_B = \
 		./srcs/ft_lstadd_back.c \
@@ -60,7 +62,8 @@ SRC_B = \
 OBJS_NO_B = $(SRC_NO_B:%.c=%.o)
 OBJS_B = $(SRC_B:%.c=%.o)
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I include
+CFLAGS = -Wall -Wextra -Werror -I $(INC)
+INC = include
 NAME = libft.a
 
 ifdef CHECK_BONUS
