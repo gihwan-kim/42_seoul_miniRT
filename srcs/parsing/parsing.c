@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 10:21:26 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/14 14:30:51 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/14 21:19:49 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ static int	check_identifier(char **split, t_rt *rt_info)
 	(void)rt_info;
 	len = (ft_strlen(split[0]) > 1) ? ft_strlen(split[0]) : 1;
 	if (ft_strncmp(split[0], "R", len))
-		;
+		parsing_resolution(split, rt_info);
 	else if(ft_strncmp(split[0], "A", len))
-		;
+		parsing_ambient(split, rt_info);
 	else if(ft_strncmp(split[0], "c", len))
-		;
+		parsing_camera(split, rt_info);
 	else if(ft_strncmp(split[0], "l", len))
 		;
 	else if(!ft_strncmp(split[0], "sp", len))
@@ -36,7 +36,7 @@ static int	check_identifier(char **split, t_rt *rt_info)
 	else if(!ft_strncmp(split[0], "sp", len))
 		;
 	else
-		return (ERROR);
+		return (print_error("Element format is worng!\n"));
 	return (SUCCESS);
 }
 
@@ -55,8 +55,11 @@ int parsing_rt_file(char *file, t_rt *rt_info)
 		return (ERROR);
 	while((ret = get_next_line(fd, &line) > 0))
 	{
-		split = ft_split(line, ' ');
-		check_identifier(split, rt_info);
+		if (*line)
+		{
+			split = ft_split(line, ' ');
+			check_identifier(split, rt_info);
+		}
 		free(line);
 		//free split
 	}

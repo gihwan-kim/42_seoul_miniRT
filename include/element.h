@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:19:07 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/14 16:14:02 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/14 20:45:58 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ typedef struct s_rgb
 
 typedef struct s_resolution
 {
-	int		size_x;
-	int		size_y;
+	int		size_x_;
+	int		size_y_;
 }				t_r;
 
 typedef struct s_ambient

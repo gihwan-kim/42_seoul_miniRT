@@ -26,7 +26,8 @@ ERROR_SRC_DIR = ./srcs/error
 PARSING_SRC = \
 			parsing_objects.c \
 			parsing_options.c \
-			parsing_utils.c \
+			parsing_utils_1.c \
+			parsing_utils_2.c \
 			parsing.c
 PARSING_SRC_DIR = ./srcs/parsing
 INC = -I./include
