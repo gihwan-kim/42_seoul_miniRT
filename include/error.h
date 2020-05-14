@@ -6,10 +6,11 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 15:54:27 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/13 12:29:58 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/14 14:05:30 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
 int	print_error(char* comment);
+void *print_error_ptr(char *comment);
