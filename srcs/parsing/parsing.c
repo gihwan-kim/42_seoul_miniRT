@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 10:21:26 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/14 21:19:49 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/15 09:53:45 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ static int	check_identifier(char **split, t_rt *rt_info)
 	size_t len;
 	(void)rt_info;
 	len = (ft_strlen(split[0]) > 1) ? ft_strlen(split[0]) : 1;
-	if (ft_strncmp(split[0], "R", len))
+	printf("identifier : |%s|\n", split[0]);
+	if (!ft_strncmp(split[0], "R", len))
 		parsing_resolution(split, rt_info);
-	else if(ft_strncmp(split[0], "A", len))
+	else if(!ft_strncmp(split[0], "A", len))
 		parsing_ambient(split, rt_info);
-	else if(ft_strncmp(split[0], "c", len))
+	else if(!ft_strncmp(split[0], "c", len))
 		parsing_camera(split, rt_info);
 	else if(ft_strncmp(split[0], "l", len))
 		;

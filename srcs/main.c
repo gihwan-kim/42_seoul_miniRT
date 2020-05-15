@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 11:44:13 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/14 21:26:37 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/15 10:31:16 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ arg1 : .rt file
 		(composed by one or two character(s)), followed by all specific information
 		 for each object in a strict order such as:
 		< element >
+			1~2 : only one
+			3~9 : 1 <=
 			--- option ---
 			1. Resolution (해상도) - only one
 				argument : x, y
@@ -143,15 +145,15 @@ int	main(int argc, char **argv)
 		ft_bzero(rt_info, sizeof(t_rt));
 		// .rt file check
 		parsing_rt_file(argv[1], rt_info);
-		printf("t_r - size_x : %d\n", rt_info->t_r_->size_x_);
-		printf("t_r - size_y : %d\n", rt_info->t_r_->size_y_);
-		printf("t_a - light  : %f\n", rt_info->t_a_->light_);
-		printf("t_a - rgb  r : %d\n", rt_info->t_a_->rgb_.r_);
-		printf("t_a - rgb  g : %d\n", rt_info->t_a_->rgb_.g_);
-		printf("t_a - rgb  b : %d\n", rt_info->t_a_->rgb_.b_);
-		printf("t_a - cam  x : %f\n", rt_info->t_c_->vec_.x_);
-		printf("t_a - cam  y : %f\n", rt_info->t_c_->vec_.y_);
-		printf("t_a - cam  z : %f\n", rt_info->t_c_->vec_.z_);
+		// printf("t_r - size_x : %d\n", rt_info->t_r_->size_x_);
+		// printf("t_r - size_y : %d\n", rt_info->t_r_->size_y_);
+		// printf("t_a - light  : %f\n", rt_info->t_a_->light_);
+		// printf("t_a - rgb  r : %d\n", rt_info->t_a_->rgb_.r_);
+		// printf("t_a - rgb  g : %d\n", rt_info->t_a_->rgb_.g_);
+		// printf("t_a - rgb  b : %d\n", rt_info->t_a_->rgb_.b_);
+		// printf("t_a - cam  x : %f\n", rt_info->t_c_->vec_.x_);
+		// printf("t_a - cam  y : %f\n", rt_info->t_c_->vec_.y_);
+		// printf("t_a - cam  z : %f\n", rt_info->t_c_->vec_.z_);
 	}
 	// (void)argc;
 	// if (check_str_isdouble(argv[1]))

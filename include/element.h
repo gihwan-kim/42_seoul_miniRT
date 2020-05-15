@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:19:07 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/14 20:45:58 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/15 16:55:04 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ typedef struct s_sphere
 {
 	t_vec vec_;
 	t_rgb rgb_;
-	double diameter;
+	double diameter_;
 }				t_sp;
 
 typedef struct s_plane
 {
 	t_vec vec_;
 	t_vec normal_vec_;
-	double diameter;
+	double diameter_;
 	t_rgb rgb_;
 }				t_pl;
 
@@ -80,8 +80,8 @@ typedef struct s_cylinder
 {
 	t_vec vec_;
 	t_vec normal_vec_;
-	double diameter;
-	double height;
+	double diameter_;
+	double height_;
 	t_rgb rgb_;
 }				t_cy;
 
@@ -98,7 +98,7 @@ typedef struct s_count
 	int		sp_;
 	int		pl_;
 	int		sq_;
-	int		sy_;
+	int		cy_;
 	int		tr_;
 	int		r_;
 	int		a_;
@@ -109,15 +109,16 @@ typedef struct s_count
 typedef struct s_rt_file_info
 {
 	t_count *count_;
-	t_sp	*t_sp_;
-	t_pl	*t_pl_;
-	t_sq	*t_sq_;
-	t_cy	*t_sy_;
-	t_tr	*t_tr_;
 	t_r		*t_r_;
 	t_a		*t_a_;
-	t_c		*t_c_;
-	t_l		*t_l_;
+
+	t_list	*lst_sp_;
+	t_list	*lst_pl_;
+	t_list	*lst_sq_;
+	t_list	*lst_cy_;
+	t_list	*lst_tr_;
+	t_list	*lst_c_;
+	t_list	*lst_l_;
 }				t_rt;
 
 #endif

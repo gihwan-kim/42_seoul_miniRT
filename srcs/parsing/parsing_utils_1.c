@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 10:53:56 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/14 19:55:19 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/15 10:13:02 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ size_t	get_argument_count(char **split)
 
 int		check_str_isdigit(const char *str)
 {
+	if (*str == '-')
+		str++;
 	while (*str)
 	{
 		if (!ft_isdigit(*str))
@@ -50,6 +52,7 @@ int		check_str_isdouble(const char *str)
 	split = ft_split(str, '.');
 	if (!split)
 		return (ERROR);
+	printf("split[0] : |%s|\n count : %ld\n", split[0], get_argument_count(split));
 	if (get_argument_count(split) == 1)
 	{
 		if (!check_str_isdigit(str))

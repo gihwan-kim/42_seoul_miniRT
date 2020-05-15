@@ -42,7 +42,7 @@ all: $(NAME)
 # link libft.a and minilibx library
 # -o : rename a.out to $(NAME)
 $(NAME): $(OBJS)
-	$(MAKE) -C lib/libft all
+	$(MAKE) -C lib/libft bonus
 	$(CC) $(CFLAGS) $(LIBX_FLAGS) $(LIBFT_FLAGS) $(INC) $(SRCS_LIST) $(MLX_FLAGS) -o $(NAME)
 
 clean :
