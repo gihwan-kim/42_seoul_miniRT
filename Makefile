@@ -32,9 +32,10 @@ PARSING_SRC = \
 PARSING_SRC_DIR = ./srcs/parsing
 INC = -I./include
 SRCS_LIST =  \
-		./srcs/main.c \
+		./srcs/test.c \
 		$(addprefix $(PARSING_SRC_DIR)/, $(PARSING_SRC)) \
 		$(addprefix $(ERROR_SRC_DIR)/, $(ERROR_SRC))
+		# ./srcs/main.c 
 OBJS = ${SRCS_LIST:%c.=%.o}
 all: $(NAME)
 

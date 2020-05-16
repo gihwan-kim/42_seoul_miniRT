@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+xzzz/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 11:44:13 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/15 10:31:16 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/15 22:48:24 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 		All your files
 	Makefile 
 		all, clean, fclean, re, bonus
-	Arguments 
+	Arguments                       
 		a scene in format *.rt
 	External functs.
 		• open, close, read, write,
@@ -105,12 +105,22 @@ arg2 : save or no arg2
 1. 에러 확인
 	argument 개수 확인
 	arg2 의 모양 확인 "--save"
-2. 정보 담기
+2. rt file 정보 담기(parsing)
 	rt file 값 확인
 	구조체 이용
 3. 계산
+	object sapce -> world space
+	 : 이미 rt file 에서 모든 obeject 들이 동일한 좌표계에 위치
+	world space -> view space(camera space)
+	 : 카메라의 시점으로 만들어야한다. camera 시점에 따라 여러 개를 만든다.
+	 : 월드공간에서 카메라 공간으로 바꾸기 위한 변환 행렬을 구해야한다.
+	view space -> clip space
+	 : 카메라의 시점으로 바라본 이미지를 2d 에 투영시커야한다.
+	 : 원근 투시법 사용.
 4. 표현
+	어떤 이미지를 표현할지 선택한다.
 5. 출력 또는 저장
+	해당 이미지를 선택하여 window 에 띄운다.
 **/
 
 #include "mlx.h"

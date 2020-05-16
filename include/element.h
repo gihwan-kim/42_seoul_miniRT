@@ -6,13 +6,22 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:19:07 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/15 16:55:04 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/16 14:08:12 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ELEMENT_H
 #define ELEMENT_H
-
+/*
+** t_rgb
+** 		: R,G,B colors in range [0-255]
+** float light
+** 		: ambient lighting ratio in range [0.0,1.0]:
+** float fov
+** 		: Horizontal field of view in degrees in range [0,180]
+** t_vec orient_vec_
+**		: · 3d normalized orientation vector. In range [-1,1] for each x,y,z axis
+*/
 typedef struct s_vector
 {
 	double x_;
@@ -42,7 +51,9 @@ typedef struct s_ambient
 typedef struct s_camera
 {
 	t_vec vec_;
-	t_vec normal_vec_;
+	t_vec orient_vec;
+	t_vec up_;
+	
 	double fov_;
 }				t_c;
 
@@ -63,7 +74,7 @@ typedef struct s_sphere
 typedef struct s_plane
 {
 	t_vec vec_;
-	t_vec normal_vec_;
+	t_vec orient_vec;
 	double diameter_;
 	t_rgb rgb_;
 }				t_pl;
@@ -71,7 +82,7 @@ typedef struct s_plane
 typedef struct s_square
 {
 	t_vec vec_;
-	t_vec normal_vec_;
+	t_vec orient_vec;
 	double side_size;
 	t_rgb rgb_;
 }				t_sq;
@@ -79,7 +90,7 @@ typedef struct s_square
 typedef struct s_cylinder
 {
 	t_vec vec_;
-	t_vec normal_vec_;
+	t_vec orient_vec;
 	double diameter_;
 	double height_;
 	t_rgb rgb_;
