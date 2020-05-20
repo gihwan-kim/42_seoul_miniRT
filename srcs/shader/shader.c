@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 10:44:12 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/20 15:41:16 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/20 17:48:20 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,11 @@ he ray and the object (if an intersection has occurred).
 				intersect - t 를 반환한다. intersection 지점과 origin 간의 거리를 계산하고 그것(t)을 반환한다.
 				intersect : O
 					(hitpoint) =  origin + t * direction
-		2. second ray (shadow, diffuse, specular, transmission)
+		2. second ray (shadow, diffuse, specular, transmission) : shading 에서 처리
 
 		※ generating camera Rays
 
+			https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-generating-camera-rays/generating-camera-rays?http://www.scratchapixel.com/lessons/3d-basic-rendering/3d-viewing-pinhole-camera/how-pinhole-camera-works-part-1?
 			renderer 의 목적 : 각 pixel 에 색을 할당하는 것, 3d 화면을 보는 것처럼 보여야한다.
 			image 를 생성한다는 것은 primary ray(= camera ray)를 생성한다는 것.
 			camera ray : camera 의 origin 에서 뻗어나온다. 
@@ -74,17 +75,69 @@ he ray and the object (if an intersection has occurred).
 			image 는 world space 의 원점에서 z 축에 넣여있고 1 unit 만큼 떨어져 있다고 정해놓는다.
 			world space 에서의 pixel 좌표와 raster space 의 pixel 의 좌표의 관계를 찾아야한다.
 			
-			1. 현재 pixel 의 위치를 normalize 시켜야한다. 
-				: normalized 된 공간을 NDC space(= Normalized Device Coordinates) 라 한다.
-				! rasterization 의 NDC space 와 다르다.
+			NDC space
+			: normalized 된 공간을 NDC space(= Normalized Device Coordinates) 라 한다.
+			! rasterization 의 NDC space 와 다르다.
 
+			1. raseter space -> NDC space
 				pixel_ndc_x = (pixel_x + 0.5) / image_width
 				pixel_ndc_y = (pixel_y + 0.5) / image_height
 				(0.5 를 더한 것은 pixel 의 가운데를 통과시켜야하기 때문)
 
+			2. NDC sapce -> screen space
 				NDC space 로 변환되면 x, y 값은 [0,1] 의 범위를 가지게 된다.
+				NDC space 는 모두 양수로 되어있기 때문에 xy 축 처럼 음수 양수를 가지도록 변경해 주어야한다.
+				(= NDC space 는 원점이 왼쪽 상단으로 되어있는데 이를 가운데 점을 기준으로하도록 바꿔주어야한다)
+
+				pixel_screen_x = 2 * pixel_ndc_x - 1
+				pixel_screen_y = 1 - 2 * pixel_ndc_y
+			
+			3. screen space -> wolrd space 
+				image 의 비율이 1:1 이 아닐 경우 image aspect ratio 를 구해 맞춰주어야한다.
+				( 좌표계는 비율이 동일하기 떄문)
 				
+				iamge_aspect_ratio = image_width / image_ height
+				pixel_camera_x = pixel_screen_x * iamge_aspect_ratio
+				pixel_camera_y = pixel_screen_y
+
+			3. screen space -> wolrd space
+				field of view 값에 따라 screen space 의 길이가 바뀔 수 있다.
+
+				pixel_camera_x = pixel_screen_x * iamge_aspect_ratio * tan(fov/2)
+				pixel_camera_y = pixel_screen_y * tan(fov/2)
+
+				P - (pixel_camera_x, pixel_camera_y, -1) 
+				(= P : 변환된 픽셀의 위치)
+				광선의 원점을 카메라의 원점(O)으로 정하고 광선의 방향을 OP 로 정의하여 normalize 하면
+				픽셀을 지나는 ray 의 방향을 구할 수 있다.
+
+				float imageAspectRatio = imageWidth / (float)imageHeight; // assuming width > height 
+				float Px = (2 * ((x + 0.5) / imageWidth) - 1) * tan(fov / 2 * M_PI / 180) * imageAspectRatio; 
+				float Py = (1 - 2 * ((y + 0.5) / imageHeight) * tan(fov / 2 * M_PI / 180); 
+				Vec3f rayOrigin(0); 
+				Vec3f rayDirection = Vec3f(Px, Py, -1) - rayOrigin; // note that this just equal to Vec3f(Px, Py, -1); 
+				rayDirection = normalize(rayDirection); // it's a direction so don't forget to normalize 
+			
+			4. camera 위치 이동
+				이떄까지 camera 의 위치가 원점일 경우로 계산을 했었다.
+				원점이 아닌 다른 위치에 camera가 있을 경우 그 점으로 이동하는 행렬을 계산하여 변환시킬 수 있다.
+				원점 -> camera point 로 이동시키는 행렬(c2w)을 만든다
+				camera to world transform matrix (c2w) 를 사용한다.
+				
+				float imageAspectRatio = imageWidth / imageHeight; // assuming width > height 
+				float Px = (2 * ((x + 0.5) / imageWidth) - 1) * tan(fov / 2 * M_PI / 180) * imageAspectRatio; 
+				float Py = (1 - 2 * ((y + 0.5) / imageHeight) * tan(fov / 2 * M_PI / 180); 
+				Vec3f rayOrigin = Point3(0, 0, 0); 
+				Matrix44f cameraToWorld; 
+				cameraToWorld.set(...); // set matrix 
+				Vec3f rayOriginWorld, rayPWorld; 
+				cameraToWorld.multVectMatrix(rayOrigin, rayOriginWorld); 
+				cameraToWorld.multVectMatrix(Vec3f(Px, Py, -1), rayPWorld); 
+				Vec3f rayDirection = rayPWorld - rayOriginWorld; 
+				rayDirection.normalize(); // it's a direction so don't forget to normalize 
+
 	
+
 2. Testing for Ray-Geometry Intersections
 	object 의 모양에 따라 다르다.
 	2-1 수학적으로 표현될 수  있는 obejct
