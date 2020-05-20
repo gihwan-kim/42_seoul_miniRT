@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:19:07 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/19 16:56:18 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/20 09:56:30 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,5 +153,16 @@ typedef struct s_rt_file_info
 	t_list	*lst_c_;
 	t_list	*lst_l_;
 }				t_rt;
+
+/*
+** ray used in shader part
+*/
+
+typedef struct	s_primary_ray
+{
+	t_vec		origin_;
+	t_vec		direction_;
+}				t_ray;
+
 
 #endif

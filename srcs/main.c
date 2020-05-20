@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 11:44:13 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/20 09:41:25 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/20 10:00:27 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,8 +155,8 @@ int	main(int argc, char **argv)
 			return (0);
 		ft_bzero(rt_info, sizeof(t_rt));
 		parsing_rt_file(argv[1], rt_info);
-		make_window(rt_file);
-		make_img(rt_file);
+		make_window(rt_info);
+		make_img(rt_info);
 	}
 	return (0);
 }
