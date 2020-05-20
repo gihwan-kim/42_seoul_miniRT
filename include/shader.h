@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_rt.h                                          :+:      :+:    :+:   */
+/*   shader.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/11 11:08:04 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/19 17:49:00 by gihwan-kim       ###   ########.fr       */
+/*   Created: 2020/05/19 10:45:03 by gihwan-kim        #+#    #+#             */
+/*   Updated: 2020/05/19 11:09:47 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_RT_H
-# define MINI_RT_H
-# define ERROR 0
-# define SUCCESS 1
+#ifndef SHADER_H
+# define SHADER_H
+#include "mini_rt.h"
 
-#include "../lib/libft/include/get_next_line.h"
-#include "../lib/libft/include/libft.h"
-#include <stdio.h>
-#include "vector.h"
-#include "mlx.h"
-#include "element.h"
-#include "error.h"
-#include "parsing.h"
-# include <math.h>
+int	make_img(t_rt *rt_info);
 
 #endif

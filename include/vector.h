@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_rt.h                                          :+:      :+:    :+:   */
+/*   vector.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/11 11:08:04 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/19 17:49:00 by gihwan-kim       ###   ########.fr       */
+/*   Created: 2020/05/19 17:07:11 by gihwan-kim        #+#    #+#             */
+/*   Updated: 2020/05/19 17:50:37 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_RT_H
-# define MINI_RT_H
-# define ERROR 0
-# define SUCCESS 1
+#ifndef VECTOR_H
+# define VECTOR_H
 
-#include "../lib/libft/include/get_next_line.h"
-#include "../lib/libft/include/libft.h"
-#include <stdio.h>
-#include "vector.h"
-#include "mlx.h"
-#include "element.h"
-#include "error.h"
-#include "parsing.h"
-# include <math.h>
+#include "mini_rt.h"
+
+typedef struct	s_matrix
+{
+	double d[4][4];
+}				t_matrix;
+
+t_vec	multiply_by_matrix(t_vec p, t_matrix m);
+t_vec	*new_vector(double x, double y, double z);
+
+
 
 #endif

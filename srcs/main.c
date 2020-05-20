@@ -1,4 +1,4 @@
-xzzz/* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
@@ -6,7 +6,7 @@ xzzz/* *************************************************************************
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 11:44:13 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/15 22:48:24 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/20 09:41:25 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,28 +123,29 @@ arg2 : save or no arg2
 	해당 이미지를 선택하여 window 에 띄운다.
 **/
 
-#include "mlx.h"
 #include "mini_rt.h"
+
+void	make_window(t_rt *rt_info)
+{
+	int		width;
+	int		height;
+
+	width = rt_info->t_r_->size_x_;
+	height = rt_info->t_r_->size_y_;
+	rt_info->mlx_ptr = mlx_init();
+	rt_info->win_ptr = mlx_new_window(rt_info->mlx_ptr, width, height, "RT");
+}
 
 int	main(int argc, char **argv)
 {
 	t_rt *rt_info;
 
 	if (argc < 2)
-	{
-		// no arg1 and arg2
-		// error
 		return(print_error("No argument!\n"));
-	}
 	else if (argc >= 4)
-	{
-		// arg number must be 2 or 3
-		// error
 		return(print_error("Argument number must be 2 or 3!\n"));
-	}
 	else
 	{
-		// arg2 check
 		if (argc == 3)
 		{
 			if(ft_strncmp(argv[2], "--save", ft_strlen("--save")))
@@ -153,8 +154,17 @@ int	main(int argc, char **argv)
 		if(!(rt_info = malloc(sizeof(t_rt))))
 			return (0);
 		ft_bzero(rt_info, sizeof(t_rt));
-		// .rt file check
 		parsing_rt_file(argv[1], rt_info);
+		make_window(rt_file);
+		make_img(rt_file);
+	}
+	return (0);
+}
+
+	// (void)argc;
+	// if (check_str_isdouble(argv[1]))
+	// 	printf("%f", ft_atof(argv[1]));
+	// printf("%f", ft_atof("0"));
 		// printf("t_r - size_x : %d\n", rt_info->t_r_->size_x_);
 		// printf("t_r - size_y : %d\n", rt_info->t_r_->size_y_);
 		// printf("t_a - light  : %f\n", rt_info->t_a_->light_);
@@ -164,14 +174,6 @@ int	main(int argc, char **argv)
 		// printf("t_a - cam  x : %f\n", rt_info->t_c_->vec_.x_);
 		// printf("t_a - cam  y : %f\n", rt_info->t_c_->vec_.y_);
 		// printf("t_a - cam  z : %f\n", rt_info->t_c_->vec_.z_);
-	}
-	// (void)argc;
-	// if (check_str_isdouble(argv[1]))
-	// 	printf("%f", ft_atof(argv[1]));
-	// printf("%f", ft_atof("0"));
-	return (0);
-}
-
 
 // #include <unistd.h>
 
