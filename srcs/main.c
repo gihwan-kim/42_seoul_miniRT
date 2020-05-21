@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 11:44:13 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/20 10:00:27 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/21 14:00:04 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,9 @@ void	make_window(t_rt *rt_info)
 	height = rt_info->t_r_->size_y_;
 	rt_info->mlx_ptr = mlx_init();
 	rt_info->win_ptr = mlx_new_window(rt_info->mlx_ptr, width, height, "RT");
+	rt_info->img_.img_ptr = mlx_new_image(rt_info->mlx_ptr, width, height);
+	rt_info->img_.data = (int *)mlx_get_data_addr(rt_info->img_.img_ptr,
+		&rt_info->img_.bpp, &rt_info->img_.size_l, &rt_info->img_.endian);
 }
 
 int	main(int argc, char **argv)
@@ -156,7 +159,7 @@ int	main(int argc, char **argv)
 		ft_bzero(rt_info, sizeof(t_rt));
 		parsing_rt_file(argv[1], rt_info);
 		make_window(rt_info);
-		make_img(rt_info);
+		make_img(rt_info, rt_info->t_r_->size_x_, rt_info->t_r_->size_y_);
 	}
 	return (0);
 }

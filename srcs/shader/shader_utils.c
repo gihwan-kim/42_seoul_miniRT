@@ -1,30 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_rt.h                                          :+:      :+:    :+:   */
+/*   shader_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/11 11:08:04 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/21 11:32:09 by gihwan-kim       ###   ########.fr       */
+/*   Created: 2020/05/21 11:06:43 by gihwan-kim        #+#    #+#             */
+/*   Updated: 2020/05/21 15:12:40 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_RT_H
-# define MINI_RT_H
-# define ERROR 0
-# define SUCCESS 1
 
-#include "../lib/libft/include/get_next_line.h"
-#include "../lib/libft/include/libft.h"
-#include <stdio.h>
-#include "shader.h"
-#include "vertex_shader.h"
-#include "vector.h"
-#include "mlx.h"
-#include "element.h"
-#include "error.h"
-#include "parsing.h"
-#include <math.h>
-
-#endif

@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:19:07 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/20 09:56:30 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/21 13:41:14 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,9 @@ typedef struct s_camera
 	t_vec vec_;
 	t_vec orient_vec;
 	t_vec up_;
-	t_vec n_; // z
-	t_vec v_; // y
-	t_vec u_; // x
-
-	
+	// t_vec n_; // z
+	// t_vec v_; // y
+	// t_vec u_; // x
 	double fov_;
 }				t_c;
 

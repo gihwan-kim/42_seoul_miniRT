@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 17:07:11 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/19 17:50:37 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/21 14:02:45 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@
 
 typedef struct	s_matrix
 {
-	double d[4][4];
+	double matrix[4][4];
 }				t_matrix;
 
-t_vec	multiply_by_matrix(t_vec p, t_matrix m);
-t_vec	*new_vector(double x, double y, double z);
-
+t_vec		multiply_by_matrix(t_vec p, t_matrix m);
+t_vec		new_vector(double x, double y, double z);
+t_vec		vec_init(const double x, const double y,const double z);
+t_vec		subtract(t_vec *a, t_vec *b);
+t_vec		normalize(t_vec *vector);
+t_vec		crossProduct(t_vec *a, t_vec *b);
 
 
 #endif

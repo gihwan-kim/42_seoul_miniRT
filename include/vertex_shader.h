@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_rt.h                                          :+:      :+:    :+:   */
+/*   vertex_shader.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/11 11:08:04 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/21 11:32:09 by gihwan-kim       ###   ########.fr       */
+/*   Created: 2020/05/21 11:07:07 by gihwan-kim        #+#    #+#             */
+/*   Updated: 2020/05/21 15:14:15 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_RT_H
-# define MINI_RT_H
-# define ERROR 0
-# define SUCCESS 1
+#ifndef VERTEX_SHADER_H
+# define VERTEX_SHADER_H
 
-#include "../lib/libft/include/get_next_line.h"
-#include "../lib/libft/include/libft.h"
-#include <stdio.h>
-#include "shader.h"
-#include "vertex_shader.h"
-#include "vector.h"
-#include "mlx.h"
-#include "element.h"
-#include "error.h"
-#include "parsing.h"
-#include <math.h>
+#include "mini_rt.h"
 
+t_c			*get_camera(t_rt *rt_info);
+t_matrix	lookAt(const t_c *camera);
+t_ray		make_camera_ray(int x, int y, t_matrix *c2w, t_rt *rt_info, t_c *camera);
 #endif
