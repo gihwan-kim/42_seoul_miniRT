@@ -76,16 +76,16 @@ t_vec	crossProduct(t_vec *a, t_vec *b)
 	return (result);
 }
 
-t_vec	mult_Vec_Matrix(t_vec vec, t_matrix m)
+t_vec	mult_Vec_Matrix(t_vec vec, t_matrix *m)
 {
 	t_vec return_val;
 	double x;
 	double y;
 	double z;
 
-	x = vec.x_ * m.d[0][0] + vec.y_ * m.d[1][0] + vec.z_ * m.d[2][0] + m.d[3][0];
-	y = vec.x_ * m.d[0][1] + vec.y_ * m.d[1][1] + vec.z_ * m.d[2][1] + m.d[3][1];
-	z = vec.x_ * m.d[0][2] + vec.y_ * m.d[1][2] + vec.z_ * m.d[2][2] + m.d[3][2];
+	x = vec.x_ * m->d[0][0] + vec.y_ * m->d[1][0] + vec.z_ * m->d[2][0] + m->d[3][0];
+	y = vec.x_ * m->d[0][1] + vec.y_ * m->d[1][1] + vec.z_ * m->d[2][1] + m->d[3][1];
+	z = vec.x_ * m->d[0][2] + vec.y_ * m->d[1][2] + vec.z_ * m->d[2][2] + m->d[3][2];
 	return_val = vec_init(x, y, z);
 	return (return_val);
 }

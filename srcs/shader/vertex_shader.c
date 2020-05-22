@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 11:31:38 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/21 15:04:06 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/22 10:03:02 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** raster space -> NDC space -> screen space -> world space
 ** 1. change pixel point to wolrd psace coordinate
 **		result : pixel_x, pixel_y (= called point "P")
-** 2. apply c2w(camera to world matrix) to O and p (= 0,0,0)
+** 2. apply c2w(camera to world matrix) to O(camera origin) and p (= 0,0,0)
 ** 3. make OP vector 
 **		P - O
 ** 4. make ray directon vectokr

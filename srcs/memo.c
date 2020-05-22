@@ -170,12 +170,114 @@ he ray and the object (if an intersection has occurred).
 	
 
 ## 2. Testing for Ray-Geometry Intersections
-	object 의 모양에 따라 다르다.
-	2-1 수학적으로 표현될 수  있는 obejct
-		(https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes)
-	2-2 그 외의 obejct
-		작은 삼각형 매쉬로 세분화 시켜야한다.
-	2-3 Intersections function
+	https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes
+	> object 의 모양에 따라 다르다.>
+		1 수학적으로 표현될 수  있는 obejct
+			### object 의 모양을 표현하는 두가지 방법
+					1. Parametric Surfaces
+					매개변수 방정식의 형태
+					곡선, 선을 표현하기 위해서는 1개의 매개변수
+					3d 면을 표현하기 위해서는 2개의 매개변수가 필요
+				f(x, y) = z
+				2. Implicit Surfaces
+					parametic surfaces 와 비슷하다.
+					P(x, y) = 0
+					P(x, y, z) = 0
+					#### Implicit Surfaces 를 사용하는 이유
+						다른 geometry type 을 사용하는 것 보다 간단함
+						빠르다
+						모양이 간단하기 때문에 복잡한 object 를 표현하기 쉽다.
+			### bounding volume
+				구를 bounding volume 은 수학적으로 표현하기 힘든 object 를
+				감싸는 구로 사용하는 것이다.
+				ray 가 object 를 감싸는 구를 지난다면 object 가 지나는지 확인하는 방식으로
+				진행을 하면 좀더 효율적이다.
+
+			### parametric 또는 implicit surfaces	의 장점
+				이러한 surfcae 의 모양을 결정하는 방정식들은 surface 에 주어전 한 점의
+				derivatives, bi-tangent, tangent, normal vector 를 계산하는데 유용하다.
+				derivatives : 텍스처 필터링에 사용
+				bi-tangent, Tangent : shading 에서 object 의 한점의 로컬 좌표계에 사용된다.
+
+			### production renderers 들과 이번 과제의 render 의 차이점
+				대부분의 renderer 들은 object 들의 모양을 구현하여 ray 교차를 확인하는 것이아닌
+				polygon mesh 를 사용하여 확인한다.
+				하지만 이번에 수행할 miniRT 과제는 polygon mesh 를 사용하지 않고 옛날 방식으로 구현한다.
+
+			!!! 이번에 구현할 과제 miniRT 는 polygon mesh 를 사용하지 않는 옛날 방식으로 구현했다 !!!
+
+			### Geometric Solution : ray-sphere intersection
+				ray 가 구에 교차하는 점 p0 p1 를 찾아야한다
+				ray 의 시작점 O 에서 p0 까지의 거리 : t0
+				ray 의 시작점 O 에서 p1 까지의 거리 : t1
+
+				ray 는 매개변수 형태로 O + tD 로 표현할 수 있다.( O : ray 시삭점, D : ray 방향벡터)
+				t 값을 변경해가며 p0, p1 을 찾아야한다.
+				t < 0 : p0 과 p1 이  O 뒤(ray 의 방향 반대)에 있다.
+				t > 0 : p0 과 p1 이  O 앞(ray 의 방향)에 있다.
+				t = 0 : p0 과 p1 이  O 에 있다.
+
+			### Analytic Solution
+			
+				1. 구의 중심이 원점일 경우
+					구의 방정식 : x^2 + y ^2 + z^2 = R^2
+					x,y,z 가 cartesian coordinate (직교 좌표계)일때 x,y,z 를 간단하게
+					P^2 - R^2 = 0 으로 표현할 수있다.
+					(P : x,y,z 가 점 P의 좌표라고 생각한다.)
+					P^2 - R^2 = 0 방정식은 구를 implicit function 형태로 표현한 것이다.
+					Implicit 형태들을 polygon 들이 연결되어있는 모양으로 정의할 수도 있지만
+					방정식의 형태로 보면 함수의 형태로 정의될 수도 있다.
+					
+					ray 가 구에 만나기 떄문에 아래와 같이 표현할 수 있다.
+					|O + tD|^2 - R^2 = 0
+
+					O^2 + (Dt)^2 + 2ODt − R^2
+					=  D^2t^2 + 2ODt + O^2 - R^2
+
+					2차 방정식의 형태로 보인다
+					f(X) = aX^2 + bX + c
+					
+					a = D^2
+					b = 2OD
+					c = O^2 - R^2
+					x = t)
+
+					x = 근의 공식
+					Δ = b^2 − 4ac (근의 공식에서 루트안의 부분)
+
+					t0 = t1: ray 가 원에 접한다.(한점에서 만난다.)
+					t0 > 0, t1 > 0 : ray 가 구에 두점에서 만난다.
+					t0 < 0, t1 > 0 : ray 의 원점이 구 안에 있다.
+					t0 < 0, t1 < 0 : ray 의 방향벡터 반대방향에 구가 있다고.
+					t0, t1 이 없다  : 교차하지 않는다.
+					t0 > 0, t1 < 0 : 불가능 t0 은 항상 t1 보다 작거나 같다.
+				
+				2. 구의 중심이 원점이 아닐 경우
+
+					|P - C|^2 - R^2 = 0   (원점에서 각 좌표별로 C 만큼 이동한 위치에 존재)
+					방정식 1 : |O + tD - C|^2 - R^2 = 0
+					방정식 1 을 풀면
+
+					t^2 + 2D(O - C)t + |O - c|^2 - R^2 = 0
+					( D 는 normalize 이므로 D^2 = 1 이기떄문에 t^2 의 계수는 1)
+
+					f(X) = aX^2 + bX + c 꼴로 정리하면
+
+					a = 1
+					b = 2D(O − C)
+					c = |O − C|^2 − R^2
+
+					구에 만나는 점	: Phit
+					Phit 를 정규화	: Nphit
+					구의 중심		: C
+
+					Phit = ray_origin + ray_direction * t
+					Nhit = normalize(Phit - C)
+
+
+
+		2 그 외의 obejct
+	
 
 3. shading
 	ray 가 object 와 만나는지 확인이 되면 color 값을 찾아야한다.

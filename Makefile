@@ -20,9 +20,11 @@ MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
 LIBX_FLAGS = -Ilib/minilibx_mms_20200219_beta -L lib/minilibx_mms_20200219_beta
 LIBFT_FLAGS = -lft -L./lib/libft 
 NAME = miniRT
+
 ERROR_SRC = \
 			error.c
 ERROR_SRC_DIR = ./srcs/error
+
 PARSING_SRC = \
 			parsing_objects.c \
 			parsing_options.c \
@@ -30,11 +32,24 @@ PARSING_SRC = \
 			parsing_utils_2.c \
 			parsing.c
 PARSING_SRC_DIR = ./srcs/parsing
+
+SHADER_SRC = \
+			shader.c \
+			vertex_shader.c \
+			pixel_shader.c
+SHADER_SRC_DIR = ./srcs/shader
+
+VECTOR_SRC = \
+			vector_utils.c
+VECTOR_SRC_DIR = ./srcs/vector
+
 INC = -I./include
 SRCS_LIST =  \
 		./srcs/test.c \
 		$(addprefix $(PARSING_SRC_DIR)/, $(PARSING_SRC)) \
-		$(addprefix $(ERROR_SRC_DIR)/, $(ERROR_SRC))
+		$(addprefix $(ERROR_SRC_DIR)/, $(ERROR_SRC)) \
+		$(addprefix $(SHADER_SRC_DIR)/, $(SHADER_SRC)) \
+		$(addprefix $(VECTOR_SRC_DIR)/, $(VECTOR_SRC))
 		# ./srcs/main.c 
 OBJS = ${SRCS_LIST:%c.=%.o}
 all: $(NAME)
