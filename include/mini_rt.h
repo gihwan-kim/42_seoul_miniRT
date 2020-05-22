@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 11:08:04 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/21 11:32:09 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/22 20:58:29 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 #include "../lib/libft/include/get_next_line.h"
 #include "../lib/libft/include/libft.h"
 #include <stdio.h>
+#include "vector.h"
 #include "shader.h"
 #include "vertex_shader.h"
-#include "vector.h"
 #include "mlx.h"
 #include "element.h"
 #include "error.h"

@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 10:21:26 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/15 09:53:45 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/22 22:05:34 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,52 @@ static int	check_identifier(char **split, t_rt *rt_info)
 	else if(!ft_strncmp(split[0], "c", len))
 		parsing_camera(split, rt_info);
 	else if(ft_strncmp(split[0], "l", len))
-		;
+		parsing_light(split, rt_info);
 	else if(!ft_strncmp(split[0], "sp", len))
-		;
+		parsing_sphere(split, rt_info);
 	else if(!ft_strncmp(split[0], "pl", len))
-		;
+		parsing_plane(split, rt_info);
 	else if(!ft_strncmp(split[0], "cy", len))
-		;
+		parsing_cylinder(split, rt_info);
 	else if(!ft_strncmp(split[0], "tr", len))
-		;
-	else if(!ft_strncmp(split[0], "sp", len))
-		;
+		parsing_triangle(split, rt_info);
+	else if(!ft_strncmp(split[0], "sq", len))
+		parsing_square(split, rt_info);
 	else
 		return (print_error("Element format is worng!\n"));
 	return (SUCCESS);
 }
 
-int parsing_rt_file(char *file, t_rt *rt_info)
+static void	check_line(char *line, t_rt *rt_info)
+{
+	if (*line)
+	{
+		split = ft_split(line, ' ');
+		check_identifier(split, rt_info);
+	}
+	free(line);
+}
+
+static void	set_lst_position(t_rt *rt_info)
+{
+	rt_info->lst_pos.cur_sp = rt_info->lst_sp_;
+	rt_info->lst_pos.cur_pl = rt_info->lst_pl_;
+	rt_info->lst_pos.cur_sq = rt_info->lst_sq_;
+	rt_info->lst_pos.cur_cy = rt_info->lst_cy_;
+	rt_info->lst_pos.cur_tr = rt_info->lst_tr_;
+	rt_info->lst_pos.cur_c = rt_info->lst_c_;
+	rt_info->lst_pos.cur_l = rt_info->lst_l_;
+	
+	rt_info->lst_pos.fst_sp = rt_info->lst_sp_;
+	rt_info->lst_pos.fst_pl = rt_info->lst_pl_;
+	rt_info->lst_pos.fst_sq = rt_info->lst_sq_;
+	rt_info->lst_pos.fst_cy = rt_info->lst_cy_;
+	rt_info->lst_pos.fst_tr = rt_info->lst_tr_;
+	rt_info->lst_pos.fst_c = rt_info->lst_c_;
+	rt_info->lst_pos.fst_l = rt_info->lst_l_;
+}
+
+int			parsing_rt_file(char *file, t_rt *rt_info)
 {
 	char **split;
 	char *line;
@@ -55,14 +84,8 @@ int parsing_rt_file(char *file, t_rt *rt_info)
 	if (fd == -1)
 		return (ERROR);
 	while((ret = get_next_line(fd, &line) > 0))
-	{
-		if (*line)
-		{
-			split = ft_split(line, ' ');
-			check_identifier(split, rt_info);
-		}
-		free(line);
-		//free split
-	}
+		check_line(line, rt_info);
+	check_line(line, rt_info);
+	set_lst_position(rt_info);
 	return (SUCCESS);
 }

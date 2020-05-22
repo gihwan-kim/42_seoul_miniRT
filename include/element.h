@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:19:07 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/21 13:41:14 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/22 22:06:00 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,22 +134,44 @@ typedef struct	s_image
 	
 }				t_img;
 
+
+// list 자료구조에서 현재 위치, 첫번쨰 content 를 알려줌
+typedef	struct s_lst_positon_info
+{
+	t_list	*cur_sp;
+	t_list	*cur_pl;
+	t_list	*cur_sq;
+	t_list	*cur_cy;
+	t_list	*cur_tr;
+	t_list	*cur_c;
+	t_list	*cur_l;
+	t_list	*fst_sp;
+	t_list	*fst_pl;
+	t_list	*fst_sq;
+	t_list	*fst_cy;
+	t_list	*fst_tr;
+	t_list	*fst_c;
+	t_list	*fst_l;
+}				t_lst_position;
+
+
 typedef struct s_rt_file_info
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-	t_img		img_;
-	t_count *count_;
-	t_r		*t_r_;
-	t_a		*t_a_;
+	t_lst_position	lst_pos;
+	void			*mlx_ptr;
+	void			*win_ptr;
+	t_img			img_;
+	t_count 		*count_;
+	t_r				*t_r_;
+	t_a				*t_a_;
 
-	t_list	*lst_sp_;
-	t_list	*lst_pl_;
-	t_list	*lst_sq_;
-	t_list	*lst_cy_;
-	t_list	*lst_tr_;
-	t_list	*lst_c_;
-	t_list	*lst_l_;
+	t_list			*lst_sp_;
+	t_list			*lst_pl_;
+	t_list			*lst_sq_;
+	t_list			*lst_cy_;
+	t_list			*lst_tr_;
+	t_list			*lst_c_;
+	t_list			*lst_l_;
 }				t_rt;
 
 /*

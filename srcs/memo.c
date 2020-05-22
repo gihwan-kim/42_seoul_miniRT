@@ -211,7 +211,8 @@ he ray and the object (if an intersection has occurred).
 				ray 의 시작점 O 에서 p0 까지의 거리 : t0
 				ray 의 시작점 O 에서 p1 까지의 거리 : t1
 
-				ray 는 매개변수 형태로 O + tD 로 표현할 수 있다.( O : ray 시삭점, D : ray 방향벡터)
+				ray 는 매개변수 형태로 O + tD 로 표현할 수 있다.
+				( O : ray 시작점, D : ray 방향벡터)
 				t 값을 변경해가며 p0, p1 을 찾아야한다.
 				t < 0 : p0 과 p1 이  O 뒤(ray 의 방향 반대)에 있다.
 				t > 0 : p0 과 p1 이  O 앞(ray 의 방향)에 있다.
@@ -253,12 +254,14 @@ he ray and the object (if an intersection has occurred).
 					t0 > 0, t1 < 0 : 불가능 t0 은 항상 t1 보다 작거나 같다.
 				
 				2. 구의 중심이 원점이 아닐 경우
-
+					O : ray 의 origin
+					C : sphere 의 위치
+					D : ray 의 방향
 					|P - C|^2 - R^2 = 0   (원점에서 각 좌표별로 C 만큼 이동한 위치에 존재)
 					방정식 1 : |O + tD - C|^2 - R^2 = 0
 					방정식 1 을 풀면
 
-					t^2 + 2D(O - C)t + |O - c|^2 - R^2 = 0
+					D^2 * t^2 + 2D(O - C)t + |O - c|^2 - R^2 = 0
 					( D 는 normalize 이므로 D^2 = 1 이기떄문에 t^2 의 계수는 1)
 
 					f(X) = aX^2 + bX + c 꼴로 정리하면
@@ -267,15 +270,23 @@ he ray and the object (if an intersection has occurred).
 					b = 2D(O − C)
 					c = |O − C|^2 − R^2
 
-					구에 만나는 점	: Phit
+					구와 만나는 점	: Phit
 					Phit 를 정규화	: Nphit
 					구의 중심		: C
 
-					Phit = ray_origin + ray_direction * t
+					Phit = ray_origin + ray_direction * t (t는 t0 이다. t1 아님)
 					Nhit = normalize(Phit - C)
 
-
-
+				3. ray 가 구와 접하는지 계산
+					https://en.wikipedia.org/wiki/Loss_of_significance
+					https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection
+					부동 소수점인 수로 연산을 할 경우애서
+					b 와 판별식의 근의 부호가 동일한 부호를 가지지 않지만 값은 서로 비슷할때
+					유효숫자를 올바르게 알 수 없을 수도 있다. 값이 잘릴 수도 있다.
+					x - y = 0.1234567891234567890 − 0.1234567890000000000
+					실제 답		:   0.0000000001234567890
+					손실 발생	: 	0.1234567891 − 0.1234567890 = 0.0000000001
+								(유효숫자가 1개인 것처럼 보인다. 실제로는 10개인데...)
 		2 그 외의 obejct
 	
 

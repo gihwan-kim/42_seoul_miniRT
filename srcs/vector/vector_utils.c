@@ -65,7 +65,7 @@ t_vec	normalize(t_vec *vector)
 	return (result);
 }
 
-t_vec	crossProduct(t_vec *a, t_vec *b)
+t_vec	cross_Product(t_vec *a, t_vec *b)
 {
 	t_vec	result;
 
@@ -74,6 +74,16 @@ t_vec	crossProduct(t_vec *a, t_vec *b)
 	result.z_= a->x_ * b->y_ - a->y_ * b->x_;
 
 	return (result);
+}
+
+double	dot_Product(t_vec *a, t_vec *b)
+{
+	return (a->x_ * b->x_ +  a->x_ * b->x_ +  a->x_ * b->x_);
+}
+
+double	vector_len(t_vec *a)
+{
+	return sqrt(pow(a->x_, 2) + pow(a->y_, 2) + pow(a->z_, 2));
 }
 
 t_vec	mult_Vec_Matrix(t_vec vec, t_matrix *m)
