@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 11:31:38 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/22 23:04:18 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/23 10:48:17 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ t_matrix	lookAt(const t_c *camera)
 	camera_to_world.matrix[3][0] = camera->vec_.x_;
 	camera_to_world.matrix[3][1] = camera->vec_.y_;
 	camera_to_world.matrix[3][2] = camera->vec_.z_;
-
 	return (camera_to_world);
 }
 
@@ -97,7 +96,9 @@ t_c		*get_camera(t_rt *rt_info)
 
 int		check_intersection(t_rt *rt_info, t_ray *camera_ray)
 {
-	if (intersection_sphere(rt_info, camera_ray))
+	double t;
+
+	if (intersection_sphere(rt_info, camera_ray, &t))
 	{
 
 	}

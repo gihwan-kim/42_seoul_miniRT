@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 17:07:11 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/22 21:04:31 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/23 22:30:42 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ t_vec		vec_init(const double x, const double y,const double z);
 t_vec		subtract(t_vec *a, t_vec *b);
 t_vec		normalize(t_vec *vector);
 t_vec		crossProduct(t_vec *a, t_vec *b);
-double		dot_Product(t_vec *a, t_vec *b);
+double		dot_product(t_vec *a, t_vec *b);
 double		vector_len(t_vec *a);
+int			vec_compare(t_vec *a, t_vec *b);
 
 
 #endif

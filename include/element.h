@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:19:07 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/22 22:06:00 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/23 22:22:40 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ typedef struct s_cylinder
 
 typedef struct s_triangle
 {
-	t_vec vec_1st_;
-	t_vec vec_2nd_;
-	t_vec vec_3rd_;
+	t_vec vec_1_;
+	t_vec vec_2_;
+	t_vec vec_3_;
 	t_rgb rgb_;
 }				t_tr;
 

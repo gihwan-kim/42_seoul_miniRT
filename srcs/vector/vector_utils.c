@@ -76,7 +76,7 @@ t_vec	cross_Product(t_vec *a, t_vec *b)
 	return (result);
 }
 
-double	dot_Product(t_vec *a, t_vec *b)
+double	dot_product(t_vec *a, t_vec *b)
 {
 	return (a->x_ * b->x_ +  a->x_ * b->x_ +  a->x_ * b->x_);
 }
@@ -93,11 +93,43 @@ t_vec	mult_Vec_Matrix(t_vec vec, t_matrix *m)
 	double y;
 	double z;
 
-	x = vec.x_ * m->d[0][0] + vec.y_ * m->d[1][0] + vec.z_ * m->d[2][0] + m->d[3][0];
-	y = vec.x_ * m->d[0][1] + vec.y_ * m->d[1][1] + vec.z_ * m->d[2][1] + m->d[3][1];
-	z = vec.x_ * m->d[0][2] + vec.y_ * m->d[1][2] + vec.z_ * m->d[2][2] + m->d[3][2];
+	x = vec.x_ * m->matrix[0][0]
+		+ vec.y_ * m->matrix[1][0]
+		+ vec.z_ * m->matrix[2][0]
+		+ m->matrix[3][0];
+	y = vec.x_ * m->matrix[0][1]
+		+ vec.y_ * m->matrix[1][1]
+		+ vec.z_ * m->matrix[2][1]
+		+ m->matrix[3][1];
+	z = vec.x_ * m->matrix[0][2]
+		+ vec.y_ * m->matrix[1][2]
+		+ vec.z_ * m->matrix[2][2]
+		+ m->matrix[3][2];
 	return_val = vec_init(x, y, z);
 	return (return_val);
+}
+
+/*
+** compare vec a, b
+** these vector is aligned same line
+*/
+
+int		vec_compare(t_vec *a, t_vec *b)
+{
+	double x;
+	double y;
+	double z;
+
+	x = a->x_ - b->x_;
+	y = a->y_ - b->y_;
+	z = a->z_ - b->z_;
+
+	if (x < 0 && y < 0 && z < 0)
+		return (-1);
+	else if (x > 0 && y > 0 && z > 0)
+		return (1);
+	else
+		return (0);
 }
 
 // t_vec	*new_vector(double x, double y, double z)

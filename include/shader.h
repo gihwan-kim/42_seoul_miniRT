@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 10:45:03 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/22 23:04:02 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/23 22:31:17 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ t_ray		make_camera_ray(
 							t_rt *rt_info,
 							t_c *camera);
 int			check_intersection(t_rt *rt_info, t_ray *camera_ray);
-int			intersection_sphere(t_rt *rt_info, t_ray *camera_ray);
+int			intersection_sphere(t_rt *rt_info, t_ray *camera_ray, double *t);
 
 // intersection utils funs
-int			quadratic_formula(t_vec *quadrtaic_info, t_vec *x_0, t_vec *x_1);
+int			quadratic_formula(t_vec *quadrtaic_info, double *x_0, double *x_1);
 t_sp		*get_sphere(t_rt *rt_info);
+t_list		*get_object(t_list *cur_obj_pos);
+t_vec		get_tr_normal(t_tr	*tr);
 #endif

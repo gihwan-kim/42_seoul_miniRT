@@ -219,74 +219,114 @@ he ray and the object (if an intersection has occurred).
 				t = 0 : p0 과 p1 이  O 에 있다.
 
 			### Analytic Solution
+
+				#### sphere
 			
-				1. 구의 중심이 원점일 경우
-					구의 방정식 : x^2 + y ^2 + z^2 = R^2
-					x,y,z 가 cartesian coordinate (직교 좌표계)일때 x,y,z 를 간단하게
-					P^2 - R^2 = 0 으로 표현할 수있다.
-					(P : x,y,z 가 점 P의 좌표라고 생각한다.)
-					P^2 - R^2 = 0 방정식은 구를 implicit function 형태로 표현한 것이다.
-					Implicit 형태들을 polygon 들이 연결되어있는 모양으로 정의할 수도 있지만
-					방정식의 형태로 보면 함수의 형태로 정의될 수도 있다.
+					1. 구의 중심이 원점일 경우
+						구의 방정식 : x^2 + y ^2 + z^2 = R^2
+						x,y,z 가 cartesian coordinate (직교 좌표계)일때 x,y,z 를 간단하게
+						P^2 - R^2 = 0 으로 표현할 수있다.
+						(P : x,y,z 가 점 P의 좌표라고 생각한다.)
+						P^2 - R^2 = 0 방정식은 구를 implicit function 형태로 표현한 것이다.
+						Implicit 형태들을 polygon 들이 연결되어있는 모양으로 정의할 수도 있지만
+						방정식의 형태로 보면 함수의 형태로 정의될 수도 있다.
+						
+						ray 가 구에 만나기 떄문에 아래와 같이 표현할 수 있다.
+						|O + tD|^2 - R^2 = 0
+
+						O^2 + (Dt)^2 + 2ODt − R^2
+						=  D^2t^2 + 2ODt + O^2 - R^2
+
+						2차 방정식의 형태로 보인다
+						f(X) = aX^2 + bX + c
+						
+						a = D^2
+						b = 2OD
+						c = O^2 - R^2
+						x = t)
+
+						x = 근의 공식
+						Δ = b^2 − 4ac (근의 공식에서 루트안의 부분)
+
+						t0 = t1: ray 가 원에 접한다.(한점에서 만난다.)
+						t0 > 0, t1 > 0 : ray 가 구에 두점에서 만난다.
+						t0 < 0, t1 > 0 : ray 의 원점이 구 안에 있다.
+						t0 < 0, t1 < 0 : ray 의 방향벡터 반대방향에 구가 있다고.
+						t0, t1 이 없다  : 교차하지 않는다.
+						t0 > 0, t1 < 0 : 불가능 t0 은 항상 t1 보다 작거나 같다.
 					
-					ray 가 구에 만나기 떄문에 아래와 같이 표현할 수 있다.
-					|O + tD|^2 - R^2 = 0
+					2. 구의 중심이 원점이 아닐 경우
+						O : ray 의 origin
+						C : sphere 의 위치
+						D : ray 의 방향
+						|P - C|^2 - R^2 = 0   (원점에서 각 좌표별로 C 만큼 이동한 위치에 존재)
+						방정식 1 : |O + tD - C|^2 - R^2 = 0
+						방정식 1 을 풀면
 
-					O^2 + (Dt)^2 + 2ODt − R^2
-					=  D^2t^2 + 2ODt + O^2 - R^2
+						D^2 * t^2 + 2D(O - C)t + |O - c|^2 - R^2 = 0
+						( D 는 normalize 이므로 D^2 = 1 이기떄문에 t^2 의 계수는 1)
 
-					2차 방정식의 형태로 보인다
-					f(X) = aX^2 + bX + c
+						f(X) = aX^2 + bX + c 꼴로 정리하면
+
+						a = 1
+						b = 2D(O − C)
+						c = |O − C|^2 − R^2
+
+						구와 만나는 점	: Phit
+						Phit 를 정규화	: Nphit
+						구의 중심		: C
+
+						Phit = ray_origin + ray_direction * t (t는 t0 이다. t1 아님)
+						Nhit = normalize(Phit - C)
+
+					3. ray 가 구와 만나는지 계산
+						https://en.wikipedia.org/wiki/Loss_of_significance
+						https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection
+						부동 소수점인 수로 연산을 할 경우애서
+						b 와 판별식의 근의 부호가 동일한 부호를 가지지 않지만 값은 서로 비슷할때
+						유효숫자를 올바르게 알 수 없을 수도 있다. 값이 잘릴 수도 있다.
+						x - y = 0.1234567891234567890 − 0.1234567890000000000
+						실제 답		:   0.0000000001234567890
+						손실 발생	: 	0.1234567891 − 0.1234567890 = 0.0000000001
+									(유효숫자가 1개인 것처럼 보인다. 실제로는 10개인데...)
+
+						2 번 에서 구한 것들을 활용하여 근의 공식을 통해 확인하면 된다.
+
+					4. 여러개의 object 를 통과하는 ray
+						https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/minimal-ray-tracer-rendering-spheres
+						교차점에서 rayorigin 까지의 거리가 가장 짧은 것(= t)을 구한다.
+				 
+				 ### plane
+					ray :  l_0 + l * t = P
+
+					p	: plane 과 만나는 점
+					l_0 : ray origin
+					l	: ray direction
+
+					palen 의 성질 : (p - p_0) ● n = 0
+					-> vector pp_0 는 plane 의 normal vector 와 직교하므로 내적은 0 이다.
+					p_0	: 좌표계에서 palne 까지의 거리를 계산할 수 있는 점
+					n	: palne 의 normal vector, plane 과 직교하는 vector 
+
+					ray 와 plane 이 교차한다면 교점은 ray 와 plane 이 한 점을 공유하게된다.
+					위 2개 으 공식을 통해 ray 와 plane 의 교점인 p 를 구할 수 있다.
 					
-					a = D^2
-					b = 2OD
-					c = O^2 - R^2
-					x = t)
+					p = l_0 + l * t  ----(a)
+					(p - p_0) ● n = 0 ----(b)
 
-					x = 근의 공식
-					Δ = b^2 − 4ac (근의 공식에서 루트안의 부분)
+					a 를 b 에 대입
+					(l_0 + l * t - p_0) ● n = 0
+					t 에 대하여 정리
+					t = (p_0 - l_0) ● n / (l ● n)
 
-					t0 = t1: ray 가 원에 접한다.(한점에서 만난다.)
-					t0 > 0, t1 > 0 : ray 가 구에 두점에서 만난다.
-					t0 < 0, t1 > 0 : ray 의 원점이 구 안에 있다.
-					t0 < 0, t1 < 0 : ray 의 방향벡터 반대방향에 구가 있다고.
-					t0, t1 이 없다  : 교차하지 않는다.
-					t0 > 0, t1 < 0 : 불가능 t0 은 항상 t1 보다 작거나 같다.
+					ray 와 plane 이 같은 평행할 경우 : 근이 무한개 또는 교차하지 않음
+					l ● n 이 0 에 수렴할 경우 t 값이 무한대로 나옴 -> 에러 처리
+					t 가 양수 이어야 하므로 
 				
-				2. 구의 중심이 원점이 아닐 경우
-					O : ray 의 origin
-					C : sphere 의 위치
-					D : ray 의 방향
-					|P - C|^2 - R^2 = 0   (원점에서 각 좌표별로 C 만큼 이동한 위치에 존재)
-					방정식 1 : |O + tD - C|^2 - R^2 = 0
-					방정식 1 을 풀면
+				### triangle
 
-					D^2 * t^2 + 2D(O - C)t + |O - c|^2 - R^2 = 0
-					( D 는 normalize 이므로 D^2 = 1 이기떄문에 t^2 의 계수는 1)
-
-					f(X) = aX^2 + bX + c 꼴로 정리하면
-
-					a = 1
-					b = 2D(O − C)
-					c = |O − C|^2 − R^2
-
-					구와 만나는 점	: Phit
-					Phit 를 정규화	: Nphit
-					구의 중심		: C
-
-					Phit = ray_origin + ray_direction * t (t는 t0 이다. t1 아님)
-					Nhit = normalize(Phit - C)
-
-				3. ray 가 구와 접하는지 계산
-					https://en.wikipedia.org/wiki/Loss_of_significance
-					https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection
-					부동 소수점인 수로 연산을 할 경우애서
-					b 와 판별식의 근의 부호가 동일한 부호를 가지지 않지만 값은 서로 비슷할때
-					유효숫자를 올바르게 알 수 없을 수도 있다. 값이 잘릴 수도 있다.
-					x - y = 0.1234567891234567890 − 0.1234567890000000000
-					실제 답		:   0.0000000001234567890
-					손실 발생	: 	0.1234567891 − 0.1234567890 = 0.0000000001
-								(유효숫자가 1개인 것처럼 보인다. 실제로는 10개인데...)
+					1. ray 와 삼각형(a,b,c)이 이루는 평면이 만나는 점(p) 구하기
+					2. ac x ap, ap x ab 의 방향이 모두 동일해야함 이와같이 3점을 모두 구해서 확인한다.
 		2 그 외의 obejct
 	
 
