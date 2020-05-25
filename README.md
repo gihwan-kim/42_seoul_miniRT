@@ -15,3 +15,7 @@ This project is libft project in 42 seoul course
 	1. triangle, square 구현
 	2. 여러 개의 object 를 만날떄 어떻게 판단할지 구현
 
+### 5/25
+	1. triangle, square 구현 보충
+	2. shader 부분 코드 수정 및 여러 소스파일로 분할
+	3. vector 파일 여러 소스파일로 분할

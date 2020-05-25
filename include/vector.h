@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 17:07:11 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/25 14:13:22 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/25 21:50:25 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ typedef struct	s_matrix
 	double matrix[4][4];
 }				t_matrix;
 
-t_matrix	lookAt(const t_c *camera);
 t_vec		multiply_by_matrix(t_vec p, t_matrix *m);
 t_vec		new_vector(double x, double y, double z);
 t_vec		vec_init(const double x, const double y,const double z);

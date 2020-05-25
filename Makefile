@@ -36,11 +36,21 @@ PARSING_SRC_DIR = ./srcs/parsing
 SHADER_SRC = \
 			shader.c \
 			vertex_shader.c \
-			pixel_shader.c
+			pixel_shader.c \
+			shader_utils.c \
+			intersect_cylinder.c \
+			intersect_plane.c \
+			intersect_sphere.c \
+			intersect_triangle.c \
+			intersect_controller.c \
+			intersect_cylinder.c \
+			intersection_utils.c
 SHADER_SRC_DIR = ./srcs/shader
 
 VECTOR_SRC = \
-			vector_utils.c
+			vector_utils.c \
+			vector_arithmetic_operation.c \
+			vector_product_normal.c
 VECTOR_SRC_DIR = ./srcs/vector
 
 INC = -I./include

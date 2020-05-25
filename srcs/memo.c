@@ -390,3 +390,87 @@ he ray and the object (if an intersection has occurred).
 					
 					->> unidirectional path tracing 알고리즘이라 부른다.
 						: camera 에서 light source 까지의 하나의 방향만 가지고 있다.
+		※ shading
+			shading 이란 무엇인가
+			object 의 외형에 영향을 미치는 것들은 어떤것이 있을까?
+			(Ex. 
+				light intensity,
+				direction,
+				the orientation of the surface of objects,
+				color of object)
+		https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading
+			렌더링 과정은 2가지 단계로 나눌 수 있다.
+			 	1. visibility
+				 	rasterization 또는 ray-tracing 을 사용하여 구현
+				2. shading
+
+			1. shading 이란?
+				3D 에서 객체의 색상을 계산하는 과정
+				visibility 에서 물체가 보이는지 확인을 한다면
+				shading 에서는 주어진 관점(viewpoint)에서 볼 떄 객체의 색상을 계산하거나
+				시뮬레이션 하는 것을 처리한다.
+
+			2. 용어 설정
+				photorealistic rendering (사실적 렌더링) 에서 표현하려는 object 의 외형은
+				lighting 과 물체의 속성에 따라 결정된다.
+				물체의 속성 : 물체의 방향, 물체의 색깔
+
+				direct lighting 	: object 에 반사된 빛이 눈에 들어온 것
+				indirect lighting 	: object 에 반사된 빛이 다른 물체에 반사되서 눈에 들어간것
+
+			3. 빛과 물체의 상호작용 및 shading 의 필수 요소 : N P L V
+				우리가 보는 물체는 물체 자치를 보는 것이 아닌 물체의 표면에 반사된 빛을
+				보는 것이다.
+				빛은 에너지이다.
+				물체의 방향은 빛의 양에 많은 영향을 미친다.
+				광원을 향해 물체를 이동시킬 경우 밝아지거나 어두워질 것이다.
+				물체의 방향(normal)을 바꾸는 것은 광원의 위치를 바꾸는 것과 같은 효과이다.
+
+				N : surface orientation, 물체 표면의 법선벡터
+				L : light direction
+				P : ray 와 obejct 가 만나는 점
+				V : viewing direction
+				P: shaded point
+				N: normal at P
+				L: light direction
+				V: view direction
+				Angle of Incidence: the angle between N and L
+				Angle of Reflection: the angle between the reflected ray and the normal
+				표면의 종류 : mirror(shiny) or glossy, matte or diffuse
+
+				glossy : 표면이 매끄럽지 않음, 반사된 ray 의 방향이 제각각, 굴곡들이 하나의 또 다른 거울처럼 반사됨
+							흐릿하게 반사됨, 그림자가 번짐
+				diffuse : light 가 물체안으로 들어가서 안에서 복잡하게 튕겨지며 물체를 벗어난다.
+							물체를 벗어나면 incident direction (다른 물체로부터 반사된 빛) 이된다.
+							ray 가 들어온 개수만큼 반사되지 않는다. 물체 안에서 개수가 줄어듦. 방향또한 랜덤
+							따라서 diffuse object 는 모든 방향으로 입사광을 동일하게 반사한다고 생각한다.
+							따라서 보는 방향이 바뀌더라도 색은 같다.
+				
+				ray 가 눈으로 들어가야만 물체를 보는 것이다!
+				ray 가 눈에 닿지 않으면 안보이는 것으로 간주한다.
+
+				reflaction 과 glossy reflaction 는 보기에 따라 다르다. 화각에 따라다름
+				
+				diffuse reflaction 은 독립적이다. 어떤 각도에서든지 밝기는 바뀌지 않는다. diffuse 물질은
+				모든 방향으로 입사광을 동일하게 반사하기때문이다.
+
+				# 물체가 색을 가지는 이유
+					백생광 : 모든 스팩트럼의 색을 가지고 있음.
+
+					white light(백색광)이 물체에 부딪히면 백색광의 몇몇 색은 물체에 흡수되고 나머지 색은 반사된다.
+					물체에 흡수된 색들은 물체가 가진 고유의 색과 동일하다.
+					Ex.
+						오렌지는 오렌지 색인데 파란색을 대부분 흡수하고 빨간색과 초록색은 반사되어 섞이면서 오렌지색이
+						된다. RGB 색 별로 흡수하는 양이 다르기 때문에 오렌지 색으로 보이는 것
+
+					흡수되지 않은 빛들이 반사된다.
+					
+					! 어떻게 물체의 색을 알아내지?
+						물체의 색은 물체가 diffuse 일때만 알 수 있다.
+
+					일반적으로 대부분의 물체는 diffuse 와 glossy 속성 모두 어느정도는 가지고 있다.
+					Ex. 
+						오렌지는 거의 diffuse 이지만 매우 얇게 거울처럼 작용(mirror)하는 매우 얇은 층이 덮여 있어
+						색은 가지고 있지만 조금 반짝거린다.
+
+					물체의 색은 입사광의 양에대한 반사광의 비율로 정의된다.
