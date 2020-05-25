@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 19:06:14 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/15 14:19:26 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/24 10:30:52 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,14 @@ void	store_vec(const char *str, t_vec *vec_ptr)
 	vec_ptr->x_ = ft_atof(split[0]);
 	vec_ptr->y_ = ft_atof(split[1]);
 	vec_ptr->z_ = ft_atof(split[2]);	
+}
+
+int	get_all_object_count(t_rt *rt_info)
+{
+	int	result;
+	
+	result = rt_info->count_->sp_ + rt_info->count_->pl_
+			+ rt_info->count_->sq_ + rt_info->count_->cy_
+			+ rt_info->count_->tr_;
+	return (result);
 }

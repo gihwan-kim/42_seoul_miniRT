@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 11:31:38 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/23 10:48:17 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/25 10:15:15 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,39 +48,6 @@ t_ray		make_camera_ray(int x, int y,
 }
 
 /*
-** forward vector is camera's 3d normalized orientation vector element
-*/
-
-t_matrix	lookAt(const t_c *camera)
-{
-	t_matrix	camera_to_world;
-	t_vec		temp_up;
-	t_vec		forward;
-	t_vec		right;
-	t_vec		up;
-
-	temp_up = vec_init(0, 1, 0);
-	forward = camera->orient_vec;
-	forward = normalize(&forward);
-	right = crossProduct(&temp_up, &forward);
-	up = crossProduct(&forward, &right);
-
-	camera_to_world.matrix[0][0] = right.x_;
-	camera_to_world.matrix[0][1] = right.y_;
-	camera_to_world.matrix[0][2] = right.z_;
-	camera_to_world.matrix[1][0] = up.x_;
-	camera_to_world.matrix[1][1] = up.y_;
-	camera_to_world.matrix[1][2] = up.z_;
-	camera_to_world.matrix[2][0] = forward.x_;
-	camera_to_world.matrix[2][1] = forward.y_;
-	camera_to_world.matrix[2][2] = forward.z_;
-	camera_to_world.matrix[3][0] = camera->vec_.x_;
-	camera_to_world.matrix[3][1] = camera->vec_.y_;
-	camera_to_world.matrix[3][2] = camera->vec_.z_;
-	return (camera_to_world);
-}
-
-/*
 ** select camera in list
 */
 
@@ -92,30 +59,4 @@ t_c		*get_camera(t_rt *rt_info)
 	if (rt_info->count_->c_)
 		camera = rt_info->lst_pos.cur_c;
 	return (camera);
-}
-
-int		check_intersection(t_rt *rt_info, t_ray *camera_ray)
-{
-	double t;
-
-	if (intersection_sphere(rt_info, camera_ray, &t))
-	{
-
-	}
-	else if (intersection_plane(rt_info, camera_ray))
-	{
-
-	}
-	else if (intersection_square(rt_info, camera_ray))
-	{
-
-	}
-	else if (intersection_cylinder(rt_info, camera_ray))
-	{
-
-	}
-	else if (intersection_triangle(rt_info, camera_ray))
-	{
-
-	}
 }

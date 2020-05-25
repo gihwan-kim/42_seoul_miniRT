@@ -6,18 +6,22 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 10:44:12 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/22 22:55:47 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/24 15:43:57 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shader.h"
 
+// if ray not intersact to object pixel color is 0
+// 픽셀 중심에서 점의 위치를 계산 하려면 원래 래스터 공간으로 표현된 픽셀 좌표를 변환해야한다.(월드공간으로)
+// world space : object, light, camera 가 모두 표현되는 공간
+// t : ray origin 과 ray 가 만나는점 간의 거리
 static int	shader(t_rt *rt_info, t_ray *camera_ray)
 {
-	// if ray not intersact to object pixel color is 0
-	// 픽셀 중심에서 점의 위치를 계산 하려면 원래 래스터 공간으로 표현된 픽셀 좌표를 변환해야한다.(월드공간으로)
-	// world space : object, light, camera 가 모두 표현되는 공간
-	if (check_intersection(rt_info, camera_ray))
+	double	t;
+
+	t = t_infinity;
+	if (intersection_controller(rt_info, camera_ray, &t))
 		return (pixel_shader(rt_info));
 	else
 		return (0);

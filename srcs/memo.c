@@ -324,16 +324,69 @@ he ray and the object (if an intersection has occurred).
 					t 가 양수 이어야 하므로 
 				
 				### triangle
+					https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-rendering-a-triangle/why-are-triangles-useful
+					복잡한 object 를 표현할떄 삼각형을 사용하기도 한다.
+					polygonal meshe 나 NURBS 의 표면과 ray 의 교차를 확인하는 것은 매우 복잡하고 느리다.
+					반면에 삼각형과 ray 가 교차하는 것은 간단하고 최적화 하기도 편하다.
+					NURBS 나 Bezier patches 와 같은 복잡한 obejct 들을 triangle mesh 들로 변환하여 계산할 수 있다.
+						! NURBS
+							Non-Uniform Rational B-Splines: 비균일 유리 B스플라인
+							단순한 2D 선, 원, 호, 커브에서 가장 복잡한 3D의 유기적 자유 형상 서피스 또는 솔리드에 이르기까지,
+							어떠한 형태도 정확하게 표현할 수 있는 수학적 표현 방법입니다.
+					
+					1. 삼각형에 대한 정보
+						1-1 삼각형은 3개의 정점, 점으로 정의된다. (정점 - 꼭짓점)
+						1-2 3차원 상에서 정의되어있다.
+						1-3 삼각형은 동일 평면에 있다.
+					
+					2. Ray-Triangle Intersection: Geometric Solution
+						https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-rendering-a-triangle/ray-triangle-intersection-geometric-solution
+						2-1. ray 와 삼각형(a,b,c)이 이루는 평면이 만나는 점(p-phit) 구하기
+							ax + by + cz + d = 0 과 p = O + tR 을 연립하여 t 에대한 식으로 정리
+							ray 와 triangle 이 만나는 점 p 찾기
+							ray 의 매개변수 방정식 : p = O + tR 
+							(R : ray direction, O : ray origin, t : O 와 P 사이의 거리)
 
-					1. ray 와 삼각형(a,b,c)이 이루는 평면이 만나는 점(p) 구하기
-					2. ac x ap, ap x ab 의 방향이 모두 동일해야함 이와같이 3점을 모두 구해서 확인한다.
+							※ ray 와 trinangle 이 평행할 경우
+								intersect 가 아니다.
+								triangle 의 법선벡터(normal vec) 와 ray 가 서로 수직으로 만나야한다.
+							※ triange 이 ray 뒤에 있는 경우
+								t < 0 일 경우 ray oingin 뒤에 있기 때문에 화면에 보이지 않는다.
+						2-2. ac x ap, ab x ap 의 방향이 반대이어야한다.
+								두 결과를 내적하면 음수가 되어야한다.
+								이와같이 3점을 모두 구해서 확인한다.
+				### square
+						square 가 있는 평면과 만나는 점 : P
+						1. 같은 평면에 있는지 확인
 		2 그 외의 obejct
 	
-
 3. shading
 	ray 가 object 와 만나는지 확인이 되면 color 값을 찾아야한다.
-
 	3-1 얼마나 많은 빛이 물체에 비치는지
 	3-2 빛의 방향
 	3-3 물체 자체의 특성, 색깔
 	3-3 카메라의 방향 : 반사광의 양은 카메라의 방향에 따라 다르다.
+
+	# secondary rays
+	https://www.scratchapixel.com/lessons/3d-basic-rendering/rendering-3d-scene-overview/introduction-light-transport
+		눈으로 부터 나오는 primary ray 를 쏘았을때 어떤 면에 ray 가 만나는 점을 P 라하자.
+		이때 두가지를 계산해야한다.
+			1. direct lighting (직접광)
+				p 에 light source 로 부터 얼마나 많은 빛이 오는지 
+				1-1 shadow ray
+					p 에서부터 light source 까지 를 직선으로 이었을때
+					p 에서 light 까지 가는 도중 다른 object 를 만날 경우
+					p 는 그림자이다.
+			2. indirect lighting (간접광)
+				(간접광 - 다른 물체의 표면으로 부터 반사된 빛)
+				p 에 간접적으로 오는 빛이 얼마나 되는지 
+				p 를 시작으로하는 secondary ray 라는 새로운 ray 를 만들어 확인한다.
+				secondary ray 가 다른 물체와 만난다면 만나는 지점의 직접광, 간접광을 계산해야하고
+				계산된 빛의 을 다시 p 에 주어야한다.
+				--> 이 과정을 재귀로 구현
+				: secondary ray 가 표면에 닿을때마다 direct lighting 과 indirect lighting 을 계산한다.
+					몇 번 정도 충돌시킬 것인지 정해야함 아니면 계속 무한대로 충돌
+					빛이 반사될때마다 빛의 에너지는 계속 떨어진다.
+					
+					->> unidirectional path tracing 알고리즘이라 부른다.
+						: camera 에서 light source 까지의 하나의 방향만 가지고 있다.

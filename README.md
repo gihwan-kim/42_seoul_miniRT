@@ -11,4 +11,7 @@ This project is libft project in 42 seoul course
 	1. 여러 개의 object 를 만날떄 어떻게 판단할지 구현
 	2. 나머지 object intersection 구현
 
+### 5/24
+	1. triangle, square 구현
+	2. 여러 개의 object 를 만날떄 어떻게 판단할지 구현
 
