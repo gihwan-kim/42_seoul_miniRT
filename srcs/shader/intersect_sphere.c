@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 10:14:59 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/25 10:15:45 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/27 01:48:24 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 // t0 > 0, t1 < 0 : 불가능 t0 은 항상 t1 보다 작거나 같다.
 int	intersection_sphere(t_rt *rt_info, t_ray *camera_ray, double *t)
 {
-	t_vec	quadrtaic_info;
+	t_vec	quadratic_info;
 	t_vec	vec_o_to_c;
 	t_sp	*cur_sphere;
 	double	t_0;
@@ -35,10 +35,10 @@ int	intersection_sphere(t_rt *rt_info, t_ray *camera_ray, double *t)
 	if (!(cur_sphere = get_object(rt_info->lst_pos.cur_sp)->content))
 		return (SUCCESS);
 	vec_o_to_c = subtract(&(camera_ray->origin_), &(camera_ray->origin_));
-	quadrtaic_info.x_ = 1.0;
-	quadrtaic_info.y_= 2.0 * dot_Product(&(camera_ray->direction_), &vec_o_to_c);
-	quadrtaic_info.z_ = pow(vector_len(&vec_o_to_c), 2.0);
-	if(!quadratic_formula(&quadrtaic_info, &t_0, &t_1))
+	quadratic_info.x_ = 1.0;
+	quadratic_info.y_= 2.0 * dot_product(&(camera_ray->direction_), &vec_o_to_c);
+	quadratic_info.z_ = pow(vector_len(&vec_o_to_c), 2.0);
+	if(!quadratic_formula(&quadratic_info, &t_0, &t_1))
 		return (ERROR);
 	if (t_0 < 0)
 	{
@@ -56,7 +56,7 @@ int	quadratic_formula(t_vec *quad, double *x_0, double *x_1)
 	double tmp;
 	double q;
 
-	d = (quad->y_) * quad->y_)) - (4 * 1.0 * quad->z_);
+	d = (quad->y_ * quad->y_) - (4 * 1.0 * quad->z_);
 
 	if (d < 0)
 		return (ERROR);

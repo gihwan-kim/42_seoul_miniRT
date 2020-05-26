@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 10:14:42 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/25 14:17:02 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/27 01:05:21 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int intersection_plane(t_rt *rt_info, t_ray *camera_ray, double *t)
 	if (denominator > 10e-7)
 	{
 		p0_l0 = subtract(&(cur_plane->vec_), &(camera_ray->origin_));
-		*t = dot_Product(&p0_l0, &(cur_plane->orient_vec)) / denominator;
+		*t = dot_product(&p0_l0, &(cur_plane->orient_vec)) / denominator;
 		if (*t >= 0)
 			return (SUCCESS);
 	}

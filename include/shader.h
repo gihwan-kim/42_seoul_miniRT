@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 10:45:03 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/25 21:49:25 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/27 01:43:22 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		intersection_triangle(t_rt *rt_info, t_ray *camera_ray, double *t);
 
 // intersection utils funs
 t_matrix	lookAt(const t_c *camera);
-int			quadratic_formula(t_vec *quadrtaic_info, double *x_0, double *x_1);
+int			quadratic_formula(t_vec *quadratic_info, double *x_0, double *x_1);
 // t_sp	*get_sphere(t_rt *rt_info);
 t_list	*get_object(t_list *cur_obj_pos);
 t_vec	get_tr_normal(t_tr	*tr);

@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 21:51:41 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/25 21:52:11 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/27 01:05:21 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,10 @@ t_vec	cross_product(t_vec *a, t_vec *b)
 
 double	dot_product(t_vec *a, t_vec *b)
 {
-	return (a->x_ * b->x_ +  a->x_ * b->x_ +  a->x_ * b->x_);
+	return (a->x_ * b->x_ +  a->y_ * b->y_ +  a->z_ * b->z_);
+}
+
+double	dot_product_2d(t_vec *a, t_vec *b)
+{
+	return (a->x_ * b->x_ +  a->y_ * b->y_);
 }

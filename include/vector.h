@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 17:07:11 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/25 21:50:25 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/27 01:05:21 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_vec		multiply(t_vec *a, double b);
 t_vec		normalize(t_vec *vector);
 t_vec		cross_product(t_vec *a, t_vec *b);
 double		dot_product(t_vec *a, t_vec *b);
+double		dot_product_2d(t_vec *a, t_vec *b)
 double		vector_len(t_vec *a);
 int			vec_compare(t_vec *a, t_vec *b);
 void		vec_inverse(t_vec *a);
