@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 10:14:59 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/27 01:48:24 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/29 10:10:54 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 // t0 < 0, t1 < 0 : ray 의 방향벡터 반대방향에 구가 있다고.
 // t0, t1 이 없다  : 교차하지 않는다.
 // t0 > 0, t1 < 0 : 불가능 t0 은 항상 t1 보다 작거나 같다.
-int	intersection_sphere(t_rt *rt_info, t_ray *camera_ray, double *t)
+t_sp	*intersection_sphere(t_rt *rt_info, t_ray *camera_ray, double *t)
 {
 	t_vec	quadratic_info;
 	t_vec	vec_o_to_c;
@@ -30,52 +30,32 @@ int	intersection_sphere(t_rt *rt_info, t_ray *camera_ray, double *t)
 	double	t_0;
 	double	t_1;
 
-	// if (!(cur_sphere = get_sphere(rt_info)))
+	// if (!(cur_sphere = get_object(rt_info->lst_pos.cur_sp)->content))
 	// 	return (SUCCESS);
-	if (!(cur_sphere = get_object(rt_info->lst_pos.cur_sp)->content))
-		return (SUCCESS);
-	vec_o_to_c = subtract(&(camera_ray->origin_), &(camera_ray->origin_));
+	if (get_object(rt_info->lst_pos.cur_sp))
+		cur_sphere = get_object(rt_info->lst_pos.cur_sp)->content;
+	else
+		return (NULL);
+	vec_o_to_c = subtract(&(camera_ray->origin_), &(cur_sphere->vec_));
 	quadratic_info.x_ = 1.0;
 	quadratic_info.y_= 2.0 * dot_product(&(camera_ray->direction_), &vec_o_to_c);
-	quadratic_info.z_ = pow(vector_len(&vec_o_to_c), 2.0);
+	quadratic_info.z_ = pow(vector_len(&vec_o_to_c), 2.0) - pow(cur_sphere->diameter_, 2.0);
+	// print_vec(&quadratic_info);
 	if(!quadratic_formula(&quadratic_info, &t_0, &t_1))
-		return (ERROR);
+		return (NULL);
 	if (t_0 < 0)
 	{
 		t_0 = t_1;
 		if (t_0 < 0)
-			return (ERROR);
+			return (NULL);
 	}
+	// if (t_0 > t_1)
+	// {
+	// 	if (t_1 < 0)
+	// 		return (FALSE);
+	// 	t_0 = t_1;
+	// }
 	*t = t_0;
-	return (SUCCESS);
-}
-
-int	quadratic_formula(t_vec *quad, double *x_0, double *x_1)
-{
-	double d;
-	double tmp;
-	double q;
-
-	d = (quad->y_ * quad->y_) - (4 * 1.0 * quad->z_);
-
-	if (d < 0)
-		return (ERROR);
-	else if (d == 0) 	// only one t
-	{
-		*x_0 = - 0.5 * quad->y_ / quad->x_;
-		*x_1 = *x_0;
-	}
-	else				// two t
-	{
-		q = ((quad->y_) > 0.0) ? -0.5 * (quad->y_ + sqrt(d)) : -0.5 * (quad->y_ - sqrt(d));
-		*x_0 = q / quad->x_;
-		*x_1 = quad->z_ / q;	
-	}
-	if (*x_0 > *x_1)
-	{
-		tmp = *x_0;
-		*x_0 = *x_1;
-		*x_1 = tmp;
-	}
-	return (SUCCESS);
+	// printf("접점 : %f\n", *t);
+	return (cur_sphere);
 }

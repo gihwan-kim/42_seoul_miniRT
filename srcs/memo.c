@@ -1,3 +1,118 @@
+/**
+	Program name 
+		miniRT
+	Turn in files 
+		All your files
+	Makefile 
+		all, clean, fclean, re, bonus
+	Arguments                       
+		a scene in format *.rt
+	External functs.
+		• open, close, read, write,
+		malloc, free, perror,
+		strerror, exit
+		• All functions of the math
+		library (-lm man man 3 math)
+		• All functions of the MinilibX
+	Libft authorized
+		Yes
+	Description 
+		The goal of your program is to generate images
+		using the Raytracing protocol. Those computer
+		generated images will each represent a scene, as
+		seen from a specific angle and position, defined
+		by simple geometric objects, and each with its own
+	lighting system.
+
+실행파일 arg1 arg2
+arg1 : .rt file
+	.rt file : a scene description file
+
+	arg1 rule :
+		◦ It will contain the window/rendered image size, which implies your miniRT
+		must be able to render in any positive size.
+		1. 양의 크기를 가지는 image
+
+		◦ Each type of element can be separated by one or more line break(s).
+		2. 각 요소는 1개이상으 line break(s) 로 나뉘어져있다.
+
+		◦ Each type of information from an element can be separated by one or more
+		space(s).
+		3. 하나의 요소로부터 각 type 의 정보는 1개 이상의 공백으로 나뉘어져 있다.
+
+		◦ Each type of element can be set in any order in the file.
+		4. 각 요소의 type 은 fil 에서 순서 없이 나열됨
+
+		◦ Elements which are defined by a capital letter can only be declared once in
+		the scene.
+		5. 각 요소는 대문자로 각 장면마다 하나씩 정의된다.
+		
+	.rt file rule :
+		◦ Each element first’s information is the type identifier 
+		(composed by one or two character(s)), followed by all specific information
+		 for each object in a strict order such as:
+		< element >
+			1~2 : only one
+			3~9 : 1 <=
+			--- option ---
+			1. Resolution (해상도) - only one
+				argument : x, y
+			2. Ambient lightning (주변광, 간접광) - only one
+			3. camera
+			4. Light
+			--- object ---
+			5. Sphere
+			6. Plane
+			7. Square
+			8. Cylinder
+			9. Triangle
+
+arg2 : save or no arg2
+	"--save" : save rendered image in bmp
+	no arg2  : 
+		◦ Pressing ESC must close the window and quit the program cleanly.
+		1. ESC 키 누를 경우
+
+		◦ Clicking on the red cross on the window’s frame must close the window and
+		quit the program cleanly.
+		2. 창 닫기 누를 경우
+
+		◦ If the declared size of the scene is greater than the display resolution, the
+		window size will be set depending to the current display resolution.
+		3. scene 의 정의된 크기가 the display resolution 보다 클 경우
+			현재 display resolution 맞춰서 창이 생성된다.
+
+		◦ If there is more than one camera you must be able to switch between them by
+		pressing the keyboard keys of your choice.
+		4. 1 개보다 많은 camera 가 있을 경우 keyboard 로 바꾸어가며 시점을 변경해야 한다.
+
+		◦ The use of images of the minilibX is strongly recommended.
+		5. minilibx 의 이미지 사용을 추천함
+
+< 순서 > 
+1. 에러 확인
+	argument 개수 확인
+	arg2 의 모양 확인 "--save"
+2. rt file 정보 담기(parsing)
+	rt file 값 확인
+	구조체 이용
+3. 계산
+	object sapce -> world space
+	 : 이미 rt file 에서 모든 obeject 들이 동일한 좌표계에 위치
+	world space -> view space(camera space)
+	 : 카메라의 시점으로 만들어야한다. camera 시점에 따라 여러 개를 만든다.
+	 : 월드공간에서 카메라 공간으로 바꾸기 위한 변환 행렬을 구해야한다.
+	view space -> clip space
+	 : 카메라의 시점으로 바라본 이미지를 2d 에 투영시커야한다.
+	 : 원근 투시법 사용.
+4. 표현
+	어떤 이미지를 표현할지 선택한다.
+5. 출력 또는 저장
+	해당 이미지를 선택하여 window 에 띄운다.
+**/
+
+
+
 방향 벡터 : 보통 크기가 1인 방향을 나타내는 벡터이다.
 
 < ray-tracing 과 rasterization >
@@ -129,8 +244,8 @@ he ray and the object (if an intersection has occurred).
 				Vec3f rayDirection = rayPWorld - rayOriginWorld; 
 				rayDirection.normalize(); // it's a direction so don't forget to normalize 
 		
-			※ lookAt function
-				1. lookAt function 을 사용하는 이유
+			※ lookat function
+				1. lookat function 을 사용하는 이유
 					cameraToWorld matrix 와 같은 4x4 행렬을 이용해 camera 를 이동시킬 경우
 					camera 는 원점에 놓이고 음의 z 축에 따라 정렬되어있음을 전제로한다.
 					하지만 4x4 행렬을 사용하여 camera 의 위치를 조정하는 것이 친숙하지 않을 수도 있다.
@@ -319,7 +434,10 @@ he ray and the object (if an intersection has occurred).
 					t 에 대하여 정리
 					t = (p_0 - l_0) ● n / (l ● n)
 
-					ray 와 plane 이 같은 평행할 경우 : 근이 무한개 또는 교차하지 않음
+					ray 와 plane 이 같은 평행할 경우
+					 : ray direction 과 plane 의 법선벡터가 수직이어야한다.
+					 : 근이 무한개 또는 교차하지 않음
+					
 					l ● n 이 0 에 수렴할 경우 t 값이 무한대로 나옴 -> 에러 처리
 					t 가 양수 이어야 하므로 
 				
@@ -383,11 +501,11 @@ he ray and the object (if an intersection has occurred).
 
 
 					< 뚜껑이 있는 원기둥 >
-					윗 뚜껑 중점 	: p_1
-					아래 뚜껑 중점	: p_2
+					아래 뚜껑 중점 	: p_1
+					윗 뚜껑 중점	: p_2
 					반지름이		: r
 					p_a = p_1
-					v_a = (p_2 - p_1) / |p_2 - p_1|
+					v_a = (p_2 - p_1) / |p_2 - p_1| -> orien vector 로 이미 주어짐
 
 					(q - p_a - (v_a ● (q - p_a))v_a)^2 - r^2 = 0
 					(v_a ● (q - q_1)) > 0
@@ -401,10 +519,7 @@ he ray and the object (if an intersection has occurred).
 					3. 아래, 윗 뚜껑과 각각 만나는 점을 계산한다. --> 현 과제는 뚜껑이 없다.
 						만약 존재한다면 음수가 아니거나
 						(v_a ● (q - q_1)) < r^2 인 것을 찾는다
-					4. 2,3 에서 찾은 것들 중 가장 작은 것을 찾는다.
-
-
-					
+					4. 2,3 에서 찾은 것들 중 가장 작은 것을 찾는다.	
 		2 그 외의 obejct
 	
 3. shading
@@ -521,3 +636,170 @@ he ray and the object (if an intersection has occurred).
 						색은 가지고 있지만 조금 반짝거린다.
 
 					물체의 색은 입사광의 양에대한 반사광의 비율로 정의된다.
+			
+			4. Normals, Vertex Normals and Facing Ratio
+				< 아래부터 학습한 링크 >
+				https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals
+				# 일반적인 개념
+					물체가 광원을 향할 수록 밝아진다.
+					물체가 향하는 방향은 반사되는 ray 의 양에 양향을 준다.
+					이런 orientation 은 물체의 표면의 한 점 P 에 수직인 normal N 벡터로 표현될 수 있다.
+
+					N :
+						N 은 점 p를 지나는 접선에 수직인 벡터이다.
+						N 과 light direction 사이의 각도에 따라 물체가 어두워지고 밝아진다.
+						물체 표면위의 한 점의 밝기는 그 점의 oreintation 에 의해 정해진다.
+						-> normal N 과 light direction 가 이루는 각에 따라 달라진다.
+
+					! noormal N 구하기
+						구 : N = normalize(P - C) , C : objec 의 중심
+						삼각형 : 3점의 외적
+				
+				# A Simple Shading Effect: Facing Ratio
+					shading 효과중 facing ratio 를 계산하기 위해서는
+					앞에서 구한 normal N 이 필요하다.
+					v (viewing direction) 과 normal N 의 내적을 하면 구할 수있다.
+					viewing directoin : p 와 만나는 ray 의 반대방향이다. camera 에서 p까지
+
+					V ● N = 1 : 평행
+					0 < V ● N < 1 : 예각
+					V ● N = 0 : 직교
+					V ● N < 0 : 둔각 -> 둔각일 경우도 색으로 사용할 경우 음수일떄 대체할 값을 넣어줘야함
+
+
+
+				# Flat Shading vs. Smooth Shading and Vertex Normals
+					
+					※ flat shading
+					삼각형 매쉬로 구셩된 object 의 경우 삼각형 매쉬들이 엄청 작게 구성되지 않는한
+					자연스러운 표면을 구현하기 힘들다.
+
+					바로 위에서 배운 facing Ratio 를 적용할떄 곡면 표현이 제대로 안되어 각 삼각형들이 빳빳하게 표현된다.
+
+					※ smooth shading
+						표면의 normal N 을 구하는 것이 아닌 mesh 의 각정점의 normal 을 계산, 저장한다.
+						각 정점들을 이어 만든 새로운 면의 noraml 을 계산한다.
+
+					-> maya 또는 blender 프로그램을 이용해서 정점의 normal 을 계산해야한다.
+			
+			5. Light
+				ray 가 물체에 반사되어 눈에 들어올때 그 물체를 볼 수 있다.
+				ray 가 생성되는 light source 가 없다면 물체를 볼 수 없다.
+
+				# light 기초 개념
+					1. area light
+					컴퓨터 그래픽스에서 light 를 모양과 크기가 있는 물체로 구현하는 것은 복잡하다.
+					이러한 light 를 area lights (불, 전등, 컴퓨터 화면 같은것들) 라고 한다.
+					2. delta light
+						실제 세상에서는 존재하지 않지만 cg 에서 존재한다.
+						area light 와 같은 문제점을 해결하는데 사용된다.
+						delta light 의 두가지 유형
+						2-1 directional light, distant light
+						2-2 spherical light, point light source
+
+						! 컴퓨터가 발달하면서 area light 를 사용하기 시작함
+						! 요즘은 delta light 를 사용하는 것을 피해야함
+							-> light 를 area light 로 표현하지 않고 dleta light 로 표현할 경우 문제가 많음
+								object 들의 표면이 glossy 이거나 mirror 일 경우 light 가 반사되어 또다른 물체로 간주한다.
+						
+								< glossy 한 물체의 표면에서 나온 반사된 빛의 크기 >
+									1. 반사된 물체의 크기
+									2. glossy 한 물체의 표면 간의 거리
+									위 두가지에 영향을 받는다.
+						! light 의 size 가 없다면 glossy 한 표면에 의한 반사의 크기를 결정할 수 없다.
+						## distatnt Light
+							엄청 멀리서부터 빛이 오기 떄문에 이 빛들의 방향은 서로 평행하다.
+							Ex 태양과 지구사이는 엄청나게 멀기 때문에 빛들이 평행해서 들어오는 것과 동일하다.
+							따라서 태양이나 다른 distant light 의 경우 cg 로 구현하기 위해 가장 필요한 것은 빛의 방향이다
+				# light Intensity
+					light 의 위치(spherical: 구 or point: 점) 와 방향(distant or directional)에 따라 light source 를 정의해야한다.
+					빛의 색은 combination of a color and an intensity 로 정한다.
+						color 범위 : [0,1]
+						intensity : [0, ~] 중 하나
+					빛의 양 = light color 값 * light intensitiy
+
+			!!! 공부한 사이트에서 light 위치를 world space 의 원점으로 가정을 하고 시작한다. !!!
+
+			6. Diffuse and Lambertian Shading
+			https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/diffuse-lambertian-shading
+
+				< diffrent area >
+					CG 에서 점을 음영처리할때 이 점은 실제로 점이 아니라 매우 작은 표면이라고 가정한다.
+					이 표면을 diffrent area 라고 부른다.
+
+				< da >
+					한 점을 둘러싸고 있는 구역을 da 라고 부른다.
+
+				! p 를 감싸고있는 구역에 닿는 빛의 양의 주의해야한다.
+					1. da 의 법선벡터와 평행
+						100% 빛이닿는 면과 da 가 동일하다.
+					2. da 의 법선벡터와 light 가 이루는 각이 존재할 때
+						빛이 닿는 면이 넓어진다.
+						da 를 덯는 빛의 양만 고려하면된다.
+						da 에 닿는 빛의 양이 적어진다.
+						각이 커질수록 빛의 양이 적어진다.
+					3. da 의 법선벡터와 수직
+						da 에 빛이 떨어지지 않는다. 
+						빛의 영향을 안받음
+					
+					da 에 수직인 벡터 N 과 L 의 각도가 커질 수록 표면은 빛을 적게 반사하게되고
+					점점 어워짐을 알 수 있다.
+
+				< Lambert Cosine Law>
+					1. N 과 L 의 각도 ↑ : 표면의 밝기 ↓ : da 에 닿는 빛의양 ↓
+					2. N 과 L 이 수직 = da 는 빛을 받지 않는다. = da color = black
+					위 두가지 규칙을 이용해 빛의양을 적절한 수식으로 표현하면
+					표면이 받는 빛의 양 = N ● L = cosθ
+
+					->> diffuse 의 색깔이 cos 과 비례함을 알 수 있음
+					Diffuse Surface Color 	∝ (Incident Light Energy ∗ cosθ)
+											∝ (Incident Light Energy ∗ N ● L)
+
+					! diffuse surface 에서 반사되는 빛의 양(view driection, 다른 물체로)도 필요함.
+						빛에너지가 p 와 충돌하게 되면 몇몇은 물체에 흡수되고 몇몇은 반사된다.
+						albedo : 입사광에 대한 반사광의 비율 
+							albedo = (reflect light) / (incident light)
+							그리스어로 ρ(rho) 라고 표시한다.
+
+					Diffuse Surface Color = albedo = ρ_d ∗ Incident Light Energy ∗ N ● L
+
+					Amount of Reflected Light
+
+				# 로직, diffuse 를 적용한 color
+					빛이 물체에 충돌하면
+					교점의 표면 법선 벡터(N)를 계산한다.
+					camera ray 와 앞에서 계산한 방정식을 이용하여 pixel color 를 계산한다.
+					L : camera ray 의 반대방향
+
+					The albedo is divided by π which insures that the surface doesnt reflect more light than it receives, ??
+
+					itColor = hitObject->albedo / M_PI * light->intensity * light->color * std::max(0.f, hitNormal.dotProduct(L)); 
+
+					hitColor = albedo / M_PI * intensity * light_color * N ● L
+
+					N ● L 이 음수일 수 있다. light 가 표면뒤에 있경우 음수가 나올수 있는데 값을 0으로 고정시켜준다.
+					Ex. 광원 물체 눈 이런순서로 있을 경우 물체가 광원뒤에 있어 물체를 바라보면 검은색으로 보인다.
+
+
+			6. Light & Shadows
+
+					시각적인 문제를 어떤 알고리즘을 통해 해결했냐에 따라 shadow 효과를 어떻게 구현할지 결정된다.
+
+					1. rasterization.
+						좀 복잡함.
+						한점에 대한 빛을 저장한 shadow map 을 이용해 물체의 가시성을 미리 계산해야한다.
+						shadow map 하나당 light 를 계산해야한다.
+						최종 이미지를 만들기전에 계산할 것
+
+					2. ray-tracing
+						간단함
+						메인 이미지가 만들어질 동안 shadow 계산을 한다.
+						shawdow map 과 달리 미리 계산해놓을 필요없다.
+						특정 픽셀로부터 광원과 교차하는 물체의 지점에 빛을 쏘기만 하면된다.
+						보이는 물체(특정화면의 픽셀에 보이는 물체)에서 빛을 쏘아 광원과의 교점을 구하면된다.
+						이 빛을 shadow ray 라고 한다.
+						만약 이 빛이 광원으로 가던중 물체를 만날경우 shading 처리를 해주면된다.
+
+					< shadow 생성과정 >
+						1. camera ray(= primary ray) 를 이용해서 물체와 만나는 지점을 찾는다.
+						2. 1번에서 구한 위치에서 shadow ray 를 추적한다.

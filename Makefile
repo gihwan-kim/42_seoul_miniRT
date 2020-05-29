@@ -41,9 +41,9 @@ SHADER_SRC = \
 			intersect_cylinder.c \
 			intersect_plane.c \
 			intersect_sphere.c \
+			intersect_square.c \
 			intersect_triangle.c \
-			intersect_controller.c \
-			intersect_cylinder.c \
+			intersection_controller.c \
 			intersection_utils.c
 SHADER_SRC_DIR = ./srcs/shader
 
@@ -55,12 +55,12 @@ VECTOR_SRC_DIR = ./srcs/vector
 
 INC = -I./include
 SRCS_LIST =  \
-		./srcs/test.c \
 		$(addprefix $(PARSING_SRC_DIR)/, $(PARSING_SRC)) \
 		$(addprefix $(ERROR_SRC_DIR)/, $(ERROR_SRC)) \
 		$(addprefix $(SHADER_SRC_DIR)/, $(SHADER_SRC)) \
-		$(addprefix $(VECTOR_SRC_DIR)/, $(VECTOR_SRC))
-		# ./srcs/main.c 
+		$(addprefix $(VECTOR_SRC_DIR)/, $(VECTOR_SRC)) \
+		./srcs/main.c
+		# ./srcs/test.c
 OBJS = ${SRCS_LIST:%c.=%.o}
 all: $(NAME)
 
@@ -74,5 +74,8 @@ $(NAME): $(OBJS)
 clean :
 	$(MAKE) -C lib/libft clean
 	rm $(NAME)
+
+norminette :
+	norminette $(SRCS_LIST)
 
 fclena : clean all

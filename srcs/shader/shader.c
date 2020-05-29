@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 10:44:12 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/24 15:43:57 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/29 12:10:58 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,36 +19,52 @@
 static int	shader(t_rt *rt_info, t_ray *camera_ray)
 {
 	double	t;
+	double	c;
 
 	t = t_infinity;
 	if (intersection_controller(rt_info, camera_ray, &t))
-		return (pixel_shader(rt_info));
+	{
+		return (pixel_shader(rt_info, camera_ray, &t));
+	}
 	else
+	{
+		// printf("false\n");
 		return (0);
+	}
 }
 
 int			make_img(t_rt *rt_info, int width, int height)
 {
-	t_matrix	cameraToWorld;
+	t_matrix	cam_to_wrold;
 	t_ray		camera_ray;
 	t_c			*camera;
 	int			h;
 	int			w;
-
+	t_ray		test;
 	h = -1;
 	if(!(camera = get_camera(rt_info)))
 		return (ERROR);
-	cameraToWorld = lookAt(camera);
+	cam_to_wrold = lookat(camera);
+	// printf("cam_to_world\n");
+	// print_matrix(&cam_to_wrold);
+	test = make_camera_ray(500, 500, &cam_to_wrold, rt_info, camera);
+	// pr
+	
 	while (++h < height)
 	{
 		w = -1;
 		while (++w < width)
 		{
-			camera_ray = make_camera_ray(w, h, &cameraToWorld, rt_info, camera);
+			camera_ray = make_camera_ray(w, h, &cam_to_wrold, rt_info, camera);
+			// printf("cam_ray direction\n");
+			// print_vec(&(camera_ray.direction_));
+			// printf("cam_ray origin\n");
+			// print_vec(&(camera_ray.origin_));
 			rt_info->img_.data[h * width + w] = shader(rt_info, &camera_ray);
+			// printf("now color : %d\n", rt_info->img_.data[h * width + w]);
 		}
+		if (h == height/4)
+			return (SUCCESS);
 	}
-	mlx_put_image_to_window(rt_info->mlx_ptr, rt_info->win_ptr, 
-		rt_info->img_.img_ptr, 0, 0);
-	mlx_loop(rt_info->mlx_ptr);
+	return (SUCCESS);
 }

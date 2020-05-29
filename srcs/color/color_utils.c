@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_rt.h                                          :+:      :+:    :+:   */
+/*   color_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/11 11:08:04 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/29 17:02:37 by gihwan-kim       ###   ########.fr       */
+/*   Created: 2020/05/29 16:32:34 by gihwan-kim        #+#    #+#             */
+/*   Updated: 2020/05/29 17:07:04 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_RT_H
-# define MINI_RT_H
-# define ERROR 0
-# define SUCCESS 1
-# define TRUE 1
-# define FALSE 0
-
-#include "../lib/libft/include/get_next_line.h"
-#include "../lib/libft/include/libft.h"
-#include <stdio.h>
-// #include <errno.h>
-#include <string.h>
-#include <unistd.h>
-#include "mlx.h"
-#include "element.h"
-#include "error.h"
-#include "parsing.h"
-#include "vector.h"
 #include "color.h"
-#include "shader.h"
-#include <math.h>
 
-#endif
+void	multi_colorf()
+{
+	
+}
+
+void	calc_light_amount(t_l *light, t_rgb_f *light_amount)
+{
+	light_amount->r_ = light->rgb_->r_ * light->light_;
+	light_amount->g_ = light->rgb_->g_ * light->light_;
+	light_amount->b_ = light->rgb_->b_ * light->light_;
+}

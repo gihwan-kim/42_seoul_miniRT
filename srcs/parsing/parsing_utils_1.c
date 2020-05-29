@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 10:53:56 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/15 10:13:02 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/28 10:05:48 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		check_str_isdouble(const char *str)
 	split = ft_split(str, '.');
 	if (!split)
 		return (ERROR);
-	printf("split[0] : |%s|\n count : %ld\n", split[0], get_argument_count(split));
+	// printf("split[0] : |%s|\n count : %ld\n", split[0], get_argument_count(split));
 	if (get_argument_count(split) == 1)
 	{
 		if (!check_str_isdigit(str))
@@ -101,6 +101,7 @@ double	ft_atof(const char *str)
 	double	result;
 	char 	**split;
 	size_t	split_count;
+	double	sign;
 	// int		i;
 
 	// i = 0;
@@ -134,11 +135,26 @@ double	ft_atof(const char *str)
 	// 	return (0.0);
 
 	// integer = ft_atoi(split[1]);
-	result = (double)ft_atoi(split[0]);
+
+
+	// result = (double)ft_atoi(split[0]);
+
+	if (split[0][0] == '-')
+	{
+		sign = -1.0;
+		result = (double)ft_atoi(split[0] + 1);
+	}
+	else
+	{
+		sign = 1.0;
+		result = (double)ft_atoi(split[0]);
+	}
+	
 	// if (i == 2)
 	// 	result += itof_under_decimal_point(ft_strlen(split[1]), ft_atoi(split[1]));
 	
 	if (split_count == 2)
 		result += itof_under_decimal_point(ft_strlen(split[1]), ft_atoi(split[1]));
+	result *= sign;
 	return (result);
 }

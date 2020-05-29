@@ -6,45 +6,11 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 10:13:56 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/27 01:05:21 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/29 14:53:56 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shader.h"
-
-/*
-** triangle
-** plane equation
-** ax + by + cz + d = 0
-** normal vector of plane  : (a, b, c), orthogonal
-** d						: distance form the origin (0, 0, 0) to the plane
-** 							dotproduct of vector which is normal vector of plane
-** 							and vector which is vertex of triangle n * v0
-*/
-
-int	intersection_triangle(t_rt *rt_info, t_ray *cam_ray, double *t)
-{
-	t_tr	*triangle;
-	t_vec	tr_normal;
-	double	d;
-	double	dot_r_d;
-
-	if (!(triangle = get_object(rt_info->lst_pos.cur_tr)->content))
-		return (SUCCESS);
-	tr_normal = get_tr_normal(triangle);
-	d = dot_product(&tr_normal, &(triangle->vec_1_));
-	dot_r_d = dot_product(&(cam_ray->direction_), &tr_normal);
-	if (dot_r_d == 0.0)
-		return (print_error("Ray and object are not intersect!\n", rt_info));
-	*t = (d + dot_product(&tr_normal, &(cam_ray->origin_)))
-		/ dot_product(&(cam_ray->direction_), &tr_normal);
-	if (t < 0)
-		return (print_error("Object is behind the camera!\n", rt_info));
-	if (check_inside_tr(triangle, cam_ray, t))
-		return (SUCCESS);
-	return (ERROR);
-}
-
 
 t_vec	get_tr_normal(t_tr	*tr)
 {
@@ -85,6 +51,7 @@ static int	check_each_point(t_vec *a, t_vec *b, t_vec *p)
 ** if (cross_product(&b2a, &v2p) ● cross_product(&c2a, &v2p) > 0)
 **	return (0);
 */
+
 static int	check_inside_tr(t_tr *tr, t_ray *cam_ray, double *t)
 {
 	t_vec	b2a;
@@ -111,5 +78,43 @@ static int	check_inside_tr(t_tr *tr, t_ray *cam_ray, double *t)
 	vec_inverse(&c2a);
 	if (check_each_point(&b2a, &c2a, &v2p))
 		return (0);
-	return (SUCCESS);
+	return (TRUE);
+}
+
+/*
+** triangle
+** plane equation
+** ax + by + cz + d = 0
+** normal vector of plane  : (a, b, c), orthogonal
+** d						: distance form the origin (0, 0, 0) to the plane
+** 							dotproduct of vector which is normal vector of plane
+** 							and vector which is vertex of triangle n * v0
+*/
+
+t_tr	*intersection_triangle(t_rt *rt_info, t_ray *cam_ray, double *t)
+{
+	t_tr	*triangle;
+	t_vec	tr_normal;
+	double	d;
+	double	dot_r_d;
+
+	// if (!(triangle = get_object(rt_info->lst_pos.cur_tr)->content))
+	// 	return (SUCCESS);
+	if (get_object(rt_info->lst_pos.cur_tr))
+		triangle = get_object(rt_info->lst_pos.cur_tr)->content;
+	else
+		return (NULL);
+	tr_normal = get_tr_normal(triangle);
+	triangle->normal = tr_normal;
+	d = dot_product(&tr_normal, &(triangle->vec_1_));
+	dot_r_d = dot_product(&(cam_ray->direction_), &tr_normal);
+	if (dot_r_d == 0.0)
+		return (NULL);
+	*t = (d + dot_product(&tr_normal, &(cam_ray->origin_)))
+		/ dot_product(&(cam_ray->direction_), &tr_normal);
+	if (t < 0)
+		return (NULL);
+	if (check_inside_tr(triangle, cam_ray, t))
+		return (triangle);
+	return (NULL);
 }

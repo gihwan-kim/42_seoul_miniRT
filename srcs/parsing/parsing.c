@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 10:21:26 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/22 22:05:34 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/29 11:16:41 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ static int	check_identifier(char **split, t_rt *rt_info)
 	size_t len;
 	(void)rt_info;
 	len = (ft_strlen(split[0]) > 1) ? ft_strlen(split[0]) : 1;
-	printf("identifier : |%s|\n", split[0]);
+	printf("identifier : |%s|\tsize_t : %ld\n", split[0], len);
 	if (!ft_strncmp(split[0], "R", len))
 		parsing_resolution(split, rt_info);
 	else if(!ft_strncmp(split[0], "A", len))
 		parsing_ambient(split, rt_info);
 	else if(!ft_strncmp(split[0], "c", len))
 		parsing_camera(split, rt_info);
-	else if(ft_strncmp(split[0], "l", len))
+	else if(!ft_strncmp(split[0], "l", len))
 		parsing_light(split, rt_info);
 	else if(!ft_strncmp(split[0], "sp", len))
 		parsing_sphere(split, rt_info);
@@ -37,12 +37,14 @@ static int	check_identifier(char **split, t_rt *rt_info)
 	else if(!ft_strncmp(split[0], "sq", len))
 		parsing_square(split, rt_info);
 	else
-		return (print_error("Element format is worng!\n"));
+		return (print_error(22, "Element format is worng!\n", rt_info));
 	return (SUCCESS);
 }
 
 static void	check_line(char *line, t_rt *rt_info)
 {
+	char **split;
+
 	if (*line)
 	{
 		split = ft_split(line, ' ');
@@ -72,7 +74,6 @@ static void	set_lst_position(t_rt *rt_info)
 
 int			parsing_rt_file(char *file, t_rt *rt_info)
 {
-	char **split;
 	char *line;
 	int fd;
 	int ret;
@@ -87,5 +88,6 @@ int			parsing_rt_file(char *file, t_rt *rt_info)
 		check_line(line, rt_info);
 	check_line(line, rt_info);
 	set_lst_position(rt_info);
+	rt_info->count_->all_obj = get_all_object_count(rt_info);
 	return (SUCCESS);
 }

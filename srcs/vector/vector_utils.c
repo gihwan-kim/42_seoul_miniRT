@@ -40,7 +40,7 @@ double	vector_len(t_vec *a)
 	return sqrt(pow(a->x_, 2) + pow(a->y_, 2) + pow(a->z_, 2));
 }
 
-t_vec	mult_Vec_Matrix(t_vec vec, t_matrix *m)
+t_vec	multiply_by_matrix(t_vec vec, t_matrix *m)
 {
 	t_vec return_val;
 	double x;
@@ -91,6 +91,22 @@ void	vec_inverse(t_vec *a)
 	a->x_ = a->x_ * -1;
 	a->y_ = a->y_ * -1;
 	a->z_ = a->z_ * -1;
+}
+
+void	matrix_zero(t_matrix *m)
+{
+	int i;
+	int j;
+
+	i = -1;
+	while (++i < 4)
+	{
+		j = -1;
+		while (j++ < 4)
+		{
+			m->matrix[i][j] = 0.0;
+		}
+	}
 }
 
 // t_vec	*new_vector(double x, double y, double z)
