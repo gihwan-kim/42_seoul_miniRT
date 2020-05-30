@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 10:13:56 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/29 14:53:56 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/30 15:38:00 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	check_each_point(t_vec *a, t_vec *b, t_vec *p)
 **	return (0);
 */
 
-static int	check_inside_tr(t_tr *tr, t_ray *cam_ray, double *t)
+static int	check_inside_tr(t_tr *tr, t_ray *ray, double *t)
 {
 	t_vec	b2a;
 	t_vec	b2c;
@@ -60,9 +60,9 @@ static int	check_inside_tr(t_tr *tr, t_ray *cam_ray, double *t)
 	t_vec	v2p;
 	t_vec	p;
 
-	p = vec_init(cam_ray->direction_.x_ * (*t) + cam_ray->origin_.x_,
-		cam_ray->direction_.y_ * (*t) + cam_ray->origin_.y_,
-		cam_ray->direction_.z_ * (*t) + cam_ray->origin_.z_);
+	p = vec_init(ray->direction_.x_ * (*t) + ray->origin_.x_,
+		ray->direction_.y_ * (*t) + ray->origin_.y_,
+		ray->direction_.z_ * (*t) + ray->origin_.z_);
 	b2a = subtract(&(tr->vec_1_), &(tr->vec_2_));
 	b2c = subtract(&(tr->vec_3_), &(tr->vec_2_));
 	c2a = subtract(&(tr->vec_1_), &(tr->vec_3_));
@@ -91,30 +91,30 @@ static int	check_inside_tr(t_tr *tr, t_ray *cam_ray, double *t)
 ** 							and vector which is vertex of triangle n * v0
 */
 
-t_tr	*intersection_triangle(t_rt *rt_info, t_ray *cam_ray, double *t)
+t_tr	*intersection_triangle(t_rt *rt_info, t_ray *ray, double *t)
 {
 	t_tr	*triangle;
 	t_vec	tr_normal;
 	double	d;
 	double	dot_r_d;
 
-	// if (!(triangle = get_object(rt_info->lst_pos.cur_tr)->content))
+	// if (!(triangle = get_node(rt_info->lst_pos.cur_tr)->content))
 	// 	return (SUCCESS);
-	if (get_object(rt_info->lst_pos.cur_tr))
-		triangle = get_object(rt_info->lst_pos.cur_tr)->content;
+	if (isempty_node(rt_info->lst_pos.cur_tr))
+		triangle = get_node(rt_info->lst_pos.cur_tr)->content;
 	else
 		return (NULL);
 	tr_normal = get_tr_normal(triangle);
 	triangle->normal = tr_normal;
 	d = dot_product(&tr_normal, &(triangle->vec_1_));
-	dot_r_d = dot_product(&(cam_ray->direction_), &tr_normal);
+	dot_r_d = dot_product(&(ray->direction_), &tr_normal);
 	if (dot_r_d == 0.0)
 		return (NULL);
-	*t = (d + dot_product(&tr_normal, &(cam_ray->origin_)))
-		/ dot_product(&(cam_ray->direction_), &tr_normal);
+	*t = (d + dot_product(&tr_normal, &(ray->origin_)))
+		/ dot_product(&(ray->direction_), &tr_normal);
 	if (t < 0)
 		return (NULL);
-	if (check_inside_tr(triangle, cam_ray, t))
+	if (check_inside_tr(triangle, ray, t))
 		return (triangle);
 	return (NULL);
 }

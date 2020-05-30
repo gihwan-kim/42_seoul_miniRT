@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:19:07 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/29 16:58:37 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/30 09:53:56 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ typedef struct s_rt_file_info
 
 
 typedef enum		e_obj {
-	sphere,
+	sphere = 1,
 	triangle,
 	plane,
 	cylinder,

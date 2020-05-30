@@ -6,13 +6,27 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/22 20:29:30 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/28 14:26:06 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/30 15:37:04 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shader.h"
 
-t_list		*get_object(t_list *cur_obj_pos)
+/*
+** check cur_obj_pos is empty
+*/
+
+int		isempty_node(t_list *cur_obj_pos)
+{
+	t_list *tmp;
+
+	tmp = cur_obj_pos;
+	if (cur_obj_pos == NULL)
+		return (FALSE);
+	return (TRUE);
+}
+
+t_list		*get_node(t_list *cur_obj_pos)
 {
 	t_list *tmp;
 	

@@ -646,11 +646,11 @@ he ray and the object (if an intersection has occurred).
 					이런 orientation 은 물체의 표면의 한 점 P 에 수직인 normal N 벡터로 표현될 수 있다.
 
 					N :
+						-> facing ratio 의 기본 개념이다.
 						N 은 점 p를 지나는 접선에 수직인 벡터이다.
 						N 과 light direction 사이의 각도에 따라 물체가 어두워지고 밝아진다.
 						물체 표면위의 한 점의 밝기는 그 점의 oreintation 에 의해 정해진다.
 						-> normal N 과 light direction 가 이루는 각에 따라 달라진다.
-
 					! noormal N 구하기
 						구 : N = normalize(P - C) , C : objec 의 중심
 						삼각형 : 3점의 외적
@@ -707,11 +707,40 @@ he ray and the object (if an intersection has occurred).
 									2. glossy 한 물체의 표면 간의 거리
 									위 두가지에 영향을 받는다.
 						! light 의 size 가 없다면 glossy 한 표면에 의한 반사의 크기를 결정할 수 없다.
+
 						## distatnt Light
 							엄청 멀리서부터 빛이 오기 떄문에 이 빛들의 방향은 서로 평행하다.
 							Ex 태양과 지구사이는 엄청나게 멀기 때문에 빛들이 평행해서 들어오는 것과 동일하다.
 							따라서 태양이나 다른 distant light 의 경우 cg 로 구현하기 위해 가장 필요한 것은 빛의 방향이다
-				# light Intensity
+							그러므로 distant light 는 light direction 이 모두 동일하다.!!!!!!!!!!!!!
+
+						## Spherical Lights (= point light sources)
+							directional light source 와 달리 같은 지역에 있다.
+							Spherical Lights 는 3d 공간에서 하나의 점으로 표현될 수 있다.
+							-> point light sources 라고도 한다.
+							양초, 전구 같은 것들
+							크기가 없는 광원으로 간주된다. -> deleta light 라고 부른다.
+							한 점에서 빛을 방출한다고 생각하면 된다.
+							뱡향 : p -> light source 위치
+
+						## Spherical Lights 의 Shadows
+						https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-spherical-light
+							아래 shadow 부분 참고.
+							아래의 distant light 로 구한 shadow 와 같은 방식으로 한다.
+							light direction 은 subtract(광원위치, 충돌지점) 으로 한다. (방향 : 충돌지점->광원위치)
+
+							! 주의점
+								Directional lights 는 엄청 멀리 위치하고 있어 Spherical Lights 의 shadow 계산과는
+								좀 차이가 있다.
+								light direction 으로 shadow ray 를 추적한다면 이 빛은 광원을 넘어서 지나갈 수 있다.
+								light source 보다 멀리 있는 물체와 충돌할 수 있다.
+								이것은 p와 빛이 서로에게 보일때 그 점이 그림자 안에 있다고 샏각하게 한다.
+								이 문제에 대한 해결은 ray 의 최대 길이를 정하거나 p 와 빛의 위치 간의 tNear(p 와 빛간의 거리 = r) 을 정하는 것이다.
+								r 보다 큰 거리일 경우를 충돌로 생각하지 않는다.
+								intersection 으로 충돌 거리를 찾았는데 이 지점이 p 와 빛간의 거리보다 클경우를 무시한다는 의미이다.
+								--> 물체 빛 물체 순서일 경우 intersection 함수에서 충돌한다고 결과가 나오는데 이것을 무시한다는 의미
+				
+				# light Intensity (빛 강도)
 					light 의 위치(spherical: 구 or point: 점) 와 방향(distant or directional)에 따라 light source 를 정의해야한다.
 					빛의 색은 combination of a color and an intensity 로 정한다.
 						color 범위 : [0,1]
@@ -803,3 +832,57 @@ he ray and the object (if an intersection has occurred).
 					< shadow 생성과정 >
 						1. camera ray(= primary ray) 를 이용해서 물체와 만나는 지점을 찾는다.
 						2. 1번에서 구한 위치에서 shadow ray 를 추적한다.
+							1 번에서 사용한 intersection 함수를 사용하여 shadow ray 가 물체와 충돌하는지 확인한다.
+
+					< Shadow-Acne: Avoiding Self-Intersection, 물체에 점이 생기는 현상을 피하는 법 >
+						수학적인 수치 차이 때문에 shadow ray 의 시작점이 조금 차이가 생겨 발생하는 현상
+
+			8. Spherical Light
+
+				## Spherical Lights (= point light sources)
+					directional light source 와 달리 같은 지역에 있다.
+					Spherical Lights 는 3d 공간에서 하나의 점으로 표현될 수 있다.
+						-> point light sources 라고도 한다.
+					양초, 전구 같은 것들
+					크기가 없는 광원으로 간주된다. -> deleta light 라고 부른다.
+					한 점에서 빛을 방출한다고 생각하면 된다.
+					뱡향 : p -> light source 위치
+
+				## Spherical Lights 의 Shadows
+					https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-spherical-light
+					6 번 Light & Shadows 부분 참고.
+					아래의 distant light 로 구한 shadow 와 같은 방식으로 한다.
+					light direction 은 subtract(광원위치, 충돌지점) 으로 한다. (방향 : 충돌지점->광원위치)
+					
+						! 주의점
+							Directional lights 는 엄청 멀리 위치하고 있어 Spherical Lights 의 shadow 계산과는
+							좀 차이가 있다.
+							light direction 으로 shadow ray 를 추적한다면 이 빛은 광원을 넘어서 지나갈 수 있다.
+							light source 보다 멀리 있는 물체와 충돌할 수 있다.
+							이것은 p와 빛이 서로에게 보일때 그 점이 그림자 안에 있다고 샏각하게 한다.
+							이 문제에 대한 해결은 ray 의 최대 길이를 정하거나 p 와 빛의 위치 간의 tNear(p 와 빛간의 거리 = r) 을 정하는 것이다.
+							r 보다 큰 거리일 경우를 충돌로 생각하지 않는다.
+							intersection 으로 충돌 거리를 찾았는데 이 지점이 p 와 빛간의 거리보다 클경우를 무시한다는 의미이다.
+							--> 물체 빛 물체 순서일 경우 intersection 함수에서 충돌한다고 결과가 나오는데 이것을 무시한다는 의미
+
+			7. Multiple Lights
+
+				## Linear Light Response
+					개별적으로 각각의 빛에 의해 생성된 이미지들을 더해준다.
+					Image_light1 + Image_light2 + Image_light3 + ... = Image_all lights.
+					각 각의 빛은 선형적으로 더해진다. (일차함수)
+
+					한 점에 도달하는 빛의 총 양은 각각의 빛의 양의 합으로 표현할 수 있다.
+
+					이 개념을 수학적으로 diffuse surface 에 적용하면
+						0 ~ 빛개수 -1 까지의 시그마로 표현한다.
+					
+					프로그래밍 관점으로 2개 이상의 빛을 다룰 경우 리스트에 빛의 목록들을 저장해두고
+					이전에 구현한 빛을 생성하고 쏘아주는 함수에 이 목록을 파라미터로 보낸다.
+					각각의 빛마다 반복을 시키고 그 결과를 더해준다.
+
+					P 를 지나는 접선에 수직인 벡터와 빛의 방향이 이루는 각에 따라 빛의 합은 감소될 수 있다.
+					각 빛마다 다르기때문에 따로 계산해주어야한다.
+					shadow ray 또한 각 빛마다 생성해주어야한다.
+					
+				

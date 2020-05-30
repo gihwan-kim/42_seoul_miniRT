@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 10:44:12 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/29 12:10:58 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/05/30 15:05:31 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	shader(t_rt *rt_info, t_ray *camera_ray)
 	}
 	else
 	{
-		// printf("false\n");
+		// background color
 		return (0);
 	}
 }
@@ -47,7 +47,7 @@ int			make_img(t_rt *rt_info, int width, int height)
 	cam_to_wrold = lookat(camera);
 	// printf("cam_to_world\n");
 	// print_matrix(&cam_to_wrold);
-	test = make_camera_ray(500, 500, &cam_to_wrold, rt_info, camera);
+	// test = make_camera_ray(500, 500, &cam_to_wrold, rt_info, camera);
 	// pr
 	
 	while (++h < height)
@@ -56,9 +56,9 @@ int			make_img(t_rt *rt_info, int width, int height)
 		while (++w < width)
 		{
 			camera_ray = make_camera_ray(w, h, &cam_to_wrold, rt_info, camera);
-			// printf("cam_ray direction\n");
+			// printf("ray direction\n");
 			// print_vec(&(camera_ray.direction_));
-			// printf("cam_ray origin\n");
+			// printf("ray origin\n");
 			// print_vec(&(camera_ray.origin_));
 			rt_info->img_.data[h * width + w] = shader(rt_info, &camera_ray);
 			// printf("now color : %d\n", rt_info->img_.data[h * width + w]);

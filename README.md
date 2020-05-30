@@ -22,7 +22,7 @@ This project is libft project in 42 seoul course
 
 ### 5/27
 	1. cylinder 구현
-	2. object 리스트에서 현재 검색할 리스트체크하는 함수 get_object 다시 수정
+	2. object 리스트에서 현재 검색할 리스트체크하는 함수 get_node 다시 수정
 	3. pixel shader 구현 및 관련 기술 학습
 	4. 실제 충돌 테스트 까지 구현한 부분 테스트 해보기
 		파싱할때 ft_strncmp 함수 앞에 ! 를 안붙여서 에러처리됐음
