@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 12:30:00 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/24 10:30:45 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/01 18:13:28 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ size_t	get_argument_count(char **split);
 */
 
 int		check_three_arg(const char *str, int (*f)(const char*));
-void	store_rgb(const char *str, t_rgb *rgb_ptr);
+// void	store_rgb(const char *str, t_rgb *rgb_ptr);
+void	store_rgb(const char *str, t_rgb_f *rgb_ptr);
 void	store_vec(const char *str, t_vec *vec_ptr);
 int		get_all_object_count(t_rt *rt_info);
 #endif

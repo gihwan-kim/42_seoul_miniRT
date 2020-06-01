@@ -6,12 +6,48 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:19:07 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/30 09:53:56 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/01 17:55:18 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ELEMENT_H
 #define ELEMENT_H
+#include "mini_rt.h"
+
+/*
+** t_rgb is used to parsing
+*/
+
+typedef struct s_rgb
+{
+	int		r_;
+	int 	g_;
+	int		b_;
+}				t_rgb;
+
+typedef	struct s_rgb_f
+{
+	double	r_;
+	double	g_;
+	double	b_;
+}				t_rgb_f;
+
+/*
+** in mlx each pixel has 4 byte pointer
+** order is RED GREEN BLUE ALPHA
+** but now my 42 computer is little endain.
+** so order is 0: BLUE 1: GREEN 2: RED 3: ALPA
+** little endian == 0
+** bit	   endian == 1
+*/
+
+typedef union	u_color
+{
+	int				combination;
+	unsigned char	color_array[4];
+}				t_union_color;
+
+
 /*
 ** t_rgb
 ** 		: R,G,B colors in range [0-255]
@@ -34,20 +70,9 @@ typedef struct	s_matrix
 	double matrix[4][4];
 }				t_matrix;
 
-typedef struct s_rgb
-{
-	int		r_;
-	int 	g_;
-	int		b_;
-}				t_rgb;
-
-typedef	struct s_rgb_f
-{
-	double	r_;
-	double	g_;
-	double	b_;
-}				t_rgb_f;
-
+/*
+** rt file obtions information
+*/
 
 typedef struct s_resolution
 {
@@ -58,7 +83,7 @@ typedef struct s_resolution
 typedef struct s_ambient
 {
 	double 	light_;
-	t_rgb	rgb_;
+	t_rgb_f	rgb_;
 }				t_a;
 
 typedef struct s_camera
@@ -72,14 +97,18 @@ typedef struct s_camera
 typedef struct s_light
 {
 	t_vec vec_;
-	t_rgb rgb_;
+	t_rgb_f rgb_;
 	double light_;
 }				t_l;
+
+/*
+** rt file object information
+*/
 
 typedef struct s_sphere
 {
 	t_vec vec_;
-	t_rgb rgb_;
+	t_rgb_f rgb_;
 	double diameter_;
 }				t_sp;
 
@@ -88,7 +117,7 @@ typedef struct s_plane
 	t_vec vec_;
 	t_vec orient_vec_;
 	double diameter_;
-	t_rgb rgb_;
+	t_rgb_f rgb_;
 }				t_pl;
 
 typedef struct s_square
@@ -96,7 +125,7 @@ typedef struct s_square
 	t_vec vec_;
 	t_vec orient_vec_;
 	double side_size;
-	t_rgb rgb_;
+	t_rgb_f rgb_;
 }				t_sq;
 
 /*
@@ -109,7 +138,7 @@ typedef struct s_cylinder
 	t_vec orient_vec_;
 	double diameter_;
 	double height_;
-	t_rgb rgb_;
+	t_rgb_f rgb_;
 }				t_cy;
 
 typedef struct s_triangle
@@ -118,7 +147,7 @@ typedef struct s_triangle
 	t_vec vec_2_;
 	t_vec vec_3_;
 	t_vec normal;
-	t_rgb rgb_;
+	t_rgb_f rgb_;
 }				t_tr;
 
 typedef struct s_count
@@ -135,12 +164,38 @@ typedef struct s_count
 	int		l_;
 }				t_count;
 
+
+typedef enum		e_obj {
+	sphere = 1,
+	triangle,
+	plane,
+	cylinder,
+	square
+}					t_e_obj;
+
+/*
+** ray used in shader part
+*/
+
+typedef struct	s_primary_ray
+{
+	t_vec		origin_;
+	t_vec		direction_;
+}				t_ray;
+
+
 typedef struct s_hit_point_info
 {
+	// t_vec	hit_point;
+	// t_vec	hit_normal;
 	t_vec	n;
 	t_e_obj	type;
 	void	*obj;
 	double	t;
+	t_rgb_f	colorf;
+	t_vec	hit_point;
+	t_vec	hit_normal;
+	t_ray	*cam_ray;
 }				t_phit;
 
 typedef struct	s_image
@@ -155,7 +210,7 @@ typedef struct	s_image
 	int			bpp;
 	int			endian;
 	t_c			*camera;
-	t_phit		hit_obj;
+	// t_phit		hit_obj;
 }				t_img;
 
 
@@ -196,24 +251,5 @@ typedef struct s_rt_file_info
 	t_list			*lst_c_;
 	t_list			*lst_l_;
 }				t_rt;
-
-
-typedef enum		e_obj {
-	sphere = 1,
-	triangle,
-	plane,
-	cylinder,
-	square
-}					t_e_obj;
-
-/*
-** ray used in shader part
-*/
-
-typedef struct	s_primary_ray
-{
-	t_vec		origin_;
-	t_vec		direction_;
-}				t_ray;
 
 #endif

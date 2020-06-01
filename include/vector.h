@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 17:07:11 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/28 10:21:35 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/01 18:04:07 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define VECTOR_H
 
 #include "mini_rt.h"
+#include "element.h"
 
 t_vec		multiply_by_matrix(t_vec p, t_matrix *m);
 t_vec		new_vector(double x, double y, double z);

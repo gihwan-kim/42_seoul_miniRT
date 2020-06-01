@@ -884,5 +884,15 @@ he ray and the object (if an intersection has occurred).
 					P 를 지나는 접선에 수직인 벡터와 빛의 방향이 이루는 각에 따라 빛의 합은 감소될 수 있다.
 					각 빛마다 다르기때문에 따로 계산해주어야한다.
 					shadow ray 또한 각 빛마다 생성해주어야한다.
-					
-				
+			
+			8. Reflection, Refraction and Fresnel (반사, 굴절, )
+				얼마나 많은 빛이 전달, 반사되는지 알아야한다.
+				이를 알기위해 Fresnel effect 를 알아야한다.
+				Fresnel effect : 유리, 물과 같은 물질들이 굴절, 전달되는 양
+
+				## Reflection
+					광자(빛을 이루는 요소)에게 일어나는 현상이다.
+					입사각과 반사각이 서로 같다.
+
+
+			

@@ -21,6 +21,10 @@ LIBX_FLAGS = -Ilib/minilibx_mms_20200219_beta -L lib/minilibx_mms_20200219_beta
 LIBFT_FLAGS = -lft -L./lib/libft 
 NAME = miniRT
 
+COLOR_SRC = \
+			error.c
+COLOR_SRC_DIR = ./srcs/error
+
 ERROR_SRC = \
 			error.c
 ERROR_SRC_DIR = ./srcs/error

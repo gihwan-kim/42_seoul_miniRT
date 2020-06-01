@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 19:06:14 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/24 10:30:52 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/01 18:13:17 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,17 @@ int	check_three_arg(const char *str, int (*check_arg_type)(const char*))
 }
 
 // check_three_arg 함수로 문자열을 확인한후 함수를 호출할 것!
-void	store_rgb(const char *str, t_rgb *rgb_ptr)
+// void	store_rgb(const char *str, t_rgb *rgb_ptr)
+void	store_rgb(const char *str, t_rgb_f *rgb_ptr)
 {
 	char 	**split;
 	int		i;
 
 	i = 0;
 	split = ft_split(str, ',');
-	rgb_ptr->r_ = ft_atoi(split[0]);
-	rgb_ptr->g_ = ft_atoi(split[1]);
-	rgb_ptr->b_ = ft_atoi(split[2]);
+	rgb_ptr->r_ = ft_atoi(split[0]) / 255;
+	rgb_ptr->g_ = ft_atoi(split[1]) / 255;
+	rgb_ptr->b_ = ft_atoi(split[2]) / 255;
 }
 
 // check_three_arg 함수로 문자열을 확인한후 함수를 호출할 것!
