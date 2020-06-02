@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 11:09:56 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/01 20:10:50 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/02 09:51:25 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,40 @@ static	void calc_normal(t_phit *obj_info, t_ray *ray)
 	hit_obj_type = obj_info->type;
 	obj = obj_info->obj;
 	if (hit_obj_type == plane)
-		make_plane_normal((t_pl*)plane, hit_n_ptr, hit_p_ptr);
+		make_plane_normal((t_pl*)plane, hit_n_ptr);
 	else if (hit_obj_type == sphere)
 		make_sphere_normal((t_sp*)sphere, hit_n_ptr, hit_p_ptr);
 	else if (hit_obj_type == cylinder)
 		make_cylinder_normal((t_cy*)cylinder, hit_n_ptr, hit_p_ptr);
 	else if (hit_obj_type == square)
-		make_square_normal((t_sq*)square, hit_n_ptr, hit_p_ptr);
+		make_square_normal((t_sq*)square, hit_n_ptr);
 	else if (hit_obj_type == triangle)
-		make_triangle_normal((t_tr*)triangle, hit_n_ptr, hit_p_ptr);
+		make_triangle_normal((t_tr*)triangle, hit_n_ptr);
 	if (dot_product(hit_n_ptr, &(ray->direction_)) > 0)
 		vec_inverse(hit_n_ptr);
 }
 
-static	t_rgb_f	calc_specular(t_ray *shadow_ray, t_phit *obj_info)
+static	t_rgb_f	calc_specular(t_ray *shadow_ray, t_phit *obj_info,
+												t_l *light_source)
 {
-	t_ray	inverse_cam_ray;
-	t_ray	reflection_ray;
+	t_vec	inverse_cam_ray_direction;
+	t_vec	reflection_ray_direction;
 	t_rgb_f	specular;
+	double	n_dot_s;
+	double	r_dot_c;
 
-	multiply(&(obj_info->hit_normal), dot_product(&(obj_info->hit_normal), &(shadow_ray->direction_)));
+	inverse_cam_ray_direction = shadow_ray->direction_;
+	vec_inverse(&inverse_cam_ray_direction);
+	n_dot_s = fmax(dot_product(&(obj_info->hit_normal),
+									&(shadow_ray->direction_)), 0.0);
+	reflection_ray_direction = multiply(&(obj_info->hit_normal), n_dot_s);
+	reflection_ray_direction = multiply(&reflection_ray_direction, 2.0);
+	reflection_ray_direction = subtract(&reflection_ray_direction,
+										&(shadow_ray->direction_));
+	r_dot_c = fmax(dot_product(&reflection_ray_direction,
+						&inverse_cam_ray_direction), 0.0);
+	r_dot_c = pow(r_dot_c, 10);
+	specular = colorf_multi_colorf(&(light_source->rgb_), &(obj_info->colorf));
 	return (specular);
 }
 
@@ -122,8 +136,8 @@ static	t_rgb_f calc_color(t_rt *rt_info, t_l *light_source, t_phit *obj_info)
 	//	 p -> 빛 으로 가다가 다른 물체와 닿지 않을 경우 : vis 값은 true 가됨
 	if (vis || t > len) // 그림자 x
 	{
-		facing_ratio = fmax(0.0, dot_product(&(obj_info->hit_normal), &(shadow_ray.direction_)));
-		specluar_color = calc_specular(&shadow_ray, obj_info);
+		facing_ratio = fmax(dot_product(&(obj_info->hit_normal), &(shadow_ray.direction_)), 0.0);
+		specluar_color = calc_specular(&shadow_ray, obj_info, light_source);
 	}
 	// 계산한 값들 곱해주기	color 
 	multi_colorf(&(light_source->rgb_), light_source->light_);
@@ -132,7 +146,6 @@ static	t_rgb_f calc_color(t_rt *rt_info, t_l *light_source, t_phit *obj_info)
 	if (facing_ratio)
 		final_color = add_color(&final_color, &specluar_color);
 	multi_colorf(&final_color, vis);
-
 	return (final_color);
 }
 

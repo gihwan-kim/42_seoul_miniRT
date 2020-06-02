@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 10:45:03 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/01 18:10:12 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/02 09:50:08 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ int			pixel_shader(t_rt *rt_info, t_ray *camera_ray, double *t, t_phit *obj_info
 /*
 ** make_normal.c
 */
-void	make_plane_normal(t_pl *plane, t_vec *normal, t_vec *hit_p);
+void	make_plane_normal(t_pl *plane, t_vec *normal);
 void	make_sphere_normal(t_sp *sphere, t_vec *normal, t_vec *hit_p);
 void	make_cylinder_normal(t_cy *cylinder, t_vec *normal, t_vec *hit_p);
-void	make_square_normal(t_sq *square, t_vec *normal, t_vec *hit_p);
-void	make_triangle_normal(t_tr *triangle, t_vec *normal, t_vec *hit_p);
+void	make_square_normal(t_sq *square, t_vec *normal);
+void	make_triangle_normal(t_tr *triangle, t_vec *normal);
 
 #endif

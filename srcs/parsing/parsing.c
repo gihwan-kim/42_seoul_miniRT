@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 10:21:26 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/29 11:16:41 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/02 10:53:47 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static void	set_lst_position(t_rt *rt_info)
 	rt_info->lst_pos.cur_tr = rt_info->lst_tr_;
 	rt_info->lst_pos.cur_c = rt_info->lst_c_;
 	rt_info->lst_pos.cur_l = rt_info->lst_l_;
-	
 	rt_info->lst_pos.fst_sp = rt_info->lst_sp_;
 	rt_info->lst_pos.fst_pl = rt_info->lst_pl_;
 	rt_info->lst_pos.fst_sq = rt_info->lst_sq_;

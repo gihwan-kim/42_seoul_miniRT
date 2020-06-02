@@ -22,8 +22,9 @@ LIBFT_FLAGS = -lft -L./lib/libft
 NAME = miniRT
 
 COLOR_SRC = \
-			error.c
-COLOR_SRC_DIR = ./srcs/error
+			color_utils_1.c \
+			color_utils_2.c
+COLOR_SRC_DIR = ./srcs/color
 
 ERROR_SRC = \
 			error.c
@@ -48,7 +49,8 @@ SHADER_SRC = \
 			intersect_square.c \
 			intersect_triangle.c \
 			intersection_controller.c \
-			intersection_utils.c
+			intersection_utils.c \
+			make_normal.c
 SHADER_SRC_DIR = ./srcs/shader
 
 VECTOR_SRC = \
@@ -63,6 +65,7 @@ SRCS_LIST =  \
 		$(addprefix $(ERROR_SRC_DIR)/, $(ERROR_SRC)) \
 		$(addprefix $(SHADER_SRC_DIR)/, $(SHADER_SRC)) \
 		$(addprefix $(VECTOR_SRC_DIR)/, $(VECTOR_SRC)) \
+		$(addprefix $(COLOR_SRC_DIR)/, $(COLOR_SRC)) \
 		./srcs/main.c
 		# ./srcs/test.c
 OBJS = ${SRCS_LIST:%c.=%.o}
@@ -73,7 +76,7 @@ all: $(NAME)
 # -o : rename a.out to $(NAME)
 $(NAME): $(OBJS)
 	$(MAKE) -C lib/libft bonus
-	$(CC) $(CFLAGS) $(LIBX_FLAGS) $(LIBFT_FLAGS) $(INC) $(SRCS_LIST) $(MLX_FLAGS) -o $(NAME)
+	$(CC) -g $(CFLAGS) $(LIBX_FLAGS) $(LIBFT_FLAGS) $(INC) $(SRCS_LIST) $(MLX_FLAGS) -o $(NAME)
 
 clean :
 	$(MAKE) -C lib/libft clean
