@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 10:14:59 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/30 15:37:53 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/03 13:56:26 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ t_sp	*intersection_sphere(t_rt *rt_info, t_ray *ray, double *t)
 	// if (!(cur_sphere = get_node(rt_info->lst_pos.cur_sp)->content))
 	// 	return (SUCCESS);
 	if (isempty_node(rt_info->lst_pos.cur_sp))
-		cur_sphere = get_node(rt_info->lst_pos.cur_sp)->content;
+		// cur_sphere = get_node(rt_info->lst_pos.cur_sp)->content;
+		cur_sphere = get_node(&(rt_info->lst_pos.cur_sp))->content;
 	else
 		return (NULL);
 	vec_o_to_c = subtract(&(ray->origin_), &(cur_sphere->vec_));

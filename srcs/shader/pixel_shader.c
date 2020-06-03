@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 11:09:56 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/02 09:51:25 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/03 17:18:19 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ static	void calc_normal(t_phit *obj_info, t_ray *ray)
 	hit_obj_type = obj_info->type;
 	obj = obj_info->obj;
 	if (hit_obj_type == plane)
-		make_plane_normal((t_pl*)plane, hit_n_ptr);
+		make_plane_normal((t_pl*)obj, hit_n_ptr);
 	else if (hit_obj_type == sphere)
-		make_sphere_normal((t_sp*)sphere, hit_n_ptr, hit_p_ptr);
+		make_sphere_normal((t_sp*)obj, hit_n_ptr, hit_p_ptr);
 	else if (hit_obj_type == cylinder)
-		make_cylinder_normal((t_cy*)cylinder, hit_n_ptr, hit_p_ptr);
+		make_cylinder_normal((t_cy*)obj, hit_n_ptr, hit_p_ptr);
 	else if (hit_obj_type == square)
-		make_square_normal((t_sq*)square, hit_n_ptr);
+		make_square_normal((t_sq*)obj, hit_n_ptr);
 	else if (hit_obj_type == triangle)
-		make_triangle_normal((t_tr*)triangle, hit_n_ptr);
+		make_triangle_normal((t_tr*)obj, hit_n_ptr);
 	if (dot_product(hit_n_ptr, &(ray->direction_)) > 0)
 		vec_inverse(hit_n_ptr);
 }
@@ -159,22 +159,27 @@ int			pixel_shader(t_rt *rt_info, t_ray *camera_ray, double *t, t_phit *obj_info
 	t_rgb_f ambient_color;
 	t_rgb_f	color;
 
-
 	p_dot_d = multiply(&(camera_ray->direction_), *t);
 	obj_info->hit_point = add(&(camera_ray->origin_), &p_dot_d);
-	// hit_point = add(&(camera_ray->origin_), &p_dot_d);
-	// calc_normal(rt_info, &hit_point, &hit_normal, camera_ray);
 	calc_normal(obj_info, camera_ray);
 	obj_info->cam_ray = camera_ray;
-	while ((cur_light_node = get_node(rt_info->lst_pos.cur_l)))
+	cur_light_node = get_node(&(rt_info->lst_pos.cur_l));
+	while (cur_light_node)
 	{
 		// color += calc_color(rt_info, (t_l*)(cur_light_node->content),
 		// 					&hit_point, &hit_normal);
 		calc_result = calc_color(rt_info, (t_l*)(cur_light_node->content), obj_info);
 		color = add_color(&color, &calc_result);
+		cur_light_node = get_node(&(rt_info->lst_pos.cur_l));
 	}
+	ambient_color = rt_info->t_a_->rgb_;
 	multi_colorf(&ambient_color, rt_info->t_a_->light_);
 	ambient_color = colorf_multi_colorf(&ambient_color, &(obj_info->colorf));
 	color = add_color(&color, &ambient_color);
-	return (change_type_colorf_to_int(&color));
+	
+	t_union_color	color_int;
+	color_int.color_array[2] = color.r_ * 255;
+	color_int.color_array[1] = color.g_ * 255;
+	color_int.color_array[0] = color.b_ * 255;
+	return (color_int.combination);
 }

@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/22 20:29:30 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/30 15:37:04 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/03 14:00:13 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,17 @@ int		isempty_node(t_list *cur_obj_pos)
 	return (TRUE);
 }
 
-t_list		*get_node(t_list *cur_obj_pos)
+t_list		*get_node(t_list **cur_obj_pos)
 {
-	t_list *tmp;
-	
-	tmp = cur_obj_pos;
-	if (cur_obj_pos == NULL)
-		return (NULL);
-	cur_obj_pos = cur_obj_pos->next;
-	return (tmp);
+	t_list *result;
+
+	result = NULL;
+	if(*cur_obj_pos)
+	{
+		result = *cur_obj_pos;
+		*cur_obj_pos = (*cur_obj_pos)->next;
+	}
+	return (result);
 }
 
 /*
@@ -58,7 +60,7 @@ t_matrix	lookat(const t_c *camera)
 	right = normalize(&right);
 	up = cross_product(&forward, &right);
 	up = normalize(&up);
-	print_vec(&(camera->vec_));
+	// print_vec(&(camera->vec_));
 	camera_to_world.matrix[0][0] = right.x_;
 	camera_to_world.matrix[0][1] = right.y_;
 	camera_to_world.matrix[0][2] = right.z_;

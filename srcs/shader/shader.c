@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 10:44:12 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/01 18:42:53 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/03 16:58:32 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,19 @@ static int	shader(t_rt *rt_info, t_ray *camera_ray)
 	t_phit	h_obj_info;
 	// t_rgb_f ambient_color;
 	double	t;
+	int		color;
 
 	t = t_infinity;
 	if (intersection_controller(rt_info, camera_ray, &h_obj_info, &t))
 	{
 		// multi_colorf(&ambient_color, rt_info->t_a_->light_);
 		h_obj_info.colorf = get_h_obj_color(&h_obj_info);
+		// write(1, "obj check\n", 11);
 		// ambient_color = colorf_multi_colorf(&ambient_color, &(h_obj_info.colorf));
-		return (pixel_shader(rt_info, camera_ray, &t, &h_obj_info));
+		color = pixel_shader(rt_info, camera_ray, &t, &h_obj_info);
+		// printf("final : %d\n", color);
+		return (color);
+		// return (200);
 	}
 	else// background color
 		return (0);
@@ -70,7 +75,9 @@ int			make_img(t_rt *rt_info, int width, int height)
 	// print_matrix(&cam_to_wrold);
 	// test = make_camera_ray(500, 500, &cam_to_wrold, rt_info, camera);
 	// pr
-	
+	// printf("height: %d\t widht: %d\n", height, width);
+	// height = 10;
+	// width = 15;
 	while (++h < height)
 	{
 		w = -1;
@@ -84,8 +91,8 @@ int			make_img(t_rt *rt_info, int width, int height)
 			rt_info->img_.data[h * width + w] = shader(rt_info, &camera_ray);
 			// printf("now color : %d\n", rt_info->img_.data[h * width + w]);
 		}
-		if (h == height/4)
-			return (SUCCESS);
+		// if (h == height/4)
+		// 	return (SUCCESS);
 	}
 	return (SUCCESS);
 }

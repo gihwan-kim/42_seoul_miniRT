@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 21:27:23 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/30 15:37:32 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/03 13:54:48 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ t_cy	*intersection_cylinder(t_rt *rt_info, t_ray *ray, double *t)
 	// if (!(cylinder = get_node(rt_info->lst_pos.cur_cy)->content))
 	// 	return (SUCCESS);
 	if (isempty_node(rt_info->lst_pos.cur_cy))
-		cylinder = get_node(rt_info->lst_pos.cur_cy)->content;
+		// cylinder = get_node(rt_info->lst_pos.cur_cy)->content;
+		cylinder = get_node(&(rt_info->lst_pos.cur_cy))->content;
 	else
 		return (NULL);
 	quad_sqrt_1 = get_quadrtaic_sqrt(ray, cylinder, 1);

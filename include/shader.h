@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 10:45:03 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/02 09:50:08 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/03 13:31:00 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ t_tr		*intersection_triangle(t_rt *rt_info, t_ray *ray, double *t);
 int			quadratic_formula(t_vec *quadratic_info, double *x_0, double *x_1);
 t_matrix	lookat(const t_c *camera);
 int			isempty_node(t_list *cur_obj_pos);
-t_list		*get_node(t_list *cur_obj_pos);
+// t_list		*get_node(t_list *cur_obj_pos);
+t_list		*get_node(t_list **cur_obj_pos);
 t_vec		get_tr_normal(t_tr	*tr);
 
 /*

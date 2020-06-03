@@ -27,3 +27,8 @@ This project is libft project in 42 seoul course
 	4. 실제 충돌 테스트 까지 구현한 부분 테스트 해보기
 		파싱할때 ft_strncmp 함수 앞에 ! 를 안붙여서 에러처리됐음
 		파라미터 개수 체크 부분 실수함
+
+### 6/3
+	1. window 에 색은 표현된다.
+	2. intersect 부분이 잘안돌아가는것 같다.
+	3. intersection 처리, shadow, specluar 부분을 다시 확인하자

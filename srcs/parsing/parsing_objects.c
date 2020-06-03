@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 10:41:21 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/28 09:09:15 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/03 17:14:35 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	parsing_sphere(char **split, t_rt *rt_info)
 	else
 		return (print_error(22, "not doulbe!", rt_info));
 	if (check_str_isdouble(split[2]))
-		sphere->diameter_ = ft_atof(split[2]);
+		sphere->diameter_ = ft_atof(split[2]) / 2;
 	else
 		return (print_error(22, "not integer!", rt_info));
 	if (check_three_arg(split[3], check_str_isdigit))

@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 15:50:38 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/28 10:30:20 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/03 14:38:52 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int	print_error_nofree(int errno, char* comment)
 
 void	print_vec(const t_vec *vec)
 {
-	printf("x : %f\n", vec->x_);
-	printf("y : %f\n", vec->y_);
+	printf("x : %f\t", vec->x_);
+	printf("y : %f\t", vec->y_);
 	printf("z : %f\n", vec->z_);
 }
 
@@ -83,4 +83,20 @@ void	print_matrix(t_matrix *m)
 		}
 		printf("\n");
 	}
+}
+
+void	print_rgb_f(const t_rgb_f *rgb)
+{
+	printf("r : %f\t", rgb->r_);
+	printf("g : %f\t", rgb->g_);
+	printf("b : %f\n", rgb->b_);
+}
+
+void	print_light(t_l *light)
+{
+	printf("[위치] \t");
+	print_vec(&(light->vec_));
+	printf("[rgb] \t");
+	print_rgb_f(&(light->rgb_));
+	printf("[ratio] \t%f\n", light->light_);
 }

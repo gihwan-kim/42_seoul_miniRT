@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 15:58:25 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/02 10:06:08 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/03 17:17:07 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ t_rgb_f	add_color(t_rgb_f *a, t_rgb_f *b)
 {
 	t_rgb_f result;
 
-	result.r_ = fmin(a->r_ + b->r_, 0.9);
-	result.g_ = fmin(a->g_ + b->g_, 0.9);
-	result.b_ = fmin(a->b_ + b->b_, 0.9);
+	result.r_ = fmin(a->r_ + b->r_, 0.99);
+	result.g_ = fmin(a->g_ + b->g_, 0.99);
+	result.b_ = fmin(a->b_ + b->b_, 0.99);
 	return (result);
 }

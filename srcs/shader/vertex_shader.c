@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 11:31:38 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/01 18:07:16 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/03 09:27:28 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ t_ray		make_camera_ray(int x, int y,
 
 	width = (double)(rt_info->t_r_->size_x_);
 	height = (double)(rt_info->t_r_->size_y_);
-	pixel_x = (2 * (x + 0.5) / width - 1) * tan(camera->fov_ / 2 * M_PI / 180)
+	pixel_x = (2 * (x + 0.5) / width - 1) * tan((double)camera->fov_ / 2 * M_PI / 180)
 				* (width / height);
-	pixel_y = (1 - 2 * (y + 0.5) / height) * tan(camera->fov_ / 2 * M_PI / 180);
-	camera_ray.origin_ = multiply_by_matrix(vec_init(0,0,0), c2w);
+	pixel_y = (1 - 2 * (y + 0.5) / height) * tan((double)camera->fov_ / 2 * M_PI / 180);
+	camera_ray.origin_ = multiply_by_matrix(vec_init(0, 0, 0), c2w);
 	camera_ray.direction_ = vec_init(pixel_x, pixel_y, 1);
 	camera_ray.direction_ = multiply_by_matrix(camera_ray.direction_, c2w);
 	camera_ray.direction_ = subtract(&(camera_ray.direction_),

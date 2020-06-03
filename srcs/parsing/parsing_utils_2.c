@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 19:06:14 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/01 18:13:17 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/03 15:35:03 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	store_rgb(const char *str, t_rgb_f *rgb_ptr)
 
 	i = 0;
 	split = ft_split(str, ',');
-	rgb_ptr->r_ = ft_atoi(split[0]) / 255;
-	rgb_ptr->g_ = ft_atoi(split[1]) / 255;
-	rgb_ptr->b_ = ft_atoi(split[2]) / 255;
+	rgb_ptr->r_ = (double)ft_atoi(split[0]) / (double)255;
+	rgb_ptr->g_ = (double)ft_atoi(split[1]) / (double)255;
+	rgb_ptr->b_ = (double)ft_atoi(split[2]) / (double)255;
 }
 
 // check_three_arg 함수로 문자열을 확인한후 함수를 호출할 것!

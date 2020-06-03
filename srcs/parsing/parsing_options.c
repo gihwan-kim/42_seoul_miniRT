@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 10:41:19 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/28 09:01:53 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/03 13:17:38 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,10 @@ int	parsing_light(char **split, t_rt *rt_info)
 		store_rgb(split[3], &(light->rgb_));
 	else
 		return (print_error(22, "not integer!", rt_info));
+	if (rt_info->count_->l_ == 0)
+		rt_info->lst_l_ = ft_lstnew(light);
+	else
+		ft_lstadd_back(&(rt_info->lst_l_),ft_lstnew(light));
 	rt_info->count_->l_ += 1;
-	ft_lstadd_back(&(rt_info->lst_l_),ft_lstnew(light));
 	return (SUCCESS);
 }
