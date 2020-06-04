@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 10:45:03 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/03 13:31:00 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/05 00:19:36 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,16 @@
 #include "mini_rt.h"
 #include "element.h"
 # define t_infinity 424242.0
+
+
+typedef struct s_obj_count
+{
+	int	tr;
+	int cy;
+	int sq;
+	int sp;
+	int pl;
+}				t_obj_count;
 
 /*
 ** shader.c
@@ -35,9 +45,9 @@ t_ray		make_camera_ray(int x, int y,
 ** intersection object c files
 */
 // int			intersection_controller(t_rt *rt_info, t_ray *ray, double *t);
-int			intersection_controller(t_rt *rt_info, t_ray *ray, t_phit *h_obj, double *tnear);
+int			intersection_controller(t_rt *rt_info, t_ray *ray, t_phit *h_obj, double *tnear, t_obj_count *c);
 void		*check_intersection(t_rt *rt_info, t_ray *ray, t_e_obj *type,
-							double *t);
+							double *t, t_obj_count *c);
 t_sp		*intersection_sphere(t_rt *rt_info, t_ray *ray, double *t);
 t_pl		*intersection_plane(t_rt *rt_info, t_ray *ray, double *t);
 t_sq		*intersection_square(t_rt *rt_info, t_ray *ray, double *t);
@@ -69,4 +79,11 @@ void	make_cylinder_normal(t_cy *cylinder, t_vec *normal, t_vec *hit_p);
 void	make_square_normal(t_sq *square, t_vec *normal);
 void	make_triangle_normal(t_tr *triangle, t_vec *normal);
 
+
+/*
+** shader_utils.c
+*/
+
+
+t_vec	calc_hit_point(t_ray *ray, double *t);
 #endif

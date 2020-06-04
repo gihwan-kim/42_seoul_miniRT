@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 10:41:21 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/03 17:14:35 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/04 23:11:59 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ int	parsing_cylinder(char **split, t_rt *rt_info)
 	else
 		return (print_error(22, "Argument of cylinder is not integer!", rt_info));
 	rt_info->count_->cy_ += 1;
-	ft_lstadd_back(&(rt_info->lst_cy_),ft_lstnew(cylinder));
+	ft_lstadd_back(&(rt_info->lst_cy_), ft_lstnew(cylinder));
 	return (SUCCESS);
 }
 

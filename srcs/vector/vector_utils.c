@@ -40,6 +40,7 @@ double	vector_len(t_vec *a)
 	return sqrt(pow(a->x_, 2) + pow(a->y_, 2) + pow(a->z_, 2));
 }
 
+
 t_vec	multiply_by_matrix(t_vec vec, t_matrix *m)
 {
 	t_vec return_val;

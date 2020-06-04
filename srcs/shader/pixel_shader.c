@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 11:09:56 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/03 17:18:19 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/05 00:30:04 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static	t_rgb_f calc_color(t_rt *rt_info, t_l *light_source, t_phit *obj_info)
 	double	len;
 
 	t_phit	nothing;
-
+	t_obj_count nothing1;
 	// light_dir = subtract(&(light_source->vec_), hit_point);
 	// len = vector_len(&light_dir);
 	// light_dir = normalize(&light_dir);
@@ -125,7 +125,7 @@ static	t_rgb_f calc_color(t_rt *rt_info, t_l *light_source, t_phit *obj_info)
 	shadow_ray.direction_ = normalize(&(shadow_ray.direction_));
 	shadow_ray.origin_ = obj_info->hit_point;
 	t = t_infinity;
-	vis = !intersection_controller(rt_info, &shadow_ray, &nothing, &t);
+	vis = !intersection_controller(rt_info, &shadow_ray, &nothing, &t, &nothing1);
 	facing_ratio = 0;
 
 	// vis true or len 보다 t 가 더 클 경우 -> 물체 빛 or 물체 빛 물체 순서
@@ -151,26 +151,18 @@ static	t_rgb_f calc_color(t_rt *rt_info, t_l *light_source, t_phit *obj_info)
 
 int			pixel_shader(t_rt *rt_info, t_ray *camera_ray, double *t, t_phit *obj_info)
 {
-	// t_vec	hit_point;
-	// t_vec	hit_normal;
-	t_vec	p_dot_d;
 	t_list	*cur_light_node;
 	t_rgb_f	calc_result;
 	t_rgb_f ambient_color;
 	t_rgb_f	color;
 
-	p_dot_d = multiply(&(camera_ray->direction_), *t);
-	obj_info->hit_point = add(&(camera_ray->origin_), &p_dot_d);
+	obj_info->hit_point = calc_hit_point(camera_ray, t);
 	calc_normal(obj_info, camera_ray);
 	obj_info->cam_ray = camera_ray;
-	cur_light_node = get_node(&(rt_info->lst_pos.cur_l));
-	while (cur_light_node)
+	while ((cur_light_node = get_node(&(rt_info->lst_pos.cur_l))))
 	{
-		// color += calc_color(rt_info, (t_l*)(cur_light_node->content),
-		// 					&hit_point, &hit_normal);
 		calc_result = calc_color(rt_info, (t_l*)(cur_light_node->content), obj_info);
 		color = add_color(&color, &calc_result);
-		cur_light_node = get_node(&(rt_info->lst_pos.cur_l));
 	}
 	ambient_color = rt_info->t_a_->rgb_;
 	multi_colorf(&ambient_color, rt_info->t_a_->light_);

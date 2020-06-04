@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 10:44:12 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/03 16:58:32 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/05 00:07:10 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static t_rgb_f	get_h_obj_color(t_phit *h_obj_info)
 // 픽셀 중심에서 점의 위치를 계산 하려면 원래 래스터 공간으로 표현된 픽셀 좌표를 변환해야한다.(월드공간으로)
 // world space : object, light, camera 가 모두 표현되는 공간
 // t : ray origin 과 ray 가 만나는점 간의 거리
-static int	shader(t_rt *rt_info, t_ray *camera_ray)
+static int	shader(t_rt *rt_info, t_ray *camera_ray, t_obj_count *c)
 {
 	t_phit	h_obj_info;
 	// t_rgb_f ambient_color;
@@ -44,16 +44,13 @@ static int	shader(t_rt *rt_info, t_ray *camera_ray)
 	int		color;
 
 	t = t_infinity;
-	if (intersection_controller(rt_info, camera_ray, &h_obj_info, &t))
+	if (intersection_controller(rt_info, camera_ray, &h_obj_info, &t, c))
 	{
 		// multi_colorf(&ambient_color, rt_info->t_a_->light_);
 		h_obj_info.colorf = get_h_obj_color(&h_obj_info);
-		// write(1, "obj check\n", 11);
 		// ambient_color = colorf_multi_colorf(&ambient_color, &(h_obj_info.colorf));
 		color = pixel_shader(rt_info, camera_ray, &t, &h_obj_info);
-		// printf("final : %d\n", color);
 		return (color);
-		// return (200);
 	}
 	else// background color
 		return (0);
@@ -66,33 +63,26 @@ int			make_img(t_rt *rt_info, int width, int height)
 	t_c			*camera;
 	int			h;
 	int			w;
+	t_obj_count		c;
 
+	c.tr = 0; c.cy =0; c.sq = 0; c.pl = 0;
 	h = -1;
 	if(!(camera = get_camera(rt_info)))
 		return (ERROR);
 	cam_to_wrold = lookat(camera);
-	// printf("cam_to_world\n");
-	// print_matrix(&cam_to_wrold);
-	// test = make_camera_ray(500, 500, &cam_to_wrold, rt_info, camera);
-	// pr
-	// printf("height: %d\t widht: %d\n", height, width);
-	// height = 10;
-	// width = 15;
 	while (++h < height)
 	{
 		w = -1;
 		while (++w < width)
 		{
 			camera_ray = make_camera_ray(w, h, &cam_to_wrold, rt_info, camera);
-			// printf("ray direction\n");
-			// print_vec(&(camera_ray.direction_));
-			// printf("ray origin\n");
-			// print_vec(&(camera_ray.origin_));
-			rt_info->img_.data[h * width + w] = shader(rt_info, &camera_ray);
-			// printf("now color : %d\n", rt_info->img_.data[h * width + w]);
+			rt_info->img_.data[h * width + w] = shader(rt_info, &camera_ray, &c);
 		}
-		// if (h == height/4)
-		// 	return (SUCCESS);
 	}
+	printf("sphere\t:%d\n",c.sp);
+	printf("square\t:%d\n",c.sq);
+	printf("plane \t:%d\n",c.pl);
+	printf("triang\t:%d\n",c.tr);
+	printf("cylind\t:%d\n",c.cy);
 	return (SUCCESS);
 }

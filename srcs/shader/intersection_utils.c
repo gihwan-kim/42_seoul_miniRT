@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/22 20:29:30 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/03 14:00:13 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/04 23:18:17 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	quadratic_formula(t_vec *quad, double *x_0, double *x_1)
 	double tmp;
 	double q;
 
-	d = (quad->y_ * quad->y_) - (4 * 1.0 * quad->z_);
+	d = (quad->y_ * quad->y_) - (4 * quad->x_ * quad->z_);
 
 	if (d < 0)
 		return (ERROR);
