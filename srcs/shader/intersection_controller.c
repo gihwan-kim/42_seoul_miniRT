@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/22 17:54:53 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/04 21:55:10 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/05 13:49:20 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,8 @@ int		intersection_controller(t_rt *rt_info, t_ray *ray, t_phit *h_obj_info, doub
 		ret = check_intersection(rt_info, ray, &type, &cur_t, c);
 		if (ret)
 		{
-			// write(1, "near check\n", 12);
-			// printf("cur_t : %f\ttnear : %f\n", cur_t, *tnear);
 			if (cur_t < *tnear)
 			{
-				// write(1, "checked\n", 9);
 				*tnear = cur_t;
 				h_obj_info->obj = ret;
 				h_obj_info->type = type;
@@ -53,14 +50,9 @@ int		intersection_controller(t_rt *rt_info, t_ray *ray, t_phit *h_obj_info, doub
 			}
 		}
 	}
-	// write(1, "pos check\n", 11);
 	reset_obejct_pos(&(rt_info->lst_pos), rt_info->count_);
-	// write(1, "obj check\n", 11);
 	if (h_obj_info->obj)
-	{
-		// write(1, "checked\n", 11);
 		return (TRUE);
-	}
 	return (FALSE);
 }
 

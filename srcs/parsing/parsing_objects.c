@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 10:41:21 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/04 23:11:59 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/05 23:49:11 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** identifier: sp
 ** x,y,z coordinates of the sphere center
 ** the sphere diameter
-** R,G,B colors in range [0-255]
+** R,G,B colors in range [0-256]
 */
 
 int	parsing_sphere(char **split, t_rt *rt_info)
@@ -48,7 +48,7 @@ int	parsing_sphere(char **split, t_rt *rt_info)
 ** identifier: pl
 ** x,y,z coordinates
 ** 3d normalized orientation vector. In range [-1,1] for each x,y,z axis
-** R,G,B colors in range [0-255]
+** R,G,B colors in range [0-256]
 */
 
 int	parsing_plane(char **split, t_rt *rt_info)
@@ -81,7 +81,7 @@ int	parsing_plane(char **split, t_rt *rt_info)
 ** x,y,z coordinates of the square center
 ** 3d normalized orientation vector. In range [-1,1] for each x,y,z axis
 ** side size
-** R,G,B colors in range [0-255]
+** R,G,B colors in range [0-256]
 */
 
 int	parsing_square(char **split, t_rt *rt_info)
@@ -119,7 +119,7 @@ int	parsing_square(char **split, t_rt *rt_info)
 ** 3d normalized orientation vector. In range [-1,1] for each x,y,z axis
 ** the cylinder diameter
 ** the cylinder height
-** R,G,B colors in range [0,255]
+** R,G,B colors in range [0,256]
 */
 
 int	parsing_cylinder(char **split, t_rt *rt_info)
@@ -160,7 +160,7 @@ int	parsing_cylinder(char **split, t_rt *rt_info)
 ** x,y,z coordinates of the first point
 ** x,y,z coordinates of the second point
 ** x,y,z coordinates of the third point
-** R,G,B colors in range [0,255]
+** R,G,B colors in range [0,256]
 */
 
 int	parsing_triangle(char **split, t_rt *rt_info)

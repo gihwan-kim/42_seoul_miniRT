@@ -836,6 +836,11 @@ he ray and the object (if an intersection has occurred).
 
 					< Shadow-Acne: Avoiding Self-Intersection, 물체에 점이 생기는 현상을 피하는 법 >
 						수학적인 수치 차이 때문에 shadow ray 의 시작점이 조금 차이가 생겨 발생하는 현상
+						[ 해결방법 ]
+							1. float 형 데이터 타입이 아닌 double 형을 사용한다.
+								완전하게 해결되지는 않는다.
+							2. shadow ray 의 원점을 N 이 속한 표면위의 점으로 변경한다.
+
 
 			8. Spherical Light
 

@@ -37,7 +37,7 @@ t_vec	vec_init(const double x, const double y,const double z)
 
 double	vector_len(t_vec *a)
 {
-	return sqrt(pow(a->x_, 2) + pow(a->y_, 2) + pow(a->z_, 2));
+	return sqrt(pow(a->x_, 2.0) + pow(a->y_, 2.0) + pow(a->z_, 2.0));
 }
 
 

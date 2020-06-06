@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 10:45:03 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/05 00:19:36 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/05 22:17:02 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_obj_count
 	int sq;
 	int sp;
 	int pl;
+	int check;
 }				t_obj_count;
 
 /*
@@ -73,11 +74,11 @@ int			pixel_shader(t_rt *rt_info, t_ray *camera_ray, double *t, t_phit *obj_info
 /*
 ** make_normal.c
 */
-void	make_plane_normal(t_pl *plane, t_vec *normal);
-void	make_sphere_normal(t_sp *sphere, t_vec *normal, t_vec *hit_p);
-void	make_cylinder_normal(t_cy *cylinder, t_vec *normal, t_vec *hit_p);
-void	make_square_normal(t_sq *square, t_vec *normal);
-void	make_triangle_normal(t_tr *triangle, t_vec *normal);
+t_vec	make_plane_normal(t_pl *plane);
+t_vec	make_sphere_normal(t_sp *sphere, t_vec *hit_p);
+t_vec	make_cylinder_normal(t_cy *cylinder, t_vec *hit_p);
+t_vec	make_square_normal(t_sq *square);
+t_vec	make_triangle_normal(t_tr *triangle);
 
 
 /*

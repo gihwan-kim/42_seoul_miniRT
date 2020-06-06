@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 10:44:12 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/05 00:07:10 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/06 10:26:47 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static int	shader(t_rt *rt_info, t_ray *camera_ray, t_obj_count *c)
 		h_obj_info.colorf = get_h_obj_color(&h_obj_info);
 		// ambient_color = colorf_multi_colorf(&ambient_color, &(h_obj_info.colorf));
 		color = pixel_shader(rt_info, camera_ray, &t, &h_obj_info);
+		// if (color < 0)
+		// 	color *= -1;
 		return (color);
 	}
 	else// background color
@@ -65,7 +67,7 @@ int			make_img(t_rt *rt_info, int width, int height)
 	int			w;
 	t_obj_count		c;
 
-	c.tr = 0; c.cy =0; c.sq = 0; c.pl = 0;
+	c.tr = 0; c.cy =0; c.sq = 0; c.pl = 0; c.check = 0;
 	h = -1;
 	if(!(camera = get_camera(rt_info)))
 		return (ERROR);

@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 11:44:13 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/03 15:38:10 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/06 00:00:32 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	check_light(t_rt *rt_info)
 		print_light(light);
 		cur_light_node = get_node(&(rt_info->lst_pos.cur_l));
 	}
+	if (rt_info->count_->l_)
+		rt_info->lst_pos.cur_l = rt_info->lst_pos.fst_l;
 }
 
 void	check_ambient(t_rt *rt_info)
@@ -220,6 +222,30 @@ int	main(int argc, char **argv)
 			return (0);
 		ft_bzero(rt_info, sizeof(t_rt));
 		parsing_rt_file(argv[1], rt_info);
+
+		// printf("\n<ambient>\n");
+		// check_ambient(rt_info);
+
+		// printf("\n<caemera>\n");
+		// check_camera(rt_info);
+
+		// printf("\n<cylinder>\n");
+		// check_cylinder(rt_info);
+
+		// printf("\n<light>\n");
+		// check_light(rt_info);
+
+		// printf("\n<plane>\n");
+		// check_plane(rt_info);
+
+		// printf("\n<spehre>\n");
+		// check_sphere(rt_info);
+
+		// printf("\n<square>\n");
+		// check_square(rt_info);
+
+		// printf("\n<triangle>\n");
+		// check_triangle(rt_info);
 		make_window(rt_info);
 		if(!make_img(rt_info, rt_info->t_r_->size_x_, rt_info->t_r_->size_y_))
 			return print_error_comment("image make fail!", rt_info);
