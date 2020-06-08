@@ -13,12 +13,6 @@
 #include "vector.h"
 
 /*
-** 최신 c 는 같은 데이터 형이라면 한 구조체를 다른 구조체에 대입하는 것을 허용한다.
-** 각 멤버의 값이 대응되어 대입된다.
-** 멤버가 배열일 경우도 대입된다.
-*/
-
-/*
 ** In modern C if two structs is same data type one struct can be assignment-
 ** to another struct.
 ** Each memeber assignment to another struct.
@@ -104,19 +98,6 @@ void	matrix_zero(t_matrix *m)
 	{
 		j = -1;
 		while (j++ < 4)
-		{
 			m->matrix[i][j] = 0.0;
-		}
 	}
 }
-
-// t_vec	*new_vector(double x, double y, double z)
-// {
-// 	t_vec *new_vec;
-
-// 	new_vec = ft_calloc(1, sizeof(t_vec));
-// 	new_vec->x_ = x;
-// 	new_vec->y_ = y;
-// 	new_vec->z_ = z;
-// 	return (new_vec);
-// }

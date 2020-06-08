@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 10:45:03 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/05 22:17:02 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/08 14:01:04 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ typedef struct s_obj_count
 /*
 ** shader.c
 */
-int			make_img(t_rt *rt_info, int width, int height);
+// int			make_img(t_rt *rt_info, int width, int height);
+int			make_img(t_rt *rt_info, t_c *camera, int width, int height);
 
 /*
 ** vertex_shader.c

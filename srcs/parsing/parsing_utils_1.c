@@ -6,16 +6,9 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 10:53:56 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/05/28 10:05:48 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/09 07:58:18 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-** 필요한 함수
-** 	array to float
-** 	array is int -> ft_isdigit
-** 	array is float
-*/
 
 #include "parsing.h"
 
@@ -42,7 +35,10 @@ int		check_str_isdigit(const char *str)
 	return (SUCCESS);
 }
 
-// 문자열이 "number.number" 와같은 형태인지 확인한다.
+/*
+** check str is number.number or number
+*/
+
 int		check_str_isdouble(const char *str)
 {
 	char	**split;
@@ -52,7 +48,6 @@ int		check_str_isdouble(const char *str)
 	split = ft_split(str, '.');
 	if (!split)
 		return (ERROR);
-	// printf("split[0] : |%s|\n count : %ld\n", split[0], get_argument_count(split));
 	if (get_argument_count(split) == 1)
 	{
 		if (!check_str_isdigit(str))
@@ -92,53 +87,21 @@ static double itof_under_decimal_point(size_t n, unsigned int integer)
 	return (result);
 }
 
-// str문자열은 무조건 "numuber.number " 형태이어야한다.
-// str을 넘겨주기 전에 str 이 위 형태인지 확인을 하고 함수를 호출 할것
-// "111.111" -> 111.111
-// "111.111, 111.1111" X
+/*
+** Call ft_atof after check str formula is single "number.number"
+** not "number.number number.number"
+*/
 double	ft_atof(const char *str)
 {
 	double	result;
 	char 	**split;
 	size_t	split_count;
 	double	sign;
-	// int		i;
 
-	// i = 0;
 	split = ft_split(str, '.');
 	split_count = get_argument_count(split);
 	if (split_count == 1)
 		return result = (double)ft_atoi(str);
-	// while (split[i])
-	// 	i++;
-	// if (!split || i >= 3)
-	// 	return (0.0);
-	// char **split;
-	// int i;
-	// i = 0;
-	// split = ft_split(str, '.');
-	// while(split[i])
-	// 	i++;
-	// if (!split || i >= 3)
-	// 	return (0.0);
-	// if (split[0][0] == '-')
-	// {
-	// 	if (!check_str_isdigit(split[0] + 1))
-	// 		return (0.0);
-	// }
-	// else
-	// {
-	// 	if(!(check_str_isdigit(split[0])))
-	// 		return (0.0);
-	// }
-	// if (!(check_str_isdigit(split[1])))
-	// 	return (0.0);
-
-	// integer = ft_atoi(split[1]);
-
-
-	// result = (double)ft_atoi(split[0]);
-
 	if (split[0][0] == '-')
 	{
 		sign = -1.0;
@@ -149,10 +112,6 @@ double	ft_atof(const char *str)
 		sign = 1.0;
 		result = (double)ft_atoi(split[0]);
 	}
-	
-	// if (i == 2)
-	// 	result += itof_under_decimal_point(ft_strlen(split[1]), ft_atoi(split[1]));
-	
 	if (split_count == 2)
 		result += itof_under_decimal_point(ft_strlen(split[1]), ft_atoi(split[1]));
 	result *= sign;

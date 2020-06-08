@@ -35,6 +35,7 @@ PARSING_SRC = \
 			parsing_options.c \
 			parsing_utils_1.c \
 			parsing_utils_2.c \
+			parsing_utils_3.c \
 			parsing.c
 PARSING_SRC_DIR = ./srcs/parsing
 
@@ -68,7 +69,7 @@ SRCS_LIST =  \
 		$(addprefix $(COLOR_SRC_DIR)/, $(COLOR_SRC)) \
 		./srcs/main.c
 		# ./srcs/test.c
-OBJS = ${SRCS_LIST:%c.=%.o}
+OBJS = $(SRCS_LIST:%c.=%.o)
 all: $(NAME)
 
 

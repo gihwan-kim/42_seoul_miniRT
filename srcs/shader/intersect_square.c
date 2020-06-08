@@ -6,12 +6,11 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:47:15 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/05 00:29:27 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/07 13:04:44 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shader.h"
-
 
 t_sq	*intersection_square(t_rt *rt_info, t_ray *ray, double *t)
 {

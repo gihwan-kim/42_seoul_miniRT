@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 15:58:25 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/06 09:40:53 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/07 12:59:14 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,6 @@ int	change_type_colorf_to_int(t_rgb_f *color)
 	color_int.color_array[0] = color->b_ * 256;
 	return (color_int.combination);
 }
-
-/*
-** convert color which is data type int information to double
-*/
-
-// t_rgb_f	int_to_float(t_rgb *rgb_int)
-// {
-// 	t_rgb_f rgb_double;
-
-// 	rgb_double.r_ = rgb_int->r_ / 256;
-// 	rgb_double.g_ = rgb_int->g_ / 256;
-// 	rgb_double.b_ = rgb_int->b_ / 256;
-// }
-
-// void	multi_colorf_2(t_rgb_f *color, t_rgb_f *ch, double coeff)
-// {
-// 	t_rgb_f result;
-
-// 	result.r_ = fmin(color->r_ * coeff, 1);
-// 	result.g_ *= fmin(color->g_ * coeff, 1);
-// 	result.b_ *= fmin(color->b_ * coeff, 1);
-// 	return (result)	;
-// }
 
 t_rgb_f	multi_colorf(t_rgb_f *color, double coeff)
 {

@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 11:09:56 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/06 10:56:12 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/07 15:43:59 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,11 @@
 ** camera 쪽을 바라봐야함
 ** camera_ray direction 과 normal 의 각은 둔각이 되어야한다.
 */
-// static void	calc_normal(t_rt *rt_info,
-// 						t_vec *hit_p,
-// 						t_vec *hit_n,
-// 						t_ray *ray)
 static	void calc_normal(t_phit *obj_info, t_ray *ray)
 {
 	t_e_obj hit_obj_type;
-	// t_vec	*hit_n_ptr;
-	// t_vec	*hit_p_ptr;
 	void	*obj;
 
-	// hit_p_ptr = &(obj_info->hit_point);
-	// hit_p_ptr = &(obj_info->hit_normal);
 	hit_obj_type = obj_info->type;
 	obj = obj_info->obj;
 	if (hit_obj_type == plane)
@@ -47,8 +39,6 @@ static	void calc_normal(t_phit *obj_info, t_ray *ray)
 		vec_inverse(&(obj_info->hit_normal));
 }
 
-// static	t_rgb_f	calc_specular(t_ray *shadow_ray, t_phit *obj_info,
-// 												t_l *light_source)
 static t_rgb_f	calc_specular(t_ray *shadow_ray, t_phit *obj_info,
 												t_rgb_f *light_color)
 {
@@ -58,7 +48,6 @@ static t_rgb_f	calc_specular(t_ray *shadow_ray, t_phit *obj_info,
 	double	n_dot_s;
 	double	r_dot_c;
 
-	// inverse_cam_ray_direction = shadow_ray->direction_;
 	inverse_cam_ray_direction = obj_info->cam_ray->direction_;
 	vec_inverse(&inverse_cam_ray_direction);
 	n_dot_s = fmax(dot_product(&(obj_info->hit_normal),
@@ -70,12 +59,10 @@ static t_rgb_f	calc_specular(t_ray *shadow_ray, t_phit *obj_info,
 	r_dot_c = fmax(dot_product(&reflection_ray_direction,
 						&inverse_cam_ray_direction), 0.0);
 	r_dot_c = pow(r_dot_c, 10);
-	// specular = colorf_multi_colorf(&(light_source->rgb_), &(obj_info->colorf));
-	specular_color.r_ = 0.9;
-	specular_color.g_ = 0.9;
-	specular_color.b_ = 0.9;
-	
-	// specular_color = colorf_multi_colorf(light_color, &(obj_info->colorf));
+	// specular_color.r_ = 0.9;
+	// specular_color.g_ = 0.9;
+	// specular_color.b_ = 0.9;
+	specular_color = init_color(0.9);
 	specular_color = colorf_multi_colorf(light_color, &(specular_color));
 	specular_color = multi_colorf(&specular_color, r_dot_c);
 	return (specular_color);
@@ -143,21 +130,14 @@ static	t_rgb_f calc_color(t_rt *rt_info, t_l *light_source, t_phit *obj_info)
 	// final_color = init_color(0);
 	if (vis || t > len) // 그림자 x
 		facing_ratio = fmax(0.0, dot_product(&(obj_info->hit_normal), &(shadow_ray.direction_)));
-
 	light_color = multi_colorf(&(light_source->rgb_), light_source->light_);
 	final_color = colorf_multi_colorf(&(light_color), &(obj_info->colorf));
-	// if (final_color.r_ < 0 || final_color.g_ < 0 || final_color.b_ < 0)
-	// 	printf("|%f\t%f\t%f|\t", final_color.r_, final_color.g_, final_color.b_);
 	final_color = multi_colorf(&final_color, facing_ratio);
-
-	// if (final_color.r_ < 0 || final_color.g_ < 0 || final_color.b_ < 0)
-		// printf("|%f\t%f\t%f|\t", final_color.r_, final_color.g_, final_color.b_);
 	// specular
 	if (facing_ratio)
 	{
 		specluar_color = calc_specular(&shadow_ray, obj_info, &light_color);
 		// specluar_color =  multi_colorf(&specluar_color, vis);
-		// printf("%f\t", specluar_color.r_ + specluar_color.g_ + specluar_color.b_);
 		final_color = add_color(&final_color, &specluar_color);
 	}
 	return (final_color);
@@ -178,8 +158,6 @@ int			pixel_shader(t_rt *rt_info, t_ray *camera_ray, double *t, t_phit *obj_info
 	{
 		cur_light_node = get_node(&(rt_info->lst_pos.cur_l));
 		calc_result = calc_color(rt_info, (t_l*)(cur_light_node->content), obj_info);
-	// if (calc_result.r_ < 0 || calc_result.g_ < 0 || calc_result.b_ < 0)
-	// 	printf("|%f\t%f\t%f|\t", calc_result.r_, calc_result.g_, calc_result.b_);
 		color = add_color(&color, &calc_result);
 	}
 	reset_light_pos(&(rt_info->lst_pos), rt_info->count_);
@@ -188,25 +166,18 @@ int			pixel_shader(t_rt *rt_info, t_ray *camera_ray, double *t, t_phit *obj_info
 	// ambient_color = colorf_multi_colorf(&(rt_info->t_a_->rgb_), &(obj_info->colorf));
 	ambient_color = colorf_multi_colorf(&(ambient_color), &(obj_info->colorf));
 	color = add_color(&color, &ambient_color);
-	if (color.r_ < 0 || color.g_ < 0 || color.b_ < 0)
-		printf("|%f\t%f\t%f|\t", color.r_, color.g_, color.b_);
-
-	
 	// t_union_color	color_int;
 	int r = color.r_ * 256;
 	int g = color.g_ * 256;
 	int b = color.b_ * 256;
-	// printf("|%d\t%d\t%d|\t", r, g, b);
 	// color_int.color_array[2] = r;
 	// color_int.color_array[1] = g;
 	// color_int.color_array[0] = b;
 
-	int color_a = 	65536 * r + 256 * g + b;
+	int color_a = 65536 * r + 256 * g + b;
 	// return (color_int.combination);
 	// int  a;
 	// a = change_type_colorf_to_int(&color);
-	// if (color_int.combination < 0)
-	// printf("%d", color_int.combination);
 	// return (color_int.combination);
 	return (color_a);
 }

@@ -6,22 +6,23 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 10:14:59 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/05 00:25:59 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/07 13:04:39 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shader.h"
 
-// d : discriminant
-
-// a = 1
-// b = 2D(O − C)
-// c = |O − C|^2 − R^2
-// t0 > 0, t1 > 0 : ray 가 구에 두점에서 만난다.
-// t0 < 0, t1 > 0 : ray 의 원점이 구 안에 있다.
-// t0 < 0, t1 < 0 : ray 의 방향벡터 반대방향에 구가 있다고.
-// t0, t1 이 없다  : 교차하지 않는다.
-// t0 > 0, t1 < 0 : 불가능 t0 은 항상 t1 보다 작거나 같다.
+/*
+** d : discriminant
+** a = 1
+** b = 2D(O − C)
+** c = |O − C|^2 − R^2
+** t0 > 0, t1 > 0 : ray 가 구에 두점에서 만난다.
+** t0 < 0, t1 > 0 : ray 의 원점이 구 안에 있다.
+** t0 < 0, t1 < 0 : ray 의 방향벡터 반대방향에 구가 있다고.
+** t0, t1 이 없다  : 교차하지 않는다.
+** t0 > 0, t1 < 0 : 불가능 t0 은 항상 t1 보다 작거나 같다.
+*/
 t_sp	*intersection_sphere(t_rt *rt_info, t_ray *ray, double *t)
 {
 	t_vec	quadratic_info;

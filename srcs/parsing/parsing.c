@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 10:21:26 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/03 12:15:13 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/07 13:03:52 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int	check_identifier(char **split, t_rt *rt_info)
 	size_t len;
 	(void)rt_info;
 	len = (ft_strlen(split[0]) > 1) ? ft_strlen(split[0]) : 1;
-	// printf("identifier : |%s|\tsize_t : %ld\n", split[0], len);
 	if (!ft_strncmp(split[0], "R", len))
 		parsing_resolution(split, rt_info);
 	else if(!ft_strncmp(split[0], "A", len))

@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/22 20:29:30 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/04 23:18:17 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/07 13:16:10 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,10 @@ t_matrix	lookat(const t_c *camera)
 	temp_up = vec_init(0, 1, 0);
 	forward = camera->orient_vec_;
 	forward = normalize(&forward);
-	// temp_up = normalize(&temp_up);
 	right = cross_product(&temp_up, &forward);
 	right = normalize(&right);
 	up = cross_product(&forward, &right);
 	up = normalize(&up);
-	// print_vec(&(camera->vec_));
 	camera_to_world.matrix[0][0] = right.x_;
 	camera_to_world.matrix[0][1] = right.y_;
 	camera_to_world.matrix[0][2] = right.z_;
@@ -109,14 +107,3 @@ int	quadratic_formula(t_vec *quad, double *x_0, double *x_1)
 	}
 	return (SUCCESS);
 }
-
-// t_sp		*get_sphere(t_rt *rt_info)
-// {
-// 	t_sp *sphere;
-
-// 	sphere = NULL;
-// 	if (rt_info->count_->sp_)
-// 		sphere = rt_info->lst_pos.cur_sp->content;
-// 	return (sphere);
-// }
-

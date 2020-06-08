@@ -899,5 +899,43 @@ he ray and the object (if an intersection has occurred).
 					광자(빛을 이루는 요소)에게 일어나는 현상이다.
 					입사각과 반사각이 서로 같다.
 
+			9. The Phong Model
+
+				diffuse + specular + ambient + emmisve
+
+				물체(object)	: 물체
+				물질(material)	: 물체를 이루는 재료
+				이전에 언급한것처럼 대부분의 물체들은 diffuse 와 glossy 속성을 모두 가지고 있는 것으로
+				표현될 수 있다.
+				이 두가지 속성을 가지고 있는 이유는 물체들은 여러 물질들로 이루어져 있기 때문이다.
+				물질 또한 여러 물질들로 이루어져 있기 때문이다.
+				어떤 물질이 빛을 반사(reflect)할동안 또 다른 물질은 빛을 확산(diffuse)시킨다.
+
+				## specular
+					### glossy
+						평편한 거울의 표면과 달리 울퉁불퉁한 거울과 비슷하다.
+						빛이 서로 다른 방향으로 반사된다.
+						물체 표면(거친 표면)에 반사된 빛을 흐려지게 만드는 효과가 된다.
+						일반 거울 같은 표면의 반사보다 좀더 흐리게 보인다.
+
+						mirror surface 의 경우 light source 로 부터 방출된 빛이 반사된 camera ray 가
+						모두 우리 눈으로 온다면
+						glossy surface 의 경우 mirror suface 와 같은 경로인 반사된 빛이 우리 눈으로
+						안오는 경우도 있다. -> 우리 눈으로 반사된 빛이 적게 들어오기 때문에 물체의 밝기 또한 낮아지게 된다.
+
+					### 구현
+						위와같은 효과를 구현하기 위해서
+						우리가 해당 물체의 한 점을 바라보는 방향(camera ray) : V
+						light source 로 부터 방출된 빛(입사광 - L)이 반사된 빛의 방향(refelection ray) : 반사광 -R
+						한점의 반사를 보기 위해서는  V 와 R 이 일치해야한다. -> v 와 R 의 내적이 1 일 경우
+						R = 2(N⋅L)N − L
+						Specular ≈ V⋅R
+						v 와 r 의 내적값인 cos 은 각도에 따른 빛의 편차가 너무 낮기 떄문에 cos 에 n 제곱을 줘서
+						각도에 따른 빛의 양을 줄여준다.
+
+						
+
+				
+
 
 			

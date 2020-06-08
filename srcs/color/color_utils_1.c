@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 16:32:34 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/01 18:42:09 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/07 12:58:58 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,3 @@ t_rgb_f	get_plane_color(t_pl *plane)
 {
 	return (plane->rgb_);
 }
-
-// void	calc_light_amount(t_l *light, t_rgb_f *light_amount)
-// {
-// 	light_amount->r_ = light->rgb_.r_ * light->light_;
-// 	light_amount->g_ = light->rgb_.g_ * light->light_;
-// 	light_amount->b_ = light->rgb_.b_ * light->light_;
-// }

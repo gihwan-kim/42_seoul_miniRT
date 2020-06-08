@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 14:47:42 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/05 22:13:21 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/07 13:16:33 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,6 @@ t_vec	make_cylinder_normal(t_cy *cylinder, t_vec *hit_p)
 	normal = add(&cy_vec_to_hit_p, &axis);
 	normal = normalize(&normal);
 	return (normal);
-	// cy_vec_to_hit_p = subtract(hit_p, &(cylinder->vec_));
-	// coeff = dot_product(&(cylinder->orient_vec_), &cy_vec_to_hit_p);
-	// normal = multiply(&(cylinder->orient_vec_), coeff);
-	// normal = subtract(&cy_vec_to_hit_p, normal);
-	// normal = normalize(normal);
 }
 
 t_vec	make_square_normal(t_sq *square)

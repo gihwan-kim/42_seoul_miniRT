@@ -6,12 +6,11 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 21:27:23 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/05 00:29:21 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/07 13:04:16 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shader.h"
-
 
 /*
 ** hit point must be between top cap and bottom cap

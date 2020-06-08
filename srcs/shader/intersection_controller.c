@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/22 17:54:53 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/05 13:49:20 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/07 13:15:06 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,36 +66,26 @@ void	*check_intersection(t_rt *rt_info, t_ray *ray, t_e_obj *type,
 	{
 		*type = sphere;
 		c->sp += 1;
-		return (ret);
 	}
 	else if ((ret = intersection_plane(rt_info, ray, t)))
 	{
 		*type = plane;
 		c->pl += 1;
-		// printf("plane!\n");
-		return (ret);
 	}
 	else if ((ret = intersection_square(rt_info, ray, t)))
 	{
 		*type = square;
 		c->sq += 1;
-		// printf("square!\n");
-		return (ret);
 	}
 	else if ((ret = intersection_cylinder(rt_info, ray, t)))
 	{
 		*type = cylinder;
 		c->cy += 1;
-		// printf("cylinder!\n");
-		return (ret);
 	}
 	else if ((ret = intersection_triangle(rt_info, ray, t)))
 	{
 		*type = triangle;
 		c->tr += 1;
-
-		// printf("triangle!\n");
-		return (ret);
 	}
 	return (ret);
 }
