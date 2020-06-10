@@ -84,6 +84,6 @@ clean :
 	rm $(NAME)
 
 norminette :
-	norminette $(SRCS_LIST)
+	norminette $(SRCS_LIST) ./include
 
 fclena : clean all

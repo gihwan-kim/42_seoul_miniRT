@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 10:14:59 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/10 19:38:53 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 20:52:13 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 ** t0, t1 이 없다  : 교차하지 않는다.
 ** t0 > 0, t1 < 0 : 불가능 t0 은 항상 t1 보다 작거나 같다.
 */
+
 t_sp	*intersection_sphere(t_rt *rt_info, t_ray *ray, double *t)
 {
 	t_vec	quadratic_info;
@@ -37,9 +38,10 @@ t_sp	*intersection_sphere(t_rt *rt_info, t_ray *ray, double *t)
 		return (NULL);
 	vec_o_to_c = subtract(&(ray->origin_), &(cur_sphere->vec_));
 	quadratic_info.x_ = 1.0;
-	quadratic_info.y_= 2.0 * dot_product(&(ray->direction_), &vec_o_to_c);
-	quadratic_info.z_ = pow(vector_len(&vec_o_to_c), 2.0) - pow(cur_sphere->diameter_, 2.0);
-	if(!quadratic_formula(&quadratic_info, &t_0, &t_1))
+	quadratic_info.y_ = 2.0 * dot_product(&(ray->direction_), &vec_o_to_c);
+	quadratic_info.z_ = pow(vector_len(&vec_o_to_c), 2.0)
+						- pow(cur_sphere->diameter_, 2.0);
+	if (!quadratic_formula(&quadratic_info, &t_0, &t_1))
 		return (NULL);
 	if (t_0 < 0)
 	{

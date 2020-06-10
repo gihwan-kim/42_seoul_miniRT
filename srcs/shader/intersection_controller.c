@@ -6,13 +6,13 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/22 17:54:53 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/10 19:48:23 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 22:25:14 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shader.h"
 
-static void	reset_obejct_pos(t_lst_position *lst_pos, t_count* count)
+static void	reset_obejct_pos(t_lst_position *lst_pos, t_count *count)
 {
 	if (count->sp_)
 		lst_pos->cur_sp = lst_pos->fst_sp;
@@ -26,29 +26,29 @@ static void	reset_obejct_pos(t_lst_position *lst_pos, t_count* count)
 		lst_pos->cur_sq = lst_pos->fst_sq;
 }
 
-int		intersection_controller(t_rt *rt_info, t_ray *ray, t_phit *h_obj_info, double *tnear)
+int			intersection_controller(t_rt *rt_info,
+									t_ray *ray,
+									t_phit *h_obj_info,
+									double *tnear)
 {
-	double	cur_t;	
+	double	cur_t;
 	int		i;
 	void	*ret;
 	t_e_obj	type;
 
 	i = -1;
-	*tnear = t_infinity;
+	*tnear = T_INFINITY;
 	if (!(rt_info->count_->all_obj))
 		return (print_error_comment("There are 0 object!", rt_info));
 	while (++i < rt_info->count_->all_obj)
 	{
 		ret = check_intersection(rt_info, ray, &type, &cur_t);
-		if (ret)
+		if (ret && cur_t < *tnear)
 		{
-			if (cur_t < *tnear)
-			{
-				*tnear = cur_t;
-				h_obj_info->obj = ret;
-				h_obj_info->type = type;
-				type = 0;
-			}
+			*tnear = cur_t;
+			h_obj_info->obj = ret;
+			h_obj_info->type = type;
+			type = 0;
 		}
 	}
 	reset_obejct_pos(&(rt_info->lst_pos), rt_info->count_);
@@ -57,7 +57,7 @@ int		intersection_controller(t_rt *rt_info, t_ray *ray, t_phit *h_obj_info, doub
 	return (FALSE);
 }
 
-void	*check_intersection(t_rt *rt_info, t_ray *ray, t_e_obj *type,
+void		*check_intersection(t_rt *rt_info, t_ray *ray, t_e_obj *type,
 							double *t)
 {
 	void	*ret;

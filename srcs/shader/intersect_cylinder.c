@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 21:27:23 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/10 17:57:21 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 21:03:44 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 /*
 ** hit point must be between top cap and bottom cap
-** q = p + v t (p-rayorigin, v-raydirection) 
+** q = p + v t (p-rayorigin, v-raydirection)
 */
 
-static int	check_cur_t(double *t, t_ray *ray, t_cy *cy)
+static int		check_cur_t(double *t, t_ray *ray, t_cy *cy)
 {
 	t_vec	hit_point;
 	t_vec	multi_result;
@@ -45,17 +45,18 @@ static int	check_cur_t(double *t, t_ray *ray, t_cy *cy)
 ** hit point must be between bottom cap and top cap
 */
 
-static int	check_t_and_set_t(t_vec *quad_info, double *t, t_ray *ray, t_cy *cy)
+static int		check_t_and_set_t(t_vec *quad_info, double *t, t_ray *ray,
+									t_cy *cy)
 {
 	double	t_0;
 	double	t_1;
 	double	ret0;
 	double	ret1;
 
-	if(!quadratic_formula(quad_info, &t_0, &t_1))
+	if (!quadratic_formula(quad_info, &t_0, &t_1))
 		return (FALSE);
-	ret0 = check_cur_t(&t_0 ,ray, cy);
-	ret1 = check_cur_t(&t_1 ,ray, cy);
+	ret0 = check_cur_t(&t_0, ray, cy);
+	ret1 = check_cur_t(&t_1, ray, cy);
 	if (!ret0 && !ret1)
 		return (FALSE);
 	if (ret0 && !ret1)
@@ -67,7 +68,7 @@ static int	check_t_and_set_t(t_vec *quad_info, double *t, t_ray *ray, t_cy *cy)
 	return (SUCCESS);
 }
 
-static	t_vec	get_quadrtaic_sqrt(t_ray *ray, t_cy	*cylinder, int check)
+static t_vec	get_quadrtaic_sqrt(t_ray *ray, t_cy *cylinder, int check)
 {
 	t_vec	quadtratic_sqrt;
 	t_vec	delta;
@@ -90,7 +91,7 @@ static	t_vec	get_quadrtaic_sqrt(t_ray *ray, t_cy	*cylinder, int check)
 	return (quadtratic_sqrt);
 }
 
-t_cy	*intersection_cylinder(t_rt *rt_info, t_ray *ray, double *t)
+t_cy			*intersection_cylinder(t_rt *rt_info, t_ray *ray, double *t)
 {
 	t_vec	quadratic_info;
 	t_vec	quad_sqrt_1;
@@ -105,9 +106,10 @@ t_cy	*intersection_cylinder(t_rt *rt_info, t_ray *ray, double *t)
 	quad_sqrt_1 = get_quadrtaic_sqrt(ray, cylinder, 1);
 	quadratic_info.x_ = dot_product(&quad_sqrt_1, &quad_sqrt_1);
 	quad_sqrt_2 = get_quadrtaic_sqrt(ray, cylinder, 0);
-	quadratic_info.y_= 2 * dot_product(&quad_sqrt_1, &quad_sqrt_2);
+	quadratic_info.y_ = 2 * dot_product(&quad_sqrt_1, &quad_sqrt_2);
 	quadratic_info.z_ = dot_product(&quad_sqrt_2, &quad_sqrt_2)
-						- (cylinder->diameter_ / 2.0) * (cylinder->diameter_ / 2.0);
+						- (cylinder->diameter_ / 2.0)
+						* (cylinder->diameter_ / 2.0);
 	if (check_t_and_set_t(&quadratic_info, t, ray, cylinder))
 		return (cylinder);
 	else

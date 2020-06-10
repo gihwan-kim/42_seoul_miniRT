@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 15:58:25 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/07 12:59:14 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 21:47:39 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** final color is select each pixel color
 */
 
-int	change_type_colorf_to_int(t_rgb_f *color)
+int		change_type_colorf_to_int(t_rgb_f *color)
 {
 	t_union_color	color_int;
 
@@ -49,7 +49,7 @@ t_rgb_f	colorf_multi_colorf(t_rgb_f *a, t_rgb_f *b)
 
 	result.r_ = fmin(a->r_ * b->r_, 1.0);
 	result.g_ = fmin(a->g_ * b->g_, 1.0);
-	result.b_ = fmin(a->b_ * b->b_ ,1.0);
+	result.b_ = fmin(a->b_ * b->b_, 1.0);
 	return (result);
 }
 

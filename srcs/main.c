@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 11:44:13 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/10 19:48:33 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 21:48:05 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	make_window(t_rt *rt_info)
 	width = rt_info->t_r_->size_x_;
 	height = rt_info->t_r_->size_y_;
 	rt_info->mlx_ptr = mlx_init();
-	rt_info->win_ptr = mlx_new_window(rt_info->mlx_ptr, width, height, "mini ray-tracing");
+	rt_info->win_ptr = mlx_new_window(rt_info->mlx_ptr, width, height, "RT");
 	rt_info->img_.img_ptr = mlx_new_image(rt_info->mlx_ptr, width, height);
 	rt_info->img_.data = (int *)mlx_get_data_addr(rt_info->img_.img_ptr,
 		&rt_info->img_.bpp, &rt_info->img_.size_l, &rt_info->img_.endian);
@@ -42,12 +42,13 @@ static void	render(t_rt *rt_info)
 	}
 	width = rt_info->t_r_->size_x_;
 	height = rt_info->t_r_->size_y_;
+	rt_info->img_.camera = camera;
 	if (make_img(rt_info, camera, width, height) == ERROR)
 	{
 		print_error_comment("image make fail!", rt_info);
 		exit(EXIT_FAILURE);
 	}
-	mlx_put_image_to_window(rt_info->mlx_ptr, rt_info->win_ptr, 
+	mlx_put_image_to_window(rt_info->mlx_ptr, rt_info->win_ptr,
 			rt_info->img_.img_ptr, 0, 0);
 }
 
@@ -72,22 +73,22 @@ static int	ft_close(t_rt *rt_info)
 	exit(EXIT_SUCCESS);
 }
 
-int	main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_rt *rt_info;
 
 	if (argc < 2)
-		return(print_error_nofree(22, "No argument!"));
+		return (print_error_nofree(22, "No argument!"));
 	else if (argc >= 4)
-		return(print_error_nofree(23, "Argument number must be 2 or 3!"));
+		return (print_error_nofree(23, "Argument number must be 2 or 3!"));
 	else
 	{
 		if (argc == 3)
 		{
-			if(ft_strncmp(argv[2], "--save", ft_strlen("--save")))
-				return(print_error_nofree(22, "wrong format!"));
+			if (ft_strncmp(argv[2], "--save", ft_strlen("--save")))
+				return (print_error_nofree(22, "wrong format!"));
 		}
-		if(!(rt_info = malloc(sizeof(t_rt))))
+		if (!(rt_info = malloc(sizeof(t_rt))))
 			return (0);
 		ft_bzero(rt_info, sizeof(t_rt));
 		parsing_rt_file(argv[1], rt_info);

@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 10:14:42 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/10 17:57:39 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 20:46:07 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** when compare 0.0 in floating number. don't use equal
 */
 
-t_pl *intersection_plane(t_rt *rt_info, t_ray *ray, double *t)
+t_pl	*intersection_plane(t_rt *rt_info, t_ray *ray, double *t)
 {
 	t_pl	*cur_plane;
 	double	denominator;

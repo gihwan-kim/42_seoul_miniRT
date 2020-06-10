@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 10:53:56 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/10 20:08:54 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 20:25:48 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int				check_str_isdigit(const char *str)
 int				check_str_isdouble(const char *str)
 {
 	char	**split;
+	char	*tmp;
 	int		i;
 
 	i = 0;
@@ -57,16 +58,9 @@ int				check_str_isdouble(const char *str)
 		i++;
 	if (i >= 3)
 		return (ERROR);
-	if (split[0][0] == '-')
-	{
-		if (!check_str_isdigit(split[0] + 1))
-			return (ERROR);
-	}
-	else
-	{
-		if (!(check_str_isdigit(split[0])))
-			return (ERROR);
-	}
+	tmp = (split[0][0] == '-') ? split[0] + 1 : split[0];
+	if (!(check_str_isdigit(tmp)))
+		return (ERROR);
 	if (!(check_str_isdigit(split[1])))
 		return (ERROR);
 	return (SUCCESS);

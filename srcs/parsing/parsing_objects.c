@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 10:41:21 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/09 08:48:58 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 21:12:29 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 int	parsing_sphere(char **split, t_rt *rt_info)
 {
 	t_sp *sphere;
-	
+
 	if (!(sphere = malloc(sizeof(t_a))))
 		return (print_error_comment("Out of memmory!", rt_info));
 	if (get_argument_count(split) != 4)
@@ -40,7 +40,7 @@ int	parsing_sphere(char **split, t_rt *rt_info)
 	else
 		return (print_error(22, "not integer!", rt_info));
 	rt_info->count_->sp_ += 1;
-	ft_lstadd_back(&(rt_info->lst_sp_),ft_lstnew(sphere));
+	ft_lstadd_back(&(rt_info->lst_sp_), ft_lstnew(sphere));
 	return (SUCCESS);
 }
 
@@ -72,7 +72,7 @@ int	parsing_plane(char **split, t_rt *rt_info)
 	else
 		return (print_error(22, "not integer!", rt_info));
 	rt_info->count_->pl_ += 1;
-	ft_lstadd_back(&(rt_info->lst_pl_),ft_lstnew(plane));
+	ft_lstadd_back(&(rt_info->lst_pl_), ft_lstnew(plane));
 	return (SUCCESS);
 }
 
@@ -109,7 +109,7 @@ int	parsing_square(char **split, t_rt *rt_info)
 	else
 		return (print_error(22, "not integer!", rt_info));
 	rt_info->count_->sq_ += 1;
-	ft_lstadd_back(&(rt_info->lst_sq_),ft_lstnew(square));
+	ft_lstadd_back(&(rt_info->lst_sq_), ft_lstnew(square));
 	return (SUCCESS);
 }
 
@@ -126,30 +126,12 @@ int	parsing_cylinder(char **split, t_rt *rt_info)
 {
 	t_cy *cylinder;
 
-	if (!(cylinder = malloc(sizeof(t_a))))
+	if (!(cylinder = malloc(sizeof(t_cy))))
 		return (print_error_comment("Out of memmory!", rt_info));
 	if (get_argument_count(split) != 6)
 		return (print_error(22, "The number of argument is wrong!", rt_info));
-	if (check_three_arg(split[1], check_str_isdouble))
-		store_vec(split[1], &(cylinder->vec_));
-	else
-		return (print_error(22, "not doulbe!", rt_info));
-	if (check_three_arg(split[2], check_str_isdouble))
-		store_vec(split[2], &(cylinder->orient_vec_));
-	else
-		return (print_error(22, "not integer!", rt_info));
-	if (check_str_isdouble(split[3]))
-		cylinder->diameter_ = check_size(ft_atof(split[3]), rt_info);
-	else
-		return (print_error(22, "not integer!", rt_info));
-	if (check_str_isdouble(split[4]))
-		cylinder->height_ = check_size(ft_atof(split[4]), rt_info);
-	else
-		return (print_error(22, "not integer!", rt_info));
-	if (check_three_arg(split[5], check_str_isdigit))
-		store_rgb(split[5], &(cylinder->rgb_), rt_info);
-	else
-		return (print_error(22, "Argument of cylinder is not integer!", rt_info));
+	if (!set_cylinder(split, cylinder, rt_info))
+		return (ERROR);
 	rt_info->count_->cy_ += 1;
 	ft_lstadd_back(&(rt_info->lst_cy_), ft_lstnew(cylinder));
 	return (SUCCESS);
@@ -188,6 +170,6 @@ int	parsing_triangle(char **split, t_rt *rt_info)
 	else
 		return (print_error(22, "not integer!", rt_info));
 	rt_info->count_->tr_ += 1;
-	ft_lstadd_back(&(rt_info->lst_tr_),ft_lstnew(triangle));
+	ft_lstadd_back(&(rt_info->lst_tr_), ft_lstnew(triangle));
 	return (SUCCESS);
 }

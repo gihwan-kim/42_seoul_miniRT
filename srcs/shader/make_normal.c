@@ -6,12 +6,11 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 14:47:42 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/07 13:16:33 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 21:25:19 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shader.h"
-
 
 /*
 ** normal 은 물체 반대방향을 가리키면안됨
@@ -30,6 +29,7 @@ t_vec	make_plane_normal(t_pl *plane)
 t_vec	make_sphere_normal(t_sp *sphere, t_vec *hit_p)
 {
 	t_vec	normal;
+
 	normal = subtract(hit_p, &(sphere->vec_));
 	normal = normalize(&normal);
 	return (normal);

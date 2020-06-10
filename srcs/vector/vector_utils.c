@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/19 17:06:25 by gihwan-kim        #+#    #+#             */
-/*   Uvecdated: 2020/05/19 17:33:55 by gihwan-kim       ###   ########.fr       */
+/*   Created: 2020/06/10 21:26:34 by gihwan-kim        #+#    #+#             */
+/*   Updated: 2020/06/10 21:28:47 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** If member is array type. assignment is same
 */
 
-t_vec	vec_init(const double x, const double y,const double z)
+t_vec	vec_init(const double x, const double y, const double z)
 {
 	t_vec vector;
 
@@ -31,16 +31,15 @@ t_vec	vec_init(const double x, const double y,const double z)
 
 double	vector_len(t_vec *a)
 {
-	return sqrt(pow(a->x_, 2.0) + pow(a->y_, 2.0) + pow(a->z_, 2.0));
+	return (sqrt(pow(a->x_, 2.0) + pow(a->y_, 2.0) + pow(a->z_, 2.0)));
 }
-
 
 t_vec	multiply_by_matrix(t_vec vec, t_matrix *m)
 {
-	t_vec return_val;
-	double x;
-	double y;
-	double z;
+	t_vec	return_val;
+	double	x;
+	double	y;
+	double	z;
 
 	x = vec.x_ * m->matrix[0][0]
 		+ vec.y_ * m->matrix[1][0]
@@ -56,29 +55,6 @@ t_vec	multiply_by_matrix(t_vec vec, t_matrix *m)
 		+ m->matrix[3][2];
 	return_val = vec_init(x, y, z);
 	return (return_val);
-}
-
-/*
-** compare vec a, b
-** these vector is aligned same line
-*/
-
-int		vec_compare(t_vec *a, t_vec *b)
-{
-	double x;
-	double y;
-	double z;
-
-	x = a->x_ - b->x_;
-	y = a->y_ - b->y_;
-	z = a->z_ - b->z_;
-
-	if (x < 0 && y < 0 && z < 0)
-		return (-1);
-	else if (x > 0 && y > 0 && z > 0)
-		return (1);
-	else
-		return (0);
 }
 
 void	vec_inverse(t_vec *a)

@@ -6,13 +6,24 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:47:15 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/10 17:58:02 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 20:59:35 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shader.h"
 
-t_sq	*intersection_square(t_rt *rt_info, t_ray *ray, double *t)
+static t_sq	*check_square_range(t_vec *p, t_sq *cur_square)
+{
+	if (fabs(p->x_ - cur_square->vec_.x_) > (cur_square->side_size / 2))
+		return (NULL);
+	if (fabs(p->y_ - cur_square->vec_.y_) > (cur_square->side_size / 2))
+		return (NULL);
+	if (fabs(p->z_ - cur_square->vec_.z_) > (cur_square->side_size / 2))
+		return (NULL);
+	return (cur_square);
+}
+
+t_sq		*intersection_square(t_rt *rt_info, t_ray *ray, double *t)
 {
 	t_vec	p;
 	t_sq	*cur_square;
@@ -31,16 +42,11 @@ t_sq	*intersection_square(t_rt *rt_info, t_ray *ray, double *t)
 		if (*t >= 0)
 		{
 			p = calc_hit_point(ray, t);
-			if (fabs(p.x_ - cur_square->vec_.x_) > (cur_square->side_size / 2))
-				return (NULL);
-			if (fabs(p.y_ - cur_square->vec_.y_) > (cur_square->side_size / 2))
-				return (NULL);
-			if (fabs(p.z_ - cur_square->vec_.z_) > (cur_square->side_size / 2))
-				return (NULL);
+			cur_square = check_square_range(&p, cur_square);
 			return (cur_square);
 		}
 		else
-			return (NULL);	
+			return (NULL);
 	}
 	return (NULL);
 }
