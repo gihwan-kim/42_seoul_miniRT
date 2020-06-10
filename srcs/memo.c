@@ -932,6 +932,8 @@ he ray and the object (if an intersection has occurred).
 						Specular ≈ V⋅R
 						v 와 r 의 내적값인 cos 은 각도에 따른 빛의 편차가 너무 낮기 떄문에 cos 에 n 제곱을 줘서
 						각도에 따른 빛의 양을 줄여준다.
+						V⋅R^n * grayscale
+						
 
 						
 

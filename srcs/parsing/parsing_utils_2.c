@@ -6,10 +6,9 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 19:06:14 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/09 07:48:19 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 19:56:47 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "parsing.h"
 
@@ -19,9 +18,9 @@
 ** 		check split[i] is int or double
 */
 
-int	check_three_arg(const char *str, int (*check_arg_type)(const char*))
+int		check_three_arg(const char *str, int (*check_arg_type)(const char*))
 {
-	char 	**split;
+	char	**split;
 	int		i;
 
 	i = 0;
@@ -30,7 +29,7 @@ int	check_three_arg(const char *str, int (*check_arg_type)(const char*))
 		return (ERROR);
 	while (i < 3)
 	{
-		if(!check_arg_type(split[i]))
+		if (!check_arg_type(split[i]))
 			return (ERROR);
 		i++;
 	}
@@ -47,7 +46,7 @@ int	check_three_arg(const char *str, int (*check_arg_type)(const char*))
 void	store_rgb(const char *str, t_rgb_f *rgb_ptr, t_rt *rt_info)
 {
 	int		color;
-	char 	**split;
+	char	**split;
 	int		i;
 
 	i = 0;
@@ -67,22 +66,23 @@ void	store_rgb(const char *str, t_rgb_f *rgb_ptr, t_rt *rt_info)
 ** store_vec()
 ** 		this function must be call after call check_three_arg()
 */
+
 void	store_vec(const char *str, t_vec *vec_ptr)
 {
-	char 	**split;
+	char	**split;
 	int		i;
 
 	i = 0;
 	split = ft_split(str, ',');
 	vec_ptr->x_ = ft_atof(split[0]);
 	vec_ptr->y_ = ft_atof(split[1]);
-	vec_ptr->z_ = ft_atof(split[2]);	
+	vec_ptr->z_ = ft_atof(split[2]);
 }
 
-int	get_all_object_count(t_rt *rt_info)
+int		get_all_object_count(t_rt *rt_info)
 {
 	int	result;
-	
+
 	result = rt_info->count_->sp_ + rt_info->count_->pl_
 			+ rt_info->count_->sq_ + rt_info->count_->cy_
 			+ rt_info->count_->tr_;

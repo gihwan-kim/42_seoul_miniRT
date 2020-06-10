@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 21:27:23 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/07 13:04:16 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 17:57:21 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static int	check_cur_t(double *t, t_ray *ray, t_cy *cy)
 	t_vec	bottom_cap_center;
 	t_vec	up_cap_center;
 	t_vec	q_to_center;
-	
-	if (t < 0)
+
+	if (*t < 0)
 		return (FALSE);
 	bottom_cap_center = cy->vec_;
 	multi_result = multiply(&(cy->orient_vec_), cy->height_);
@@ -97,7 +97,7 @@ t_cy	*intersection_cylinder(t_rt *rt_info, t_ray *ray, double *t)
 	t_vec	quad_sqrt_2;
 	t_cy	*cylinder;
 
-	if (isempty_node(rt_info->lst_pos.cur_cy))
+	if (isempty_node(rt_info->lst_pos.cur_cy, rt_info->count_->cy_))
 		cylinder = get_node(&(rt_info->lst_pos.cur_cy))->content;
 	else
 		return (NULL);

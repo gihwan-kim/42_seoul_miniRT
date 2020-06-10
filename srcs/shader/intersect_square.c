@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:47:15 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/07 13:04:44 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 17:58:02 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_sq	*intersection_square(t_rt *rt_info, t_ray *ray, double *t)
 	double	denominator;
 	t_vec	p0_l0;
 
-	if (isempty_node(rt_info->lst_pos.cur_sq))
+	if (isempty_node(rt_info->lst_pos.cur_sq, rt_info->count_->sq_))
 		cur_square = get_node(&(rt_info->lst_pos.cur_sq))->content;
 	else
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 10:13:56 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/07 13:14:01 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 19:38:40 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,10 @@ t_tr	*intersection_triangle(t_rt *rt_info, t_ray *ray, double *t)
 	double	d;
 	double	dot_r_d;
 
-	if (isempty_node(rt_info->lst_pos.cur_tr))
+	if (isempty_node(rt_info->lst_pos.cur_tr, rt_info->count_->tr_))
+	{
 		triangle = get_node(&(rt_info->lst_pos.cur_tr))->content;
+	}
 	else
 		return (NULL);
 	tr_normal = get_tr_normal(triangle);

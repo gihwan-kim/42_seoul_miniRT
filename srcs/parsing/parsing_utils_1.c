@@ -6,23 +6,23 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 10:53:56 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/09 07:58:18 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 20:08:54 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-size_t	get_argument_count(char **split)
+size_t			get_argument_count(char **split)
 {
 	size_t count;
 
 	count = 0;
-	while(split[count])
+	while (split[count])
 		count++;
 	return (count);
 }
 
-int		check_str_isdigit(const char *str)
+int				check_str_isdigit(const char *str)
 {
 	if (*str == '-')
 		str++;
@@ -39,14 +39,13 @@ int		check_str_isdigit(const char *str)
 ** check str is number.number or number
 */
 
-int		check_str_isdouble(const char *str)
+int				check_str_isdouble(const char *str)
 {
 	char	**split;
 	int		i;
 
 	i = 0;
-	split = ft_split(str, '.');
-	if (!split)
+	if (!(split = ft_split(str, '.')))
 		return (ERROR);
 	if (get_argument_count(split) == 1)
 	{
@@ -54,7 +53,7 @@ int		check_str_isdouble(const char *str)
 			return (ERROR);
 		return (SUCCESS);
 	}
-	while(split[i])
+	while (split[i])
 		i++;
 	if (i >= 3)
 		return (ERROR);
@@ -65,7 +64,7 @@ int		check_str_isdouble(const char *str)
 	}
 	else
 	{
-		if(!(check_str_isdigit(split[0])))
+		if (!(check_str_isdigit(split[0])))
 			return (ERROR);
 	}
 	if (!(check_str_isdigit(split[1])))
@@ -73,9 +72,9 @@ int		check_str_isdouble(const char *str)
 	return (SUCCESS);
 }
 
-static double itof_under_decimal_point(size_t n, unsigned int integer)
+static double	itof_under_decimal_point(size_t n, unsigned int integer)
 {
-	unsigned int 	nbr;
+	unsigned int	nbr;
 	double			result;
 
 	nbr = 10;
@@ -91,29 +90,32 @@ static double itof_under_decimal_point(size_t n, unsigned int integer)
 ** Call ft_atof after check str formula is single "number.number"
 ** not "number.number number.number"
 */
-double	ft_atof(const char *str)
+
+double			ft_atof(const char *str)
 {
 	double	result;
-	char 	**split;
+	char	**split;
 	size_t	split_count;
 	double	sign;
 
 	split = ft_split(str, '.');
 	split_count = get_argument_count(split);
+	sign = 1.0;
 	if (split_count == 1)
-		return result = (double)ft_atoi(str);
+	{
+		result = (double)ft_atoi(str);
+		return (result);
+	}
 	if (split[0][0] == '-')
 	{
 		sign = -1.0;
 		result = (double)ft_atoi(split[0] + 1);
 	}
 	else
-	{
-		sign = 1.0;
 		result = (double)ft_atoi(split[0]);
-	}
 	if (split_count == 2)
-		result += itof_under_decimal_point(ft_strlen(split[1]), ft_atoi(split[1]));
+		result += itof_under_decimal_point(ft_strlen(split[1]),
+											ft_atoi(split[1]));
 	result *= sign;
 	return (result);
 }

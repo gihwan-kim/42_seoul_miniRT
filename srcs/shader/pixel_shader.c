@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 11:09:56 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/07 15:43:59 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 17:58:29 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** camera 쪽을 바라봐야함
 ** camera_ray direction 과 normal 의 각은 둔각이 되어야한다.
 */
-static	void calc_normal(t_phit *obj_info, t_ray *ray)
+static	void 	calc_normal(t_phit *obj_info, t_ray *ray)
 {
 	t_e_obj hit_obj_type;
 	void	*obj;
@@ -42,9 +42,9 @@ static	void calc_normal(t_phit *obj_info, t_ray *ray)
 static t_rgb_f	calc_specular(t_ray *shadow_ray, t_phit *obj_info,
 												t_rgb_f *light_color)
 {
+	t_rgb_f	specular_color;
 	t_vec	inverse_cam_ray_direction;
 	t_vec	reflection_ray_direction;
-	t_rgb_f	specular_color;
 	double	n_dot_s;
 	double	r_dot_c;
 
@@ -59,16 +59,13 @@ static t_rgb_f	calc_specular(t_ray *shadow_ray, t_phit *obj_info,
 	r_dot_c = fmax(dot_product(&reflection_ray_direction,
 						&inverse_cam_ray_direction), 0.0);
 	r_dot_c = pow(r_dot_c, 10);
-	// specular_color.r_ = 0.9;
-	// specular_color.g_ = 0.9;
-	// specular_color.b_ = 0.9;
-	specular_color = init_color(0.9);
+	specular_color = init_color(0.9); //high light
 	specular_color = colorf_multi_colorf(light_color, &(specular_color));
 	specular_color = multi_colorf(&specular_color, r_dot_c);
 	return (specular_color);
 }
 
-static	void	reset_light_pos(t_lst_position *lst_pos, t_count* count)
+static void		reset_light_pos(t_lst_position *lst_pos, t_count* count)
 {
 	if (count->l_)
 		lst_pos->cur_l = lst_pos->fst_l;
@@ -92,56 +89,42 @@ static	void	reset_light_pos(t_lst_position *lst_pos, t_count* count)
 **	 : Shadow-Acne: Avoiding Self-Intersection
 */
 
-	// vis true or len 보다 t 가 더 클 경우 -> 물체 빛 or 물체 빛 물체 순서
-	//	 p -> 빛 으로 가다가 다른 물체와 닿을 경우 : vis 값은 false 가됨
-	//			: vis 가 false 일 경우 무조건 그림자가 되는게 아니다.
-	//				물체 빛 물체 순서일 경우 거리 값을 계산해봐야함 -> t > len
-	//				이 거리값이 len 보다 클 경우 처음 p 는 색을 가진다.!
-	//	 p -> 빛 으로 가다가 다른 물체와 닿지 않을 경우 : vis 값은 true 가됨
-
-// color = vis * light intensity * light color * facing Ratio
-
 static	t_rgb_f calc_color(t_rt *rt_info, t_l *light_source, t_phit *obj_info)
 {
+	t_phit	nothing;
+	t_color color;
 	t_ray	shadow_ray;
-	t_rgb_f	final_color;
-	t_rgb_f	light_color;
-	t_rgb_f	specluar_color;
-
 	double	t;
 	double	facing_ratio;
-	int		vis;
-	double	len;
-
-	t_phit	nothing;
-	t_obj_count nothing1;
-
 
 	shadow_ray.direction_ = subtract(&(light_source->vec_), &(obj_info->hit_point));
-	len = vector_len(&(shadow_ray.direction_));
+	shadow_ray.len = vector_len(&(shadow_ray.direction_));
 	shadow_ray.direction_ = normalize(&(shadow_ray.direction_));
 	shadow_ray.origin_ = multiply(&(obj_info->hit_normal), 0.1);
 	shadow_ray.origin_ = add(&(obj_info->hit_point), &(shadow_ray.origin_));
-	t = t_infinity;
 	facing_ratio = 0;
-	vis = !intersection_controller(rt_info, &shadow_ray, &nothing, &t, &nothing1);
-	// intersec - false : 충돌 X -> vis 1
-	// intersec - true  : 충돌 O -> vis 0
-	// final_color = init_color(0);
-	if (vis || t > len) // 그림자 x
-		facing_ratio = fmax(0.0, dot_product(&(obj_info->hit_normal), &(shadow_ray.direction_)));
-	light_color = multi_colorf(&(light_source->rgb_), light_source->light_);
-	final_color = colorf_multi_colorf(&(light_color), &(obj_info->colorf));
-	final_color = multi_colorf(&final_color, facing_ratio);
-	// specular
+	if (!intersection_controller(rt_info, &shadow_ray, &nothing, &t)
+		|| t > shadow_ray.len)
+		facing_ratio = fmax(0.0, dot_product(&(obj_info->hit_normal),
+							&(shadow_ray.direction_)));
+	color.light = multi_colorf(&(light_source->rgb_), light_source->light_);
+	color.final = colorf_multi_colorf(&(color.light), &(obj_info->colorf));
+	color.final = multi_colorf(&(color.final), facing_ratio);
 	if (facing_ratio)
 	{
-		specluar_color = calc_specular(&shadow_ray, obj_info, &light_color);
-		// specluar_color =  multi_colorf(&specluar_color, vis);
-		final_color = add_color(&final_color, &specluar_color);
+		color.specular = calc_specular(&shadow_ray, obj_info, &(color.light));
+		// color.specular = colorf_multi_colorf(&(color.specular), &(obj_info->colorf));
+		color.final = add_color(&(color.final), &(color.specular));
 	}
-	return (final_color);
+	// if (!facing_ratio)
+	// 	printf("%d", nothing.type);
+	return (color.final);
 }
+
+/*
+** while loop : combination lights result(specular, diffuse) to color
+** after while loop add ambient to color
+*/
 
 int			pixel_shader(t_rt *rt_info, t_ray *camera_ray, double *t, t_phit *obj_info)
 {
@@ -149,35 +132,24 @@ int			pixel_shader(t_rt *rt_info, t_ray *camera_ray, double *t, t_phit *obj_info
 	t_rgb_f	calc_result;
 	t_rgb_f ambient_color;
 	t_rgb_f	color;
+	t_rgb	value;
 
 	obj_info->hit_point = calc_hit_point(camera_ray, t);
 	calc_normal(obj_info, camera_ray);
 	obj_info->cam_ray = camera_ray;
 	color = init_color(0.0);
-	while (isempty_node(rt_info->lst_pos.cur_l))
+	while (isempty_node(rt_info->lst_pos.cur_l, rt_info->count_->l_))
 	{
 		cur_light_node = get_node(&(rt_info->lst_pos.cur_l));
 		calc_result = calc_color(rt_info, (t_l*)(cur_light_node->content), obj_info);
 		color = add_color(&color, &calc_result);
 	}
 	reset_light_pos(&(rt_info->lst_pos), rt_info->count_);
-	// ambient 계산
 	ambient_color =	multi_colorf(&(rt_info->t_a_->rgb_), rt_info->t_a_->light_);
-	// ambient_color = colorf_multi_colorf(&(rt_info->t_a_->rgb_), &(obj_info->colorf));
 	ambient_color = colorf_multi_colorf(&(ambient_color), &(obj_info->colorf));
 	color = add_color(&color, &ambient_color);
-	// t_union_color	color_int;
-	int r = color.r_ * 256;
-	int g = color.g_ * 256;
-	int b = color.b_ * 256;
-	// color_int.color_array[2] = r;
-	// color_int.color_array[1] = g;
-	// color_int.color_array[0] = b;
-
-	int color_a = 65536 * r + 256 * g + b;
-	// return (color_int.combination);
-	// int  a;
-	// a = change_type_colorf_to_int(&color);
-	// return (color_int.combination);
-	return (color_a);
+	value.r_ = color.r_ * 256;
+	value.g_ = color.g_ * 256;
+	value.b_ = color.b_ * 256;
+	return (65536 * value.r_ + 256 * value.g_ + value.b_);
 }

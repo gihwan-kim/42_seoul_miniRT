@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 11:44:13 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/08 21:03:46 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 19:48:33 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	render(t_rt *rt_info)
 	int	width;
 	int height;
 
-	if (isempty_node(rt_info->lst_pos.cur_c))
+	if (isempty_node(rt_info->lst_pos.cur_c, rt_info->count_->c_))
 		camera = get_node(&(rt_info->lst_pos.cur_c))->content;
 	else
 	{
@@ -55,10 +55,15 @@ static int	ft_key_press(int keycode, t_rt *rt_info)
 {
 	if (keycode == 123)
 	{
-		ft_putendl_fd("Change camera", 1);
+		ft_putendl_fd("Changing camera... give me a sec..", 1);
 		render(rt_info);
 	}
-	return (0);
+	if (keycode == 53)
+	{
+		ft_putendl_fd("Terminate program.", 1);
+		exit(EXIT_SUCCESS);
+	}
+	return (EXIT_SUCCESS);
 }
 
 static int	ft_close(t_rt *rt_info)
@@ -87,8 +92,6 @@ int	main(int argc, char **argv)
 		ft_bzero(rt_info, sizeof(t_rt));
 		parsing_rt_file(argv[1], rt_info);
 		make_window(rt_info);
-		// if(!make_img(rt_info, rt_info->t_r_->size_x_, rt_info->t_r_->size_y_))
-		// 	return print_error_comment("image make fail!", rt_info);
 		render(rt_info);
 		mlx_hook(rt_info->win_ptr, 2, 0, ft_key_press, rt_info);
 		mlx_hook(rt_info->win_ptr, 17, 0, ft_close, rt_info);

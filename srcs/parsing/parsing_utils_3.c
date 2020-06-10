@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 20:31:40 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/09 08:47:05 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 19:50:57 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	check_point(double coordinate)
 		return (FALSE);
 }
 
-int	check_normal_vec(t_vec *normal)
+int			check_normal_vec(t_vec *normal)
 {
 	if (check_point(normal->x_)
 		&& check_point(normal->y_)
@@ -52,7 +52,7 @@ int	check_normal_vec(t_vec *normal)
 		return (FALSE);
 }
 
-int	check_rgb(int color, t_rt *rt_info)
+int			check_rgb(int color, t_rt *rt_info)
 {
 	if (0 <= color && color <= 255)
 		return (TRUE);

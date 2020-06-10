@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/22 20:29:30 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/07 13:16:10 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 18:34:20 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 ** check cur_obj_pos is empty
 */
 
-int		isempty_node(t_list *cur_obj_pos)
+int		isempty_node(t_list *cur_obj_pos, int obj_number)
 {
 	t_list *tmp;
 
 	tmp = cur_obj_pos;
-	if (cur_obj_pos == NULL)
+	if (!obj_number || cur_obj_pos == NULL)
 		return (FALSE);
 	return (TRUE);
 }

@@ -6,13 +6,14 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:19:07 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/01 17:55:18 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 11:01:50 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ELEMENT_H
 #define ELEMENT_H
 #include "mini_rt.h"
+
 
 /*
 ** t_rgb is used to parsing
@@ -31,6 +32,14 @@ typedef	struct s_rgb_f
 	double	g_;
 	double	b_;
 }				t_rgb_f;
+
+typedef struct s_color
+{
+	t_rgb_f final;
+	t_rgb_f specular;
+	t_rgb_f light;
+}				t_color;
+
 
 /*
 ** in mlx each pixel has 4 byte pointer
@@ -181,13 +190,12 @@ typedef struct	s_primary_ray
 {
 	t_vec		origin_;
 	t_vec		direction_;
+	double		len;
 }				t_ray;
 
 
 typedef struct s_hit_point_info
 {
-	// t_vec	hit_point;
-	// t_vec	hit_normal;
 	t_vec	n;
 	t_e_obj	type;
 	void	*obj;

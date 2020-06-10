@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 10:21:26 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/07 13:03:52 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 17:51:00 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	check_identifier(char **split, t_rt *rt_info)
 {
 	size_t len;
-	(void)rt_info;
+
 	len = (ft_strlen(split[0]) > 1) ? ft_strlen(split[0]) : 1;
 	if (!ft_strncmp(split[0], "R", len))
 		parsing_resolution(split, rt_info);
@@ -52,22 +52,50 @@ static void	check_line(char *line, t_rt *rt_info)
 	free(line);
 }
 
-static void	set_lst_position(t_rt *rt_info)
+// static void	set_lst_position(t_rt *rt_info)
+// {
+// 	rt_info->lst_pos.cur_sp = rt_info->lst_sp_;
+// 	rt_info->lst_pos.cur_pl = rt_info->lst_pl_;
+// 	rt_info->lst_pos.cur_sq = rt_info->lst_sq_;
+// 	rt_info->lst_pos.cur_cy = rt_info->lst_cy_;
+// 	rt_info->lst_pos.cur_tr = rt_info->lst_tr_;
+// 	rt_info->lst_pos.cur_c = rt_info->lst_c_;
+// 	rt_info->lst_pos.cur_l = rt_info->lst_l_;
+// 	rt_info->lst_pos.fst_sp = rt_info->lst_sp_;
+// 	rt_info->lst_pos.fst_pl = rt_info->lst_pl_;
+// 	rt_info->lst_pos.fst_sq = rt_info->lst_sq_;
+// 	rt_info->lst_pos.fst_cy = rt_info->lst_cy_;
+// 	rt_info->lst_pos.fst_tr = rt_info->lst_tr_;
+// 	rt_info->lst_pos.fst_c = rt_info->lst_c_;
+// 	rt_info->lst_pos.fst_l = rt_info->lst_l_;
+// }
+
+static void set_each_list(t_list **cur_pos, t_list **fst_pos, t_list **src,
+							int count)
 {
-	rt_info->lst_pos.cur_sp = rt_info->lst_sp_;
-	rt_info->lst_pos.cur_pl = rt_info->lst_pl_;
-	rt_info->lst_pos.cur_sq = rt_info->lst_sq_;
-	rt_info->lst_pos.cur_cy = rt_info->lst_cy_;
-	rt_info->lst_pos.cur_tr = rt_info->lst_tr_;
-	rt_info->lst_pos.cur_c = rt_info->lst_c_;
-	rt_info->lst_pos.cur_l = rt_info->lst_l_;
-	rt_info->lst_pos.fst_sp = rt_info->lst_sp_;
-	rt_info->lst_pos.fst_pl = rt_info->lst_pl_;
-	rt_info->lst_pos.fst_sq = rt_info->lst_sq_;
-	rt_info->lst_pos.fst_cy = rt_info->lst_cy_;
-	rt_info->lst_pos.fst_tr = rt_info->lst_tr_;
-	rt_info->lst_pos.fst_c = rt_info->lst_c_;
-	rt_info->lst_pos.fst_l = rt_info->lst_l_;
+	if (count > 0)
+	{
+		*cur_pos = *src;
+		*fst_pos = *src; 
+	}
+}
+
+static void set_lst_position(t_rt *rt_info)
+{
+	set_each_list(&(rt_info->lst_pos.cur_sp), &(rt_info->lst_pos).fst_sp,
+					&(rt_info->lst_sp_), rt_info->count_->sp_);
+	set_each_list(&(rt_info->lst_pos.cur_pl), &(rt_info->lst_pos).fst_pl,
+					&(rt_info->lst_pl_), rt_info->count_->pl_);
+	set_each_list(&(rt_info->lst_pos.cur_sq), &(rt_info->lst_pos).fst_sq,
+					&(rt_info->lst_sq_), rt_info->count_->sq_);
+	set_each_list(&(rt_info->lst_pos.cur_cy), &(rt_info->lst_pos).fst_cy,
+					&(rt_info->lst_cy_), rt_info->count_->cy_);
+	set_each_list(&(rt_info->lst_pos.cur_tr), &(rt_info->lst_pos).fst_tr,
+					&(rt_info->lst_tr_), rt_info->count_->tr_);
+	set_each_list(&(rt_info->lst_pos.cur_c), &(rt_info->lst_pos).fst_c,
+					&(rt_info->lst_c_), rt_info->count_->c_);
+	set_each_list(&(rt_info->lst_pos.cur_l), &(rt_info->lst_pos).fst_l,
+					&(rt_info->lst_l_), rt_info->count_->l_);
 }
 
 int			parsing_rt_file(char *file, t_rt *rt_info)

@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 10:14:42 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/05 00:25:35 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/10 17:57:39 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_pl *intersection_plane(t_rt *rt_info, t_ray *ray, double *t)
 	double	denominator;
 	t_vec	p0_l0;
 
-	if (isempty_node(rt_info->lst_pos.cur_pl))
+	if (isempty_node(rt_info->lst_pos.cur_pl, rt_info->count_->pl_))
 		cur_plane = get_node(&(rt_info->lst_pos.cur_pl))->content;
 	else
 		return (NULL);
