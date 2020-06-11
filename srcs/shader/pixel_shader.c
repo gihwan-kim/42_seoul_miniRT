@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 11:09:56 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/10 21:53:51 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/11 20:14:24 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ static t_rgb_f	calc_color(t_rt *rt_info, t_l *light_source, t_phit *obj_info)
 ** after while loop add ambient to color
 */
 
-int				pixel_shader(t_rt *rt_info,
+t_rgb			pixel_shader(t_rt *rt_info,
 							t_ray *camera_ray,
 							double *t,
 							t_phit *obj_info)
@@ -123,6 +123,7 @@ int				pixel_shader(t_rt *rt_info,
 	t_rgb_f	calc_result;
 	t_rgb_f ambient_color;
 	t_rgb_f	color;
+	t_rgb	result;
 
 	obj_info->hit_point = calc_hit_point(camera_ray, t);
 	calc_normal(obj_info, camera_ray);
@@ -138,6 +139,8 @@ int				pixel_shader(t_rt *rt_info,
 	ambient_color = multi_colorf(&(rt_info->t_a_->rgb_), rt_info->t_a_->light_);
 	ambient_color = colorf_multi_colorf(&(ambient_color), &(obj_info->colorf));
 	color = add_color(&color, &ambient_color);
-	return (65536 * (int)(color.r_ * 256)
-			+ 256 * (int)(color.g_ * 256) + (int)(color.b_ * 256));
+	result.r_ = (unsigned int)(color.r_ * 256);
+	result.g_ = (unsigned int)(color.g_ * 256);
+	result.b_ = (unsigned int)(color.b_ * 256);
+	return (result);
 }

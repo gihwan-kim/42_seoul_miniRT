@@ -21,6 +21,11 @@ LIBX_FLAGS = -Ilib/minilibx_mms_20200219_beta -L lib/minilibx_mms_20200219_beta
 LIBFT_FLAGS = -lft -L./lib/libft 
 NAME = miniRT
 
+BMP_SRC = \
+			bmp_utils.c \
+			bmp.c
+BMP_SRC_DIR = ./srcs/bmp
+
 COLOR_SRC = \
 			color_utils_1.c \
 			color_utils_2.c
@@ -67,8 +72,8 @@ SRCS_LIST =  \
 		$(addprefix $(SHADER_SRC_DIR)/, $(SHADER_SRC)) \
 		$(addprefix $(VECTOR_SRC_DIR)/, $(VECTOR_SRC)) \
 		$(addprefix $(COLOR_SRC_DIR)/, $(COLOR_SRC)) \
+		$(addprefix $(BMP_SRC_DIR)/, $(BMP_SRC)) \
 		./srcs/main.c
-		# ./srcs/test.c
 OBJS = $(SRCS_LIST:%c.=%.o)
 all: $(NAME)
 
@@ -84,6 +89,10 @@ clean :
 	rm $(NAME)
 
 norminette :
-	norminette $(SRCS_LIST) ./include
+	norminette \
+		$(SRCS_LIST) \
+		./include \
+		./lib/libft/include \
+		./lib/libft/srcs
 
 fclena : clean all

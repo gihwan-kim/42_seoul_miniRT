@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 11:08:04 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/10 22:25:15 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/11 18:26:21 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include "parsing.h"
 # include "vector.h"
 # include "color.h"
+# include "bmp.h"
 # include "shader.h"
 # include <math.h>
 

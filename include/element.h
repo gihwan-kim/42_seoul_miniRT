@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 14:19:07 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/10 22:18:29 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/11 19:25:58 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 
 typedef struct	s_rgb
 {
-	int		r_;
-	int		g_;
-	int		b_;
+	unsigned char	b_;
+	unsigned char	g_;
+	unsigned char	r_;
 }				t_rgb;
 
 typedef	struct	s_rgb_f
@@ -237,6 +237,7 @@ typedef	struct	s_lst_positon_info
 typedef struct	s_rt_file_info
 {
 	t_lst_position	lst_pos;
+	int				save;
 	void			*mlx_ptr;
 	void			*win_ptr;
 	t_img			img_;

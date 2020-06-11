@@ -6,7 +6,7 @@
 #    By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/07 15:47:23 by gihkim            #+#    #+#              #
-#    Updated: 2020/05/13 12:55:01 by gihwan-kim       ###   ########.fr        #
+#    Updated: 2020/06/11 20:33:15 by gihwan-kim       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ $(NAME) : $(OBJS)
 	# ranlib $(NAME)
 
 clean :
-	rm -f $(OBJS) $(NAME) *.o
+	rm -f ./srcs/$(OBJS) $(NAME) ./srcs/ft_lst*.o
 
 fclean : clean all
 

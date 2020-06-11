@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 10:44:12 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/10 20:42:50 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/11 20:12:26 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,41 +36,51 @@ static t_rgb_f	get_h_obj_color(t_phit *h_obj_info)
 ** t : distance between ray origin and hitpoint
 */
 
-static int		shader(t_rt *rt_info, t_ray *camera_ray)
+static t_rgb	shader(int w, int h, t_rt *rt_info, t_matrix *cam_to_world)
 {
 	t_phit	h_obj_info;
+	t_ray	camera_ray;
 	double	t;
-	int		color;
+	t_rgb	color;
 
 	h_obj_info.type = 0;
 	h_obj_info.obj = NULL;
-	if (intersection_controller(rt_info, camera_ray, &h_obj_info, &t))
+	camera_ray = make_camera_ray(w, h, cam_to_world, rt_info);
+	color.r_ = 0;
+	color.g_ = 0;
+	color.b_ = 0;
+	if (intersection_controller(rt_info, &camera_ray, &h_obj_info, &t))
 	{
 		h_obj_info.colorf = get_h_obj_color(&h_obj_info);
-		color = pixel_shader(rt_info, camera_ray, &t, &h_obj_info);
-		return (color);
+		color = pixel_shader(rt_info, &camera_ray, &t, &h_obj_info);
 	}
-	else
-		return (0);
+	return (color);
 }
 
 int				make_img(t_rt *rt_info, t_c *camera, int width, int height)
 {
-	t_matrix	cam_to_wrold;
-	t_ray		camera_ray;
+	t_matrix	cam_to_world;
+	t_rgb		color;
+	t_rgb		**bmp_data;
 	int			h;
 	int			w;
 
 	h = -1;
-	cam_to_wrold = lookat(camera);
+	bmp_data = create_bmp(width, height);
+	cam_to_world = lookat(camera);
 	while (++h < height)
 	{
 		w = -1;
 		while (++w < width)
 		{
-			camera_ray = make_camera_ray(w, h, &cam_to_wrold, rt_info);
-			rt_info->img_.data[h * width + w] = shader(rt_info, &camera_ray);
+			color = shader(w, h, rt_info, &cam_to_world);
+			rt_info->img_.data[h * width + w] = (65536 * color.r_)
+												+ (256 * color.g_) + color.b_;
+			if (rt_info->save)
+				bmp_data[h][w] = color;
 		}
 	}
+	if (rt_info->save)
+		bmp(width, height, bmp_data);
 	return (SUCCESS);
 }

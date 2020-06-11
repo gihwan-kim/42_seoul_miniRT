@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 11:44:13 by gihwan-kim        #+#    #+#             */
-/*   Updated: 2020/06/10 21:48:05 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/11 19:26:24 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	ft_close(t_rt *rt_info)
 
 int			main(int argc, char **argv)
 {
-	t_rt *rt_info;
+	t_rt	*rt_info;
 
 	if (argc < 2)
 		return (print_error_nofree(22, "No argument!"));
@@ -83,14 +83,15 @@ int			main(int argc, char **argv)
 		return (print_error_nofree(23, "Argument number must be 2 or 3!"));
 	else
 	{
+		if (!(rt_info = malloc(sizeof(t_rt))))
+			return (0);
+		ft_bzero(rt_info, sizeof(t_rt));
 		if (argc == 3)
 		{
 			if (ft_strncmp(argv[2], "--save", ft_strlen("--save")))
 				return (print_error_nofree(22, "wrong format!"));
+			rt_info->save = TRUE;
 		}
-		if (!(rt_info = malloc(sizeof(t_rt))))
-			return (0);
-		ft_bzero(rt_info, sizeof(t_rt));
 		parsing_rt_file(argv[1], rt_info);
 		make_window(rt_info);
 		render(rt_info);

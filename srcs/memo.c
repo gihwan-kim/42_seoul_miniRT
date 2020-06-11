@@ -933,11 +933,43 @@ he ray and the object (if an intersection has occurred).
 						v 와 r 의 내적값인 cos 은 각도에 따른 빛의 편차가 너무 낮기 떄문에 cos 에 n 제곱을 줘서
 						각도에 따른 빛의 양을 줄여준다.
 						V⋅R^n * grayscale
-						
+	# bmp 파일에 저장하기
+		bmp file 만들기
+			fopen()
+		bmp 파일 : bitmap 디지털 그림을 저장하는데 쓰이는 그림파일
+		bitmap : 이진 숫자 배열표
+		비트맵 파일 구조 
+			픽셀당 1, 2, 4, 8 비트 : 비트맵 파일 헤더, 비트맵 정보헤더, 색상 테이블, 픽셀데이터
+			픽셀당 16, 24, 32 비트 : 비트맵 파일 헤더, 비트맵 정보헤더, 픽셀 데이터
 
-						
+			비트맵 파일 헤더 : 파일 식별정보, 파일크기, 데이터 위치 등의 정보
+			비트맵 정보 헤더 : 가로, 세로 크기, 해상도, 픽셀의 비트 수 
+			픽셀 데이터 : 그림파일의 실제 색상정보
 
-				
+			24 비트 비트맵은 픽셀을 RGB 순서로 저장한다. 각 색상은 1바이트
 
+			BITMAPFILEHEADER : 14비트
+			BITMAPINFO 		 : 40비트
 
+			픽셀 데이터의 가로(행) 공간이 저장될때 남는 공간(padding) 을 구해야한다.
+			-> 비트맵은 가로 한줄을 저장할떄 4의 배수의 크기로 저장하는데 만약 가로 한줄의 크기가 4의 배수가 아니라면
+			-> 남은 공간은 0으로 채워서 저장해야한다.
+			-> 0 으로 채울 공간이 있는지 확인해야한다.
+			-> CPU 가 데이터를 처리할떄 4바이트 크기가 효율적으로 처리할 수 있는 크기
 			
+			간단한 bmp 파일 만들기 : C
+			open() 함수 :
+				O_RDONLY	읽기 전용응로 열기
+				
+				O_WRONLY	쓰기 전용으로 열기
+				
+				O_RDWR	읽기와 쓰기가 모두 가능
+
+				O_CREAT	해당 파일이 없으면 생성합니다. 
+						 접근 권한 값을 추가해야 합니다.
+
+open( "jwmx", O_WRONLY | OCREAT, 0644);
+			https://stackoverflow.com/questions/50090500/create-simple-bitmap-in-c-without-external-libraries
+			https://dojang.io/mod/page/view.php?id=704
+
+

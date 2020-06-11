@@ -6,7 +6,7 @@
 /*   By: gihwan-kim <kgh06079@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/10 10:46:11 by gihkim            #+#    #+#             */
-/*   Updated: 2020/05/13 12:56:00 by gihwan-kim       ###   ########.fr       */
+/*   Updated: 2020/06/11 20:34:03 by gihwan-kim       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # define FD_MAX 1024
 # define BUFFER_SIZE 42
+
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *str);
 char	*ft_strjoin(char const *s1, char const *s2);
