@@ -3,16 +3,21 @@ This project is libft project in 42 seoul course
 
 **Turn in files**
 	All your files
+
 **Makefile**
 	all, clean, fclean, re, bonus
+
 **Arguments**                      
 	a scene in format *.rt
+
 **External functs.**
 	• open, close, read, write,malloc, free, perror,strerror, exit
 	• All functions of the math library (-lm man man 3 math)
 	• All functions of the MinilibX
+
 **Libft authorized**
 	Yes
+
 **Description**
 	The goal of your program is to generate images
 	using the Raytracing protocol. Those computer
