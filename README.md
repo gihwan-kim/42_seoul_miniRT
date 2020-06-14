@@ -26,6 +26,10 @@ This project is libft project in 42 seoul course
 	by simple geometric objects, and each with its own
 	lighting system.
 
+# 구현 후 소감
+ - 한달 반정도 동안 miniRT 만 붙들고 있었는데 개인적으로 진로를 결정하는데 큰 도움이 된 프로젝트이었던것 같다.
+ - 컴퓨터 그래픽스, cg 에 대해 어릴적부터 관심이 엄청 많았는데 막연하기만한 이 꿈을 과제를 통해 구체적으로 구현해보면서 어떤식으로 나아갈지 확신이 생기게된 프로젝트인것 같다.
+
 # todo list
 
 ### 5/22
