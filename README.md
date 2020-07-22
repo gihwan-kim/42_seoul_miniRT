@@ -1,5 +1,7 @@
 # 42_seoul_miniRT
-This project is libft project in 42 seoul course
+This project is libft project in 42 seoul course.
+레이트래이싱을 사용하여 사물의 색깔, 그림자를 렌더링해주는 프로그램입니다.
+스크린에 출력해주는 라이브러리는 42 minlibx 라이브러리를 사용하였고 쉐이더 작업은 직접 구현해주었습니다.
 
 **Turn in files**
 	All your files
