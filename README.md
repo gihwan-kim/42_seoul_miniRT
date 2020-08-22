@@ -28,6 +28,28 @@ This project is libft project in 42 seoul course.
 	by simple geometric objects, and each with its own
 	lighting system.
 
+
+# Ex
+
+**scene01**
+![scene01](https://user-images.githubusercontent.com/33623130/90954592-6e0dda00-e4b0-11ea-94dc-f164bac51a6f.JPG)
+
+**scene03**
+![scene03](https://user-images.githubusercontent.com/33623130/90954593-6f3f0700-e4b0-11ea-8521-06dc5d50cac9.JPG)
+
+**sphere**
+![sphere](https://user-images.githubusercontent.com/33623130/90954596-6f3f0700-e4b0-11ea-9252-d366d7348bdf.JPG)
+
+**triangle**
+![triangle](https://user-images.githubusercontent.com/33623130/90954597-6fd79d80-e4b0-11ea-8d15-985d45bb7a45.JPG)
+
+**plane**
+![plane](https://user-images.githubusercontent.com/33623130/90954598-70703400-e4b0-11ea-9cb6-eb7fd288549a.JPG)
+
+
+> scene 01, 03 의 경우 https://github.com/nesvoboda/minirt 의 rt 파일을 사용하였습니다.
+> In case of scene01 scene02. i used  https://github.com/nesvoboda/minirt  rt file.
+
 # 구현 후 소감
  - 한달 반정도 동안 miniRT 만 붙들고 있었는데 개인적으로 진로를 결정하는데 큰 도움이 된 프로젝트이었던것 같다.
  - 컴퓨터 그래픽스, cg 에 대해 어릴적부터 관심이 엄청 많았는데 막연하기만한 이 꿈을 과제를 통해 구체적으로 구현해보면서 어떤식으로 나아갈지 확신이 생기게된 프로젝트인것 같다.
