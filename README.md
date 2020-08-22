@@ -48,6 +48,7 @@ This project is libft project in 42 seoul course.
 
 
 > scene 01, 03 의 경우 https://github.com/nesvoboda/minirt 의 rt 파일을 사용하였습니다.
+
 > In case of scene01 scene02. i used  https://github.com/nesvoboda/minirt  rt file.
 
 # 구현 후 소감
