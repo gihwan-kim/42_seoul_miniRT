@@ -30,6 +30,8 @@ This project is libft project in 42 seoul course.
 
 
 # Ex
+> scene 01, 03 의 경우 https://github.com/nesvoboda/minirt 의 rt 파일을 사용하였습니다.  
+> In case of scene01 scene02. i used https://github.com/nesvoboda/minirt rt file  
 
 **scene01**
 ![scene01](https://user-images.githubusercontent.com/33623130/90954592-6e0dda00-e4b0-11ea-94dc-f164bac51a6f.JPG)
