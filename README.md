@@ -7,6 +7,9 @@ This project is libft project in 42 seoul course.
 minlibx 의 경우 윈도우창, 화면에 색깔을 넣어주는 기능만을 해주고  
 쉐도우 로직같은 경우는 기본적인 레이트레이싱, 퐁 반사모델을  직접 구현했습니다.
 
+아래 경로의 파일에 공부한 내용들을 정리해두었습니다.
+./srcs/memo.c 
+
 **Turn in files**
 	All your files
 
