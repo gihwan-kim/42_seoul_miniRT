@@ -12,6 +12,14 @@ minlibx 의 경우 윈도우창, 화면에 색깔을 넣어주는 기능만을 �
 - [./srcs/memo.c ](https://github.com/gihwan-kim/42_seoul_miniRT/blob/master/srcs/memo.c)
 
 
+- 맥환경에서 정상적으로 작동이 안된다면 makefile 에서 $(NAME) 명령어의 내용을 아래와 같이 고쳐보면 될겁니다. 안되면 issue ..
+```
+$(NAME): $(OBJS)
+	$(MAKE) -C lib/libft bonus
+	$(MAKE) -C lib/minilibx_opengl/minilibx_opengl_20191021/
+	$(CC) -g $(CFLAGS) -L./lib/minilibx_opengl/minilibx_opengl_20191021/$(LIBFT_FLAGS) $(INC) $(SRCS_LIST) $(MLX_FLAGS) -o $(NAME)
+```
+
 **Turn in files**
 	All your files
 
