@@ -17,7 +17,7 @@ minlibx 의 경우 윈도우창, 화면에 색깔을 넣어주는 기능만을 �
 $(NAME): $(OBJS)
 	$(MAKE) -C lib/libft bonus
 	$(MAKE) -C lib/minilibx_opengl/minilibx_opengl_20191021/
-	$(CC) -g $(CFLAGS) -L./lib/minilibx_opengl/minilibx_opengl_20191021/$(LIBFT_FLAGS) $(INC) $(SRCS_LIST) $(MLX_FLAGS) -o $(NAME)
+	$(CC) -g $(CFLAGS) -L./lib/minilibx_opengl/minilibx_opengl_20191021/ $(LIBFT_FLAGS) $(INC) $(SRCS_LIST) $(MLX_FLAGS) -o $(NAME)
 ```
 
 **Turn in files**
